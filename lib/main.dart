@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'features/Onboarding/Presentation/Pages/SplashScreen.dart';
 
 void main() {
-  runApp(Yadlo());
+  runApp(const Yadlo());
 }
 
 class Yadlo extends StatelessWidget {
@@ -12,13 +12,11 @@ class Yadlo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(designSize: const Size(375, 811),minTextAdapt: true,
+    return const ScreenUtilInit(designSize: Size(375, 811),minTextAdapt: true,
       
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(),
-          home: const Splashscreen()),
-
+          home: Splashscreen()),
     );
   }
 }
