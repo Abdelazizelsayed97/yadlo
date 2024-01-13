@@ -12,11 +12,13 @@ class Yadlo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(designSize: Size(375, 811),minTextAdapt: true,
-      
+    return ScreenUtilInit(
+      designSize: const Size(375, 811),
+      minTextAdapt: true,
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: Splashscreen()),
+          theme: ThemeData(),
+          home: const Splashscreen()),
     );
   }
 }
