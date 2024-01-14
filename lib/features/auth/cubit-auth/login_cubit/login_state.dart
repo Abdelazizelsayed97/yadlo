@@ -4,7 +4,13 @@ part of 'login_cubit.dart';
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {
-  initState(){
 
-  }
+}
+class loginLoading extends LoginState{
+
+}
+class LoginLoaded extends LoginState{
+  final String userName;
+  LoginLoaded({required this.userName});
+
 }

@@ -4,19 +4,19 @@
 
 import 'dart:convert';
 
-ApiloginResult apiloginResultFromJson(String str) =>
-    ApiloginResult.fromJson(json.decode(str));
+ApiLoginResult apiloginResultFromJson(String str) =>
+    ApiLoginResult.fromJson(json.decode(str));
 
-String apiloginResultToJson(ApiloginResult data) => json.encode(data.toJson());
+String apiloginResultToJson(ApiLoginResult data) => json.encode(data.toJson());
 
-class ApiloginResult {
+class ApiLoginResult {
   final EmailAndPasswordLogin emailAndPasswordLogin;
 
-  ApiloginResult({
+  ApiLoginResult({
     required this.emailAndPasswordLogin,
   });
 
-  factory ApiloginResult.fromJson(Map<String, dynamic> json) => ApiloginResult(
+  factory ApiLoginResult.fromJson(Map<String, dynamic> json) => ApiLoginResult(
         emailAndPasswordLogin:
             EmailAndPasswordLogin.fromJson(json["emailAndPasswordLogin"]),
       );
@@ -27,7 +27,7 @@ class ApiloginResult {
 }
 
 class EmailAndPasswordLogin {
-  final Data data;
+  final ApiUserData data;
   final String message;
   final bool success;
   final int code;
@@ -41,7 +41,7 @@ class EmailAndPasswordLogin {
 
   factory EmailAndPasswordLogin.fromJson(Map<String, dynamic> json) =>
       EmailAndPasswordLogin(
-        data: Data.fromJson(json["data"]),
+        data: ApiUserData.fromJson(json["data"]),
         message: json["message"],
         success: json["success"],
         code: json["code"],
@@ -55,18 +55,18 @@ class EmailAndPasswordLogin {
       };
 }
 
-class Data {
+class ApiUserData {
   final String id;
   final String userName;
   final String token;
 
-  Data({
+  ApiUserData({
     required this.id,
     required this.userName,
     required this.token,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ApiUserData.fromJson(Map<String, dynamic> json) => ApiUserData(
         id: json["id"],
         userName: json["userName"],
         token: json["token"],
@@ -78,3 +78,5 @@ class Data {
         "token": token,
       };
 }
+
+
