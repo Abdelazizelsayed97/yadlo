@@ -7,9 +7,7 @@ class ApiConsts {
 
   static final ApiConsts object = ApiConsts();
 
-  factory ApiConsts() {
-    return object;
-  }
+
 
   late final GraphQLClient constsClient;
   final Link httpLink = HttpLink(

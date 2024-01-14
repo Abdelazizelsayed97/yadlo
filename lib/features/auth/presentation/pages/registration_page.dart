@@ -169,7 +169,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       width: SizeConfig.defaultSize! * 30,
                       onTap: () {
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Otp()));
+                            MaterialPageRoute(builder: (context) => const Otp()));
                       }),
                   SizedBox(
                     height: SizeConfig.defaultSize! * 3.2,
@@ -214,7 +214,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>  LoginPage()));
+                              builder: (context) =>  const LoginPage()));
                         },
                         child: const Text(
                           'Login',
