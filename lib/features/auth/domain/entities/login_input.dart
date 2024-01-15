@@ -5,7 +5,7 @@ class LoginInput extends Equatable {
   final String password;
   final String? token;
 
-  const LoginInput(this.token, {required this.email, required this.password});
+  const LoginInput({required this.email, required this.password,this.token,});
 
   @override
   // TODO: implement props

@@ -30,13 +30,13 @@ class _LoginAndRegistrationState extends State<LoginAndRegistration> {
        Column(crossAxisAlignment: CrossAxisAlignment.center,
          children: [
            SizedBox(height: 180.h,),
-         Container(
-             height: SizeConfig.defaultSize! * 9,
-             width: SizeConfig.defaultSize! * 9,
+         SizedBox(
+             height: 90.h,
+             width: 90.w,
              child: SvgPicture.asset(
                'assets/images/loginlogo.svg',fit: BoxFit.fill,
              )),
-           SizedBox(height: 150.h,),
+           SizedBox(height: 140.h,),
          Padding(
              padding: EdgeInsets.symmetric(
                horizontal: SizeConfig.defaultSize! * 5,
@@ -44,7 +44,7 @@ class _LoginAndRegistrationState extends State<LoginAndRegistration> {
              child: GeneralButton1(
                onTap: () {
                  Navigator.of(context).pushReplacement(
-                     MaterialPageRoute(builder: (context) =>  LoginPage()));
+                     MaterialPageRoute(builder: (context) =>  const LoginPage()));
                },
                width: SizeConfig.screenWidth,
                colors: login1,

@@ -55,7 +55,7 @@ class EmailAndPasswordLogin {
       };
 }
 
-class ApiUserData {
+  class ApiUserData {
   final String id;
   final String userName;
   final String token;
