@@ -10,7 +10,7 @@ class CustomDivider extends StatelessWidget {
         Container(
             height: 2,
             child: const VerticalDivider(
-              color: Color(0xff0B1A513B),
+              color: Color(0xff0b1a513b),
               thickness: 160,
             )),
         const SizedBox(
@@ -31,7 +31,7 @@ class CustomDivider extends StatelessWidget {
         Container(
             height: 2,
             child: const VerticalDivider(
-              color: Color(0xff0B1A513B),
+              color: Color(0xff0b1a513b),
               thickness: 160,
             ))
       ],

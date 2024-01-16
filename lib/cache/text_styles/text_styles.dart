@@ -136,6 +136,7 @@ final String text;
 final FontWeight? fontWeight;
 final Color? color;
 final String?fontFamily;
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -147,6 +148,27 @@ final String?fontFamily;
         fontFamily:fontFamily ?? 'Poppins',
         fontWeight: fontWeight ?? FontWeight.w400,
         height: 0,
+      ),
+    );
+  }
+}class StyleFont10 extends StatelessWidget {
+   const StyleFont10({super.key, required this.text, this.fontWeight, this.color, this.fontFamily, this.decoration});
+final String text;
+final FontWeight? fontWeight;
+final Color? color;
+final String?fontFamily;
+final TextDecoration? decoration ;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      strutStyle: const StrutStyle(forceStrutHeight: true),
+      style:  TextStyle(
+        color: color?? const Color(0xFF374053),
+        fontSize: 10,
+        fontFamily:fontFamily ?? 'Poppins',
+        fontWeight: fontWeight ?? FontWeight.w400,
+        height: 0,decoration: decoration
       ),
     );
   }

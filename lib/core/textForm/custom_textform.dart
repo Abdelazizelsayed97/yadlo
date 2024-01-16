@@ -6,26 +6,33 @@ class TextForm extends StatelessWidget {
       {super.key,
       required this.textHint,
       required this.icon,
-      this.opsCureText, required this.textEditingController, this.suffixIcon});
+      this.opsCureText,
+      this.suffixIcon,
+      required this.controller,
+      required this.validator});
 
-  final TextEditingController textEditingController ;
+  final TextEditingController controller;
+
   final String? textHint;
   final Widget? icon;
   final bool? opsCureText;
   final Widget? suffixIcon;
-
+  final Function(String?) validator;
 
   @override
   Widget build(BuildContext context) => TextFormField(
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
         autovalidateMode: AutovalidateMode.always,
-        validator: (value) {},
-        controller: textEditingController,
+        validator: (value) {
+          return validator(value);
+        },
+        controller: controller,
         obscureText: opsCureText ?? false,
-        decoration: InputDecoration(suffixIcon: suffixIcon,
-            hoverColor: Colors.white,
+        decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             fillColor: Colors.white,
             focusColor: Colors.white,
+            filled: true,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.blue)),
@@ -36,6 +43,9 @@ class TextForm extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.green),
                 borderRadius: BorderRadius.circular(50),
                 gapPadding: 15),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(color: Colors.red)),
             hintText: textHint,
             prefixIcon: icon,
             contentPadding: const EdgeInsetsDirectional.all(15),
@@ -47,6 +57,7 @@ class TextForm extends StatelessWidget {
               height: 0,
             ),
             prefixIconColor: const Color(0xff4051ad29)),
+        enabled: true,
       );
 }
 

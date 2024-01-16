@@ -7,10 +7,6 @@ class ApiConsts {
 
   static final ApiConsts object = ApiConsts();
 
-  factory ApiConsts() {
-    return object;
-  }
-
   late final GraphQLClient constsClient;
   final Link httpLink = HttpLink(
     apiBaseUrl,
@@ -22,7 +18,7 @@ class ApiConsts {
 
   init() {
     constsClient = GraphQLClient(
-      link: httpLink.concat(_authLink),
+      link: _authLink.concat(httpLink),
       cache: cache,
       defaultPolicies: DefaultPolicies(
         query: Policies.safe(FetchPolicy.cacheAndNetwork, ErrorPolicy.all,

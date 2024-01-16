@@ -24,7 +24,7 @@ class _ForgetPassword extends State<ForgetPassword> {
       body: Stack(
         children: [
           Opacity(
-            opacity: .1,
+            opacity: .050,
             child: ThemeDataApp(),
           ),
           Positioned(
