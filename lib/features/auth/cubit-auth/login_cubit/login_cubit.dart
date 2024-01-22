@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../login/data/model/login_model.dart';
 import '../../login/domain/entities/login_input.dart';
 import '../../login/domain/usecases/login_usecase.dart';
 import 'login_state.dart';
@@ -25,8 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
       );
       emit(LoginState.success(response));
     } catch (e) {
-      print(e.toString());
-      emit(const LoginState.error(error:'kanfkna,nflan'?? ''));
+      emit(const LoginState.error(error:'katakana,flan'));
     }
   }
 
