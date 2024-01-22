@@ -5,6 +5,7 @@ import 'package:yadlo/core/di/dependency_injection.dart';
 import 'features/Onboarding/Presentation/Pages/SplashScreen.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   await AppDi.setupGetIt();
   runApp(const Yadlo());
 }

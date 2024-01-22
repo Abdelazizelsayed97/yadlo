@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yadlo/cache/colors/colors.dart';
+import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/features/posts/presentation/pages/add_review_2.dart';
@@ -33,10 +34,7 @@ class _AddReviewState extends State<AddReview> {
         fit: StackFit.expand,
         alignment: AlignmentDirectional.center,
         children: [
-          const Opacity(
-            opacity: .050,
-            child: AppThemeData(),
-          ),
+          AppThemeData(),
           Positioned(
               top: SizeConfig.defaultSize! * 7,
               left: SizeConfig.defaultSize! * 2,

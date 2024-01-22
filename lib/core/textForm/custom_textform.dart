@@ -43,6 +43,11 @@ class TextForm extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.green),
                 borderRadius: BorderRadius.circular(50),
                 gapPadding: 15),
+            enabled: true,
+            focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(
+              color: Colors.red,
+            )),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.red)),

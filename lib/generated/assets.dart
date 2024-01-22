@@ -38,5 +38,4 @@ class Assets {
   static const String postsShape = 'assets/posts/Shape.png';
   static const String postsUploadlogo = 'assets/posts/uploadlogo.png';
   static const String postsVector = 'assets/posts/Vector.png';
-
 }

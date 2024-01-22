@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yadlo/cache/colors/colors.dart';
+import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/posts/data/model/Postsmodel.dart';
-import 'package:yadlo/features/posts/domain/entities%20/posts.dart';
 import 'package:yadlo/features/posts/presentation/widgets/common_widgets.dart';
 import 'package:yadlo/features/posts/presentation/widgets/post_widget.dart';
 
@@ -20,10 +19,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        const Opacity(
-          opacity: .050,
-          child: AppThemeData(),
-        ),
+        const AppThemeData(),
         SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -37,11 +33,13 @@ class _TimeLinePageState extends State<TimeLinePage> {
                         child: CommonWidgets().circleAvatar),
                     horizontalSpace(230.w),
                     IconButton(
-                        onPressed: () {}, icon: const Icon(CupertinoIcons.bell)),
+                        onPressed: () {},
+                        icon: const Icon(CupertinoIcons.bell)),
 
                     // PostWidget2(posts:Posts(username: username, profilePictureUrl: profilePictureUrl, postDate: postDate, likes: likes, awards: awards, location: location, title: title, contentImageURL: contentImageURL))
                   ],
-                ), PostWidget(
+                ),
+                const PostWidget(
                   post: PostModel(
                       id: 112, title: 'title', body: 'body', image: ''),
                 ),

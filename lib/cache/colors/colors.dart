@@ -86,28 +86,7 @@ List<Color> apptheme = [
   const Color(0xff8095F9),
 ];
 
-class AppThemeData extends StatelessWidget {
-  const AppThemeData({super.key});
 
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: apptheme,
-              begin: Alignment.topCenter,
-              end: Alignment.topCenter)),
-
-    );
-  }
-}
 
 class ColorsManger {
   static Color lowGrey = const Color(0Xff4051AD29);

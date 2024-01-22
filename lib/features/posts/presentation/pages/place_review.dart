@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yadlo/cache/colors/colors.dart';
+import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/features/posts/presentation/pages/add_review_place.dart';
@@ -18,7 +19,7 @@ class PlaceReviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-         const Opacity(opacity: 0.050, child: AppThemeData()),
+         AppThemeData(),
         SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
           child: SafeArea(

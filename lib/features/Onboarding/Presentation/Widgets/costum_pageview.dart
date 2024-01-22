@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/floatingactionbutton.dart';
 import 'package:yadlo/features/Onboarding/Presentation/Widgets/custom_indicator.dart';
-import 'package:yadlo/features/auth/presentation/pages/login_registration.dart';
+import 'package:yadlo/features/auth/login/presentation/pages/login_registration.dart';
+
 
 import '../../../../core/boarding_assets.dart';
 import '../../../../core/buttons/skip_button.dart';
