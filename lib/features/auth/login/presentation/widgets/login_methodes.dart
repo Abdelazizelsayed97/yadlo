@@ -11,16 +11,16 @@ class LoginMethods extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomIconButton(
+        const CustomIconButton(
           image: 'assets/images/Facebook5.svg',
         ),
         Container(
           padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
-          child: CustomIconButton(
+          child: const CustomIconButton(
             image: 'assets/images/Apple5.svg',
           ),
         ),
-        CustomIconButton(
+        const CustomIconButton(
           image: 'assets/images/Google5.svg',
         ),
       ],

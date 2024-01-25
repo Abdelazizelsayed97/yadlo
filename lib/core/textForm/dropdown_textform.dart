@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../cache/colors/colors.dart';
 
 class DropDownTextForm extends StatelessWidget {
-  DropDownTextForm({
+  const DropDownTextForm({
     super.key,
     required this.text,
     required this.text2,
@@ -156,9 +156,9 @@ class _DropDownTextForm2State extends State<DropDownTextForm2> {
       menuMaxHeight: 150,
       focusColor: Colors.black,
       items: [
-        DropdownMenuItem<String>(
+        const DropdownMenuItem<String>(
           value: '-1',
-          child: const Text(
+          child: Text(
             'Tech',
             style: TextStyle(
               color: Color(0xFF0B1A51),

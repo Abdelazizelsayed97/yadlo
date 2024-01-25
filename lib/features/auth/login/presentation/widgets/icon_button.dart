@@ -6,14 +6,14 @@ import '../../../../../cache/colors/colors.dart';
 import '../../../../../core/buttons/general_button.dart';
 
 class CustomIconButton extends StatelessWidget {
-  CustomIconButton({super.key, this.image});
+  const CustomIconButton({super.key, this.image});
 
   final image;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           // borderRadius: BorderRadius.all(Radius.circular(50)),
         ),

@@ -30,7 +30,7 @@ class ApiEmailAndPasswordLogin {
   final bool? success;
   final String? message;
 
-  ApiEmailAndPasswordLogin({
+ const ApiEmailAndPasswordLogin({
     this.data,
     this.code,
     this.success,

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:yadlo/features/auth/login/data/model/login_model.dart';
 import 'package:yadlo/networking/api.dart';
 
 import '../../features/auth/cubit-auth/login_cubit/login_cubit.dart';
@@ -22,7 +23,7 @@ class AppDi {
           }
         });
 
-       final  _httpLink = HttpLink(
+       final  httpLink = HttpLink(
           'https://yodly.onrender.com/graphql',
           defaultHeaders: {
             "Apollo-Require-Preflight": "true",
@@ -30,7 +31,7 @@ class AppDi {
         );
 
 
-        final concatLink = authLink.concat(_httpLink);
+        final concatLink = authLink.concat(httpLink);
 
         return concatLink;
       },
@@ -51,7 +52,7 @@ class AppDi {
     );
 
     getIt.registerLazySingleton<LoginCubit>(
-      () => LoginCubit(getIt<LoginUseCase>()),
+      () => LoginCubit(getIt<LoginUseCase>(),),
     );
   }
 }

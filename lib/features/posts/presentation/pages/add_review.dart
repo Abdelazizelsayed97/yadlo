@@ -34,7 +34,7 @@ class _AddReviewState extends State<AddReview> {
         fit: StackFit.expand,
         alignment: AlignmentDirectional.center,
         children: [
-          AppThemeData(),
+          const AppThemeData(),
           Positioned(
               top: SizeConfig.defaultSize! * 7,
               left: SizeConfig.defaultSize! * 2,
@@ -83,7 +83,7 @@ class _AddReviewState extends State<AddReview> {
                   width: SizeConfig.defaultSize! * 33,
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => AddReview2()));
+                        MaterialPageRoute(builder: (context) => const AddReview2()));
                   },
                   text: 'Next',
                 )

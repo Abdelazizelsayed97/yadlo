@@ -15,7 +15,7 @@ class Otp extends StatefulWidget {
 }
 
 class _AccVrefyState extends State<Otp> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,9 @@ class _AccVrefyState extends State<Otp> {
                 Container(
                     margin: const EdgeInsets.only(top: 20),
                     width: SizeConfig.defaultSize! * 20,
-                    child: CustomStyle18(text: "Authenticate your account")),
+                    child: const CustomStyle18(text: "Authenticate your account")),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   width: SizeConfig.defaultSize! * 24,
                   child: const CustomStyle12(
                     text:
@@ -72,7 +72,7 @@ class _AccVrefyState extends State<Otp> {
             left: 0,
             right: 0,
             bottom: SizeConfig.defaultSize! * 41,
-            child: OTPVerify(),
+            child: const OTPVerify(),
           ),
           Positioned(
             left: 0,

@@ -6,7 +6,7 @@ import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/buttons/skip_button.dart';
 import 'package:yadlo/features/auth/login/presentation/pages/login_page.dart';
-import 'package:yadlo/features/auth/login/presentation/pages/registration_page.dart';
+import 'package:yadlo/features/auth/registration/ui/Pages/registration_page.dart';
 
 class LoginAndRegistration extends StatefulWidget {
   const LoginAndRegistration({super.key});

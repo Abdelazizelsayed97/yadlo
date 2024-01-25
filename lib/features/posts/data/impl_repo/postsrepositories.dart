@@ -2,7 +2,6 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:yadlo/features/posts/data/services/post_remote_data_source.dart';
-import 'package:yadlo/features/posts/domain/use_cases/AddPost.dart';
 import '../../../../core/errors/home/Error/Exceptions.dart';
 import '../../../../core/errors/home/Error/failure.dart';
 import '../../../../core/errors/home/connection/internerconnection.dart';

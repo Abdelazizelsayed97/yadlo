@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextForm extends StatelessWidget {
-  TextForm(
+  const TextForm(
       {super.key,
       required this.textHint,
       required this.icon,
@@ -22,7 +22,8 @@ class TextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TextFormField(
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-        autovalidateMode: AutovalidateMode.always,
+autofocus: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return validator(value);
         },
@@ -31,26 +32,22 @@ class TextForm extends StatelessWidget {
         decoration: InputDecoration(
             suffixIcon: suffixIcon,
             fillColor: Colors.white,
-            focusColor: Colors.white,
             filled: true,
+            enabled: true,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.blue)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.grey)),
-            border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.green),
-                borderRadius: BorderRadius.circular(50),
-                gapPadding: 15),
-            enabled: true,
-            focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide(
-              color: Colors.red,
-            )),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.red)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                )),
             hintText: textHint,
             prefixIcon: icon,
             contentPadding: const EdgeInsetsDirectional.all(15),
@@ -62,7 +59,6 @@ class TextForm extends StatelessWidget {
               height: 0,
             ),
             prefixIconColor: const Color(0xff4051ad29)),
-        enabled: true,
       );
 }
 
@@ -102,8 +98,10 @@ class TextForm2 extends StatelessWidget {
           ),
           TextFormField(
             maxLines: maxLines ?? 1,
-            autovalidateMode: AutovalidateMode.always,
-            validator: (value) {},
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              return null;
+            },
             controller: _textEditingController,
             decoration: InputDecoration(
                 fillColor: Colors.white,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
@@ -19,7 +18,7 @@ class PlaceReviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-         AppThemeData(),
+         const AppThemeData(),
         SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
           child: SafeArea(
@@ -72,7 +71,7 @@ class PlaceReviewBody extends StatelessWidget {
                 Container(child: widget,),
 
 
-                CommonRow(),
+                const CommonRow(),
                 verticalSpace(25),
                 CommonView(onTap: onTap ?? (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const AddReviewPlace()));

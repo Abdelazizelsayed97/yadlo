@@ -56,18 +56,18 @@ class RegisterMutation {
 }
 
 class RegisterInput {
-  final String username;
-  final String email;
-  final String password;
-  final String device;
-  final String code;
+  final String? username;
+  final String?email;
+  final String? password;
+  final String? device;
+  final String? code;
 
   RegisterInput({
-    required this.username,
-    required this.email,
-    required this.password,
-    required this.device,
-    required this.code,
+     this.username,
+     this.email,
+     this.password,
+     this.device,
+     this.code,
   });
 
   Map<String, dynamic> toJson() {

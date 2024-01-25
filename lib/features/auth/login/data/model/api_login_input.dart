@@ -8,7 +8,7 @@ class ApiLoginInput {
   final String password;
   final String device;
 
-  ApiLoginInput(
+   ApiLoginInput(
       {required this.email, required this.password, required this.device});
 
   factory ApiLoginInput.fromJson(Map<String, dynamic> json) =>

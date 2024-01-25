@@ -112,7 +112,7 @@ class CommonRow extends StatelessWidget {
         horizontalSpace(10),
         Text(
           text ?? 'Add a Specific Rate',
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xFF0B1A51),
             fontSize: 13,
             fontFamily: 'Somar Sans',

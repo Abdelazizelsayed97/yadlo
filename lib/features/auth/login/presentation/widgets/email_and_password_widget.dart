@@ -8,26 +8,24 @@ import '../../../../../core/helper/spacing.dart';
 import '../../../../../core/textForm/custom_textform.dart';
 
 class EmailAndPassword extends StatefulWidget {
-  const EmailAndPassword({super.key});
+  final TextEditingController email;
+  final TextEditingController password;
+
+  const EmailAndPassword({
+    super.key,
+    required this.email,
+    required this.password,
+  });
 
   @override
   State<EmailAndPassword> createState() => _EmailAndPasswordState();
 }
 
 class _EmailAndPasswordState extends State<EmailAndPassword> {
-  // final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   bool opsCureText = true;
 
   late TextEditingController passwordController;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      passwordController = context.read<LoginCubit>().passwordController;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
         child: Column(
           children: [
             TextForm(
-              controller: context.read<LoginCubit>().emailController,
+              controller: widget.email,
               textHint: 'Email* ',
               icon: const Icon(Icons.mail_outline),
               validator: (value) {
@@ -61,7 +59,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                   child: Icon(opsCureText
                       ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined)),
-              controller: context.read<LoginCubit>().passwordController,
+              controller: widget.password,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return " Wrong Password ";

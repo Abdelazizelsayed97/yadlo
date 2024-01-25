@@ -1,5 +1,4 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class GraphQlConfig {
   static final GraphQlConfig _instance = GraphQlConfig._();
@@ -7,7 +6,7 @@ class GraphQlConfig {
   GraphQlConfig._();
 
   factory GraphQlConfig() {
-    return _instance ;
+    return _instance;
   }
 
   late GraphQLClient client;
@@ -20,9 +19,9 @@ class GraphQlConfig {
     if (_isInitialized) return;
 
     _authLink = AuthLink(getToken: () async {
-      final token = '';
+      const token = '';
       if (token.isNotEmpty ?? false) {
-        return 'Bearer ${token}';
+        return 'Bearer $token';
       } else {
         return null;
       }
@@ -40,5 +39,4 @@ class GraphQlConfig {
     );
     _isInitialized = true;
   }
-
 }

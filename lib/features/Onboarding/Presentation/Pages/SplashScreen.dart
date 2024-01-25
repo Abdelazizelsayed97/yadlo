@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import '../../../../cache/colors/colors.dart';
 import 'onboarding_view.dart';

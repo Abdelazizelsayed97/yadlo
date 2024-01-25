@@ -7,9 +7,9 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Row(
       children: [
-        Container(
+        const SizedBox(
             height: 2,
-            child: const VerticalDivider(
+            child: VerticalDivider(
               color: Color(0xff0b1a513b),
               thickness: 160,
             )),
@@ -28,9 +28,9 @@ class CustomDivider extends StatelessWidget {
                 height: 0,
               ),
             )),
-        Container(
+        const SizedBox(
             height: 2,
-            child: const VerticalDivider(
+            child: VerticalDivider(
               color: Color(0xff0b1a513b),
               thickness: 160,
             ))

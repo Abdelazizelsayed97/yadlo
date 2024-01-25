@@ -28,7 +28,7 @@ List<Color> ig1 = [
 ];
 List<Color> ig2 = [
   const Color(0xFF8095F9),
-  const Color(0x00F878),
+  const Color(0x0000f878),
 ];
 List<Color> ig3 = [
   const Color(0xFFD578FF),
@@ -89,5 +89,6 @@ List<Color> apptheme = [
 
 
 class ColorsManger {
-  static Color lowGrey = const Color(0Xff4051AD29);
+  static Color lowGrey = const Color(0xff4051ad29);
+  static Color primary = const  Color(0xffD578FF);
 }

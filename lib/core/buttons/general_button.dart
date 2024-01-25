@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yadlo/cache/colors/colors.dart';
 
 import '../Sizeable/commonSizes.dart';
 
 
 class GeneralButton1 extends StatelessWidget {
-    GeneralButton1({Key? key, this.text, this.onTap, this.color,   this.width, this.colors, this.textColor,  })
+    const GeneralButton1({Key? key, this.text, this.onTap, this.color,   this.width, this.colors, this.textColor,  })
       : super(key: key);
   final String? text;
   final VoidCallback? onTap;

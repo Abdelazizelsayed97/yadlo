@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 
 class React {
@@ -34,7 +33,7 @@ class _IconReactButtonState extends State<IconReactButton> {
     return Row(
       children: [
         ListView.separated(
-          itemBuilder: (context, index) => Container(width: 30.h,
+          itemBuilder: (context, index) => SizedBox(width: 30.h,
             child: MaterialButton(
               height: 30.h,
               elevation: 0.0,

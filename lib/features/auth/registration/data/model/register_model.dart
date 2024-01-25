@@ -2,7 +2,6 @@
 //
 //     final welcome = welcomeFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));

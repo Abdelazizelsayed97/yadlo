@@ -7,31 +7,37 @@ import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
+
   final formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
-  LoginCubit(this._loginUseCase) : super(const LoginState.initial());
+  LoginCubit(
+    this._loginUseCase,
+  ) : super( InitialState());
 
-  void emitLoginStates() async {
-    emit(const LoginState.loading());
+  void emitLoginStates({required LoginInput input}) async {
+    emit(LoadingState());
+    emit(InitialState());
     try {
-      final response = await _loginUseCase.call(
-        LoginInput(
-          email: emailController.text,
-          password: passwordController.text,
-        ),
-      );
-      emit(LoginState.success(response));
-    } catch (e) {
-      emit(const LoginState.error(error:'katakana,flan'));
+      final response = await _loginUseCase.call(input);
+      // emit(LoginState.success(response));
+      emit(SuccessState());
+    } catch (error) {
+      emit(FailureState());
     }
-  }
+    // response.fold((left) =>  (l) {
+    //  emit(L)
+    //
+    // }, (right) => (r) {
+    //         emit(LoginState.success(Success(response)));
+    //       }
+    //     );
 
-  @override
-  Future<void> close() {
-    emailController.dispose();
-    passwordController.dispose();
-    return super.close();
+    //   if (response.isRight()) {
+    //     emit(const LoginState.success(Success(ApiUserData)));
+    //   } else if (response.isLeft()) {
+    //     throw ApiErrorMessage(message:ApiEmailAndPasswordLogin().message.toString()?? '');
+    //   }
   }
 }
+
+

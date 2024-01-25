@@ -27,7 +27,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
                 Row(
                   children: [
                     horizontalSpace(20),
-                    Container(
+                    SizedBox(
                         height: 32.h,
                         width: 32.w,
                         child: CommonWidgets().circleAvatar),

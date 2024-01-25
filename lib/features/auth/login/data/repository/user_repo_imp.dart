@@ -13,55 +13,43 @@ import '../model/login_model.dart';
 class UserRepositoryImpl implements UserLoginRepository {
   final GraphQLClient _graphQLClient;
 
-  GraphQlConfig xx = GraphQlConfig();
+  GraphQlConfig client = GraphQlConfig();
 
   UserRepositoryImpl(this._graphQLClient) {
-    xx.init();
+    client.init();
   }
 
   @override
   Future<Either<LoginFailure, UserData>> login(LoginInput input) async {
     final requestResponse = await _graphQLClient.mutate(
       MutationOptions(
-          document: gql(loginRequest),
-          errorPolicy: ErrorPolicy.all,
-          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
-          fetchPolicy: FetchPolicy.networkOnly,
-          variables: {
-            "input": ApiLoginInput(
-              email: input.email,
-              password: input.password,
-              device: "DESKTOP",
-            ).toJson(),
-          }),
+        document: gql(loginRequest),
+        errorPolicy: ErrorPolicy.all,
+        cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {
+          "input": ApiLoginInput(
+            email: input.email,
+            password: input.password,
+            device: "DESKTOP",
+          ).toJson(),
+        },
+      ),
     );
-    // if(requestResponse!=null){
-    //   final request =
-    //       ApiLoginResult.fromJson(requestResponseData).emailAndPasswordLogin;
-    //   final data = request.data;
-    //   return right(data.map);
-    // }else{
-    //    throw Exception();
-    // }
 
-    final requestResponseData = requestResponse.data;
-
-    print(
-        '===>>> ${requestResponseData?.isEmpty.toString()} ---- $requestResponseData');
-    try {
-      if (!requestResponse.hasException && requestResponseData != null) {
-        final request =
-            ApiLoginResult.fromJson(requestResponseData).emailAndPasswordLogin;
-        final data = request?.data;
-        return right(data!.map);
+    if (requestResponse.hasException && requestResponse.data == null) {
+      throw const ServerException();
+    } else {
+      final response =
+          ApiLoginResult
+              .fromJson(requestResponse.data!)
+              .emailAndPasswordLogin;
+      final data = response?.data;
+      if (data != null) {
+        return right(data.map);
       } else {
-        print('else=======');
-        throw Exception();
-        // throw Exception(ApiLoginResult.fromJson(Map<String,dynamic>()).emailAndPasswordLogin.code);
+        throw ServerException();
       }
-    } catch (e) {
-      print('catch=======');
-      throw Exception(e.toString());
     }
   }
 }

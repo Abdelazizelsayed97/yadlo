@@ -17,7 +17,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPassword extends State<ForgetPassword> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class _ForgetPassword extends State<ForgetPassword> {
             child: Container(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 62),
               child: GeneralButton2(onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SetNewPass()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const SetNewPass()));
               },
                 colors: them,
                 width: SizeConfig.defaultSize! * 22,

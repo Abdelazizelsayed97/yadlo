@@ -13,7 +13,7 @@ import '../../../../core/textForm/dropdown_textform.dart';
 List category = ['Tech', 'Electronics'];
 
 class AddReview2 extends StatefulWidget {
-  AddReview2({super.key});
+  const AddReview2({super.key});
 
   @override
   State<AddReview2> createState() => _AddReview2State();
@@ -35,7 +35,7 @@ class _AddReview2State extends State<AddReview2> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  CustomTitleProduct(),
+                  const CustomTitleProduct(),
                   SizedBox(
                     height: 50.h,
                   ),
@@ -47,9 +47,9 @@ class _AddReview2State extends State<AddReview2> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  DropDownTextForm(
+                  const DropDownTextForm(
                     text: 'Tech',
-                    hint: const Text("Tech"),
+                    hint: Text("Tech"),
                     text2: 'Electronics',
                   ),
                   SizedBox(
@@ -63,9 +63,9 @@ class _AddReview2State extends State<AddReview2> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  DropDownTextForm(
+                  const DropDownTextForm(
                     text: 'Mobile',
-                    hint: const Text("Router"),
+                    hint: Text("Router"),
                     text2: 'PS',
                   ),
                   SizedBox(
@@ -80,10 +80,10 @@ class _AddReview2State extends State<AddReview2> {
                     text: "Next",
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PlaceReviewBody()));
+                          builder: (context) => const PlaceReviewBody()));
                     },
                   ),
-                  DropDownTextForm2(text: 'fbuybw', text2: 'jnsjkd', hint: Text('fhabj'))
+                  const DropDownTextForm2(text: 'fbuybw', text2: 'jnsjkd', hint: Text('fhabj'))
                 ],
               ),
             ),

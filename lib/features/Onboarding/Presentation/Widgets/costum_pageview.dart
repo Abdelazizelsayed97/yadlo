@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/floatingactionbutton.dart';
 import 'package:yadlo/features/Onboarding/Presentation/Widgets/custom_indicator.dart';
 import 'package:yadlo/features/auth/login/presentation/pages/login_registration.dart';
@@ -68,7 +67,7 @@ class _CustomPageViewState extends State<CustomPageView> {
                    SizedBox(
                     height: 20.h,
                   ),
-                  Container(
+                  SizedBox(
                     width: 260.w,
                     child: Text(onboardPage.title,textAlign: TextAlign.center,
                         style: const TextStyle(
@@ -80,10 +79,10 @@ class _CustomPageViewState extends State<CustomPageView> {
                    SizedBox(
                     height: 10.h,
                   ),
-                  Container(
+                  SizedBox(
                     width: 268.w,
                     child: Text(
-                      onboardPage.subtitle,textAlign: TextAlign.center,strutStyle: StrutStyle(forceStrutHeight: true),
+                      onboardPage.subtitle,textAlign: TextAlign.center,strutStyle: const StrutStyle(forceStrutHeight: true),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -110,7 +109,7 @@ class _CustomPageViewState extends State<CustomPageView> {
           child: FlaotingActionButton(
             onTap: () {
               if (_pageController.page! <= 1) {
-                _pageController?.nextPage(
+                _pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeIn);
               } else {
@@ -124,8 +123,8 @@ class _CustomPageViewState extends State<CustomPageView> {
           ),
         ),
         Visibility(
-          visible: _pageController!.hasClients
-              ? (_pageController!.page! < 1 ? true : false)
+          visible: _pageController.hasClients
+              ? (_pageController.page! < 1 ? true : false)
               : true,
           child: Positioned(
               bottom: 100.h,
