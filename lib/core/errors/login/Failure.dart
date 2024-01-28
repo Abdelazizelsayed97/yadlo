@@ -28,15 +28,3 @@ class ApiErrorMessage2 implements Exception {
   }
 }
 
-class ErrorHandler implements Exception {
-  late ApiErrorModel apiErrorModel;
-
-  ErrorHandler.handle(dynamic error) {
-    if (error is ServerException) {
-      throw ServerException();
-    } else {
-      // default error
-      apiErrorModel.message;
-    }
-  }
-}

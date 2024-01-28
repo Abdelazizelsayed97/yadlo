@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yadlo/core/errors/error_model.dart';
 import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_cubit.dart';
 import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_state.dart';
-import 'package:yadlo/features/auth/login/presentation/pages/auth_accout.dart';
+import 'package:yadlo/features/auth/registration/ui/Pages/auth_accout.dart';
 
 import '../../../../../cache/colors/colors.dart';
 

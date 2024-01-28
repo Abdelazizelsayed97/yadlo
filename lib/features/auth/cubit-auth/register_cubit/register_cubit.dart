@@ -9,24 +9,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUseCase _registerUseCase;
 
   final formKey = GlobalKey<FormState>();
-  final TextEditingController _userName = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
   RegisterCubit(
       this._registerUseCase,
       ) : super( RegInitialState());
 
   void emitRegisterStates({required RegistrationInput input}) async {
     emit(RegLoadingState());
-    emit(RegInitialState() );
-    try {
-      final response = await _registerUseCase.register(input);
-      // emit(LoginState.success(response));
-      emit(RegSuccessState());
-    } catch (error) {
-      emit(RegFailureState());
-    }
+    final  response = await _registerUseCase.register(input);
+    response.fold((l) => null, (r) => null);
 
   }
 }

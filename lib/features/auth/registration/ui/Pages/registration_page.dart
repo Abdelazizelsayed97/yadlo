@@ -13,7 +13,7 @@ import '../../../../../core/buttons/general_button.dart';
 import '../../../../../core/helper/app_regex.dart';
 import '../../../../../core/textForm/custom_textform.dart';
 import '../../../cubit-auth/register_cubit/register_state.dart';
-import '../../../login/presentation/pages/auth_accout.dart';
+import 'auth_accout.dart';
 import '../../../login/presentation/pages/login_page.dart';
 import '../../../login/presentation/widgets/divider.dart';
 import '../../../login/presentation/widgets/login_methodes.dart';

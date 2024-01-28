@@ -46,7 +46,7 @@ class UserRepositoryImpl implements UserLoginRepository {
       if (data != null) {
         return Right(data.map);
       } else {
-        throw Left(ApiError(message: response?.message, code: response?.code));
+        return Left(ApiError(message: response?.message, code: response?.code));
       }
     }
   }

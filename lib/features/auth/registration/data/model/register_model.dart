@@ -4,23 +4,23 @@
 
 import 'dart:convert';
 
-ApiLoginResult apiLoginResultFromJson(String str) => ApiLoginResult.fromJson(json.decode(str));
+ApiRegisterResult apiLoginResultFromJson(String str) => ApiRegisterResult.fromJson(json.decode(str));
 
-String apiLoginResultToJson(ApiLoginResult data) => json.encode(data.toJson());
+String apiLoginResultToJson(ApiRegisterResult data) => json.encode(data.toJson());
 
-class ApiLoginResult {
-  final ApiLoginResultData? data;
+class ApiRegisterResult {
+  final ApiLoginResultData? apiRegisterData;
 
-  ApiLoginResult({
-    this.data,
+  ApiRegisterResult({
+    this.apiRegisterData,
   });
 
-  factory ApiLoginResult.fromJson(Map<String, dynamic> json) => ApiLoginResult(
-    data: json["data"] == null ? null : ApiLoginResultData.fromJson(json["data"]),
+  factory ApiRegisterResult.fromJson(Map<String, dynamic> json) => ApiRegisterResult(
+    apiRegisterData: json["data"] == null ? null : ApiLoginResultData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
+    "data": apiRegisterData?.toJson(),
   };
 }
 
@@ -69,36 +69,24 @@ class Register {
 }
 
 class RegisterData {
-  final String? id;
-  final dynamic displayName;
   final bool? isRegisteredViaSocial;
-  final dynamic token;
   final dynamic verifiedEmail;
   final String? unVerifiedEmail;
 
   RegisterData({
-    this.id,
-    this.displayName,
     this.isRegisteredViaSocial,
-    this.token,
     this.verifiedEmail,
     this.unVerifiedEmail,
   });
 
   factory RegisterData.fromJson(Map<String, dynamic> json) => RegisterData(
-    id: json["id"],
-    displayName: json["displayName"],
     isRegisteredViaSocial: json["isRegisteredViaSocial"],
-    token: json["token"],
     verifiedEmail: json["verifiedEmail"],
     unVerifiedEmail: json["unVerifiedEmail"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "displayName": displayName,
     "isRegisteredViaSocial": isRegisteredViaSocial,
-    "token": token,
     "verifiedEmail": verifiedEmail,
     "unVerifiedEmail": unVerifiedEmail,
   };
