@@ -1,51 +1,19 @@
-import 'package:equatable/equatable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:yadlo/features/auth/login/data/model/login_model.dart';
 
 import '../error_model.dart';
 
-abstract class LoginFailure extends Equatable {}
+class ApiError implements Exception {
+  final int? code;
+  final String? message;
 
-class NoConnectionFailure extends LoginFailure {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
-
-class NoExistFailure extends LoginFailure {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
-
-class WrongPassword extends LoginFailure {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-}
-
-class ApiErrorMessage extends FormatException {
-  final int code;
-  final String message;
-
-  @override
-  ApiErrorMessage(
+  ApiError({
     this.code,
     this.message,
-  ) : super(message);
+  });
+}
 
-  static Future<ApiErrorMessage> fetchErrorMessage() async {
-    int? code = ApiLoginResult.fromJson(<String, dynamic>{})
-        .emailAndPasswordLogin
-        ?.code;
-    String? message = ApiLoginResult.fromJson(<String, dynamic>{})
-        .emailAndPasswordLogin
-        ?.message;
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    return ApiErrorMessage(code!, message!);
-  }
+class ApiServerError implements Exception {
+  ApiServerError();
 }
 
 class ApiErrorMessage2 implements Exception {

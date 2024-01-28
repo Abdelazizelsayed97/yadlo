@@ -1,28 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/cache/themData/them_data.dart';
+import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
+import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_cubit.dart';
+import 'package:yadlo/features/auth/registration/domain/entities/registration_user_input.dart';
 
 import '../../../../../cache/colors/colors.dart';
 import '../../../../../core/buttons/general_button.dart';
 import '../../../../../core/helper/app_regex.dart';
 import '../../../../../core/textForm/custom_textform.dart';
+import '../../../cubit-auth/register_cubit/register_state.dart';
 import '../../../login/presentation/pages/auth_accout.dart';
 import '../../../login/presentation/pages/login_page.dart';
 import '../../../login/presentation/widgets/divider.dart';
 import '../../../login/presentation/widgets/login_methodes.dart';
 import '../widgets/term_condations.dart';
 
-class RegistrationPage extends StatefulWidget {
+class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (context) => RegisterCubit(getIt()),
+    child:  RegistrationPageBody(),);
+  }
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
-  final TextEditingController _userName = TextEditingController();
+
+class RegistrationPageBody extends StatefulWidget {
+  const RegistrationPageBody({super.key});
+
+  @override
+  State<RegistrationPageBody> createState() => _RegistrationPageBodyState();
+}
+
+class _RegistrationPageBodyState extends State<RegistrationPageBody> {
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool value = false;
@@ -71,7 +87,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                   verticalSpace(40),
                   TextForm(
-                    controller: _userName,
+                    controller: _userNameController,
                     textHint: 'User name*',
                     icon: const Icon(Icons.mail_outline),
                     validator: (value) {
@@ -102,7 +118,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     icon: const Icon(Icons.lock_outline),
                     controller: _passwordController,
                     validator: (value) {
-                      if (value!.isEmpty||value == null) {
+                      if (value!.isEmpty || value == null) {
                         return 'Please enter your password';
                       }
                       return null;
@@ -131,6 +147,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       text: 'Agree & Register',
                       width: 300.w,
                       onTap: () {
+                        register(context);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const Otp()));
                       }),
@@ -176,5 +193,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+  void register(BuildContext context) {
+    if (context
+        .read<RegisterCubit>()
+        .formKey
+        .currentState!
+        .validate()) {
+      context.read<RegisterCubit>().emitRegisterStates(input: RegistrationInput(
+          userName: _userNameController.text, email: _emailController.text, password: _passwordController.text));
+    }else if (!context.read<RegisterCubit>().formKey.currentState!.validate()){
+      throw Exception();
+    }
+  }
+
 }
 

@@ -30,10 +30,12 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
       ),
     );
     final registrationResponeData = registerRespone.data;
+    final data = registerRespone.data;
     if (registrationResponeData == null || registerRespone.hasException) {
       throw ServerException();
-    } else  {
-      
+    } else if (registerRespone.data != null &&
+        registerRespone.exception == false) {
+      print(data);
     }
   }
 }

@@ -7,6 +7,7 @@ class ApiErrorModel {
   final String? message;
   final int? code;
 
+
   ApiErrorModel({
      this.message,
     this.code,
@@ -16,4 +17,5 @@ class ApiErrorModel {
       _$ApiErrorModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiErrorModelToJson(this);
+  
 }

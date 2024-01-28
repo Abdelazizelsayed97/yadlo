@@ -1,9 +1,51 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part "register_state.freezed.dart";
-@freezed
-class RegisterState<T> with _$RegisterState<T> {
-  const factory RegisterState.initial() = _Initial;
-  const factory RegisterState.loading() = Loading;
-  const factory RegisterState.success(T data) = Success<T>;
-  const factory RegisterState.error({required String error}) = Error;
+// import 'package:freezed_annotation/freezed_annotation.dart';
+//
+// part "register_state.freezed.dart";
+//
+// @freezed
+// class RegisterState<T> with _$RegisterState<T> {
+//   const factory RegisterState.initial() = _Initial;
+//
+//   const factory RegisterState.loading() = Loading;
+//
+//   const factory RegisterState.success() = Success;
+//
+//   const factory RegisterState.error({required String error}) = Error;
+// }
+import 'package:equatable/equatable.dart';
+
+
+abstract class RegisterState extends Equatable{
+  void emitRegisterState() {}
+
+}
+
+class RegLoadingState extends RegisterState           {
+
+  @override
+  List<Object?> get props => [];
+
+
+}
+
+class RegInitialState extends RegisterState{
+
+  @override
+  List<Object?> get props => [];
+
+
+}
+
+class RegSuccessState extends RegisterState{
+
+  @override
+  List<Object?> get props => [];
+}
+
+class RegFailureState extends RegisterState{
+  // final String error;
+  @override
+  List<Object?> get props => [];
+
+
 }

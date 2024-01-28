@@ -43,8 +43,8 @@ class LoginBlocListener extends StatelessWidget {
             ScaffoldMessenger
                 .of(context)
                 .showSnackBar(
-                SnackBar(duration: Duration(seconds: 3),
-                    content: Text(ErrorHandler.handle(ApiErrorMessage).apiErrorModel as String )));
+                 SnackBar(duration: const Duration(seconds: 3),
+                    content: Text(state.message)));
             }
             },
         child: child);

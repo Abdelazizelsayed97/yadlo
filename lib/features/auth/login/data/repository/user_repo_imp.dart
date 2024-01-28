@@ -20,7 +20,7 @@ class UserRepositoryImpl implements UserLoginRepository {
   }
 
   @override
-  Future<Either<LoginFailure, UserData>> login(LoginInput input) async {
+  Future<Either<Exception, UserData>> login(LoginInput input) async {
     final requestResponse = await _graphQLClient.mutate(
       MutationOptions(
         document: gql(loginRequest),
@@ -38,17 +38,15 @@ class UserRepositoryImpl implements UserLoginRepository {
     );
 
     if (requestResponse.hasException && requestResponse.data == null) {
-      throw const ServerException();
+      throw ApiServerError();
     } else {
       final response =
-          ApiLoginResult
-              .fromJson(requestResponse.data!)
-              .emailAndPasswordLogin;
+          ApiLoginResult.fromJson(requestResponse.data!).emailAndPasswordLogin;
       final data = response?.data;
       if (data != null) {
-        return right(data.map);
+        return Right(data.map);
       } else {
-        throw ServerException();
+        throw Left(ApiError(message: response?.message, code: response?.code));
       }
     }
   }

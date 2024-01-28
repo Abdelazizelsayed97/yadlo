@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:yadlo/features/auth/login/domain/entities/user_data.dart';
+
 // part "login_state.freezed.dart";
 // @freezed
 // class LoginState<T> with _$LoginState<T> {
@@ -9,36 +10,31 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 //   const factory LoginState.error({required String error}) = Error;
 // }
 
-abstract class LoginState extends Equatable{
+abstract class LoginState extends Equatable {}
 
-}
-
-class LoadingState extends LoginState{
-
-  @override
-  List<Object?> get props => [];
-
-
-}
-
-class InitialState extends LoginState{
-
-  @override
-  List<Object?> get props => [];
-
-
-}
-
-class SuccessState extends LoginState{
-
+class LoadingState extends LoginState {
   @override
   List<Object?> get props => [];
 }
 
-class FailureState extends LoginState{
-  // final String error;
+class InitialState extends LoginState {
   @override
   List<Object?> get props => [];
+}
 
+class SuccessState extends LoginState {
+  final UserData date;
 
+  SuccessState(this.date);
+  @override
+  List<Object?> get props => [date];
+}
+
+class FailureState extends LoginState {
+  final String message;
+
+  FailureState(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }

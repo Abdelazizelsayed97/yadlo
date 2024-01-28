@@ -5,6 +5,6 @@ import '../entities/login_input.dart';
 import '../entities/user_data.dart';
 
 abstract class UserLoginRepository{
-  Future<Either<LoginFailure, UserData>> login(LoginInput input);
+  Future<Either<Exception, UserData>> login(LoginInput input);
 }
 
