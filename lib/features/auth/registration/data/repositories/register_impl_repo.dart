@@ -48,10 +48,10 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
   }
 }
 
-extension UserDataToApiUserData on Register {
+extension UserDataToApiUserData on ApiLoginResultData {
   Register get map {
     return Register(
-      data: data
+      data: RegisterData()
     );
   }
 }
