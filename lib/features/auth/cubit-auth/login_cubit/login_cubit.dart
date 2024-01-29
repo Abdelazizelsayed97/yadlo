@@ -11,17 +11,17 @@ class LoginCubit extends Cubit<LoginState> {
 
   final formKey = GlobalKey<FormState>();
 
-  LoginCubit(
-    this._loginUseCase,
-  ) : super(InitialState());
+  LoginCubit(this._loginUseCase) : super(InitialState());
 
   void emitLoginStates({required LoginInput input}) async {
     emit(LoadingState());
-    final response = await _loginUseCase.call(input);
+    final response = await _loginUseCase.login(input);
 
     response.fold((lift) {
       if (lift is ApiError) {
-        emit(FailureState(lift.message ?? ''));
+        emit(
+          FailureState(lift.message ?? ''),
+        );
       }
     }, (right) {
       emit(SuccessState(right));

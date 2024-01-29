@@ -19,28 +19,30 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
   }
 
   @override
-  Future<Either<ApiError,void>> register(RegistrationInput input) async {
-    final registerRespone = await _graphQLClient.mutate(
+  Future<Either<ApiError,RegistrationInput>> register(RegistrationInput input) async {
+    final registerResponse = await _graphQLClient.mutate(
       MutationOptions(
         document: gql(registerRequest),
         variables: {
           "input": ApiRegisterInput(
                   userName: input.userName,
                   email: input.email,
-                  password: input.password as String,
-                  device: 'DESKTOP')
+                  password: input.password,
+                  device: "DESKTOP")
               .toJson(),
         },
       ),
     );
-    if (registerRespone.hasException && registerRespone.data == null) {
+    print('7777777777');
+    if (registerResponse.hasException && registerResponse.data == null) {
       throw ApiServerError();
     } else {
+      print('fghjklfghjkl;hjkl;');
       final response =
-          ApiRegisterResult.fromJson(registerRespone.data!).apiRegisterData;
+          ApiRegisterResult.fromJson(registerResponse.data!).data;
       final data = response?.register?.data;
-      if (data != null) {
-        return Right(data.unVerifiedEmail);
+      if (data?.isRegisteredViaSocial == true) {
+        return Right(input);
       } else {
         return Left(ApiError(message: response?.register?.message, code: response?.register?.code));
       }
@@ -48,10 +50,10 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
   }
 }
 
-extension UserDataToApiUserData on ApiLoginResultData {
-  Register get map {
-    return Register(
-      data: RegisterData()
+extension UserDataToApiUserData on ApiRegisterResult {
+  ApiRegisterResultData get map {
+    return ApiRegisterResultData(
+      register:Register() ,
     );
   }
 }

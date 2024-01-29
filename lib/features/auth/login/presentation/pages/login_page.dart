@@ -136,7 +136,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const RegistrationPageBody()));
+                                        const RegistrationPage()));
                               },
                               child: const StyleFont14(
                                 text: 'Create account',

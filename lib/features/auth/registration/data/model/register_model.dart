@@ -1,37 +1,37 @@
 // To parse this JSON data, do
 //
-//     final apiLoginResult = apiLoginResultFromJson(jsonString);
+//     final apiRegisterResult = apiRegisterResultFromJson(jsonString);
 
 import 'dart:convert';
 
-ApiRegisterResult apiLoginResultFromJson(String str) => ApiRegisterResult.fromJson(json.decode(str));
+ApiRegisterResult apiRegisterResultFromJson(String str) => ApiRegisterResult.fromJson(json.decode(str));
 
-String apiLoginResultToJson(ApiRegisterResult data) => json.encode(data.toJson());
+String apiRegisterResultToJson(ApiRegisterResult data) => json.encode(data.toJson());
 
 class ApiRegisterResult {
-  final ApiLoginResultData? apiRegisterData;
+  final ApiRegisterResultData? data;
 
   ApiRegisterResult({
-    this.apiRegisterData,
+    this.data,
   });
 
   factory ApiRegisterResult.fromJson(Map<String, dynamic> json) => ApiRegisterResult(
-    apiRegisterData: json["data"] == null ? null : ApiLoginResultData.fromJson(json["data"]),
+    data: json["data"] == null ? null : ApiRegisterResultData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "data": apiRegisterData?.toJson(),
+    "data": data?.toJson(),
   };
 }
 
-class ApiLoginResultData {
+class ApiRegisterResultData {
   final Register? register;
 
-  ApiLoginResultData({
+  ApiRegisterResultData({
     this.register,
   });
 
-  factory ApiLoginResultData.fromJson(Map<String, dynamic> json) => ApiLoginResultData(
+  factory ApiRegisterResultData.fromJson(Map<String, dynamic> json) => ApiRegisterResultData(
     register: json["register"] == null ? null : Register.fromJson(json["register"]),
   );
 
@@ -70,24 +70,16 @@ class Register {
 
 class RegisterData {
   final bool? isRegisteredViaSocial;
-  final dynamic verifiedEmail;
-  final String? unVerifiedEmail;
 
   RegisterData({
     this.isRegisteredViaSocial,
-    this.verifiedEmail,
-    this.unVerifiedEmail,
   });
 
   factory RegisterData.fromJson(Map<String, dynamic> json) => RegisterData(
     isRegisteredViaSocial: json["isRegisteredViaSocial"],
-    verifiedEmail: json["verifiedEmail"],
-    unVerifiedEmail: json["unVerifiedEmail"],
   );
 
   Map<String, dynamic> toJson() => {
     "isRegisteredViaSocial": isRegisteredViaSocial,
-    "verifiedEmail": verifiedEmail,
-    "unVerifiedEmail": unVerifiedEmail,
   };
 }

@@ -9,7 +9,7 @@ class RegisterUseCase {
 
   RegisterUseCase(this._registerRepository);
 
-  Future<Either<ApiError,void>> register(RegistrationInput registerInput) async {
-    return await _registerRepository.register(registerInput);
+  Future<Either<ApiError,RegistrationInput>> register(RegistrationInput input) async {
+    return await _registerRepository.register(input);
   }
 }

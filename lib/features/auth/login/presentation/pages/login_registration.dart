@@ -69,7 +69,7 @@ class _LoginAndRegistrationState extends State<LoginAndRegistration> {
                 colors: login1,
                 onTap: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const RegistrationPageBody()));
+                      builder: (context) => const RegistrationPage()));
                 },
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yadlo/core/errors/login/Failure.dart';
 import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_state.dart';
 import 'package:yadlo/features/auth/registration/domain/entities/registration_user_input.dart';
 
@@ -9,14 +10,22 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUseCase _registerUseCase;
 
   final formKey = GlobalKey<FormState>();
-  RegisterCubit(
-      this._registerUseCase,
-      ) : super( RegInitialState());
+
+  RegisterCubit(this._registerUseCase) : super(RegInitialState());
 
   void emitRegisterStates({required RegistrationInput input}) async {
     emit(RegLoadingState());
-    final  response = await _registerUseCase.register(input);
-    response.fold((l) => null, (r) => null);
+    final response = await _registerUseCase.register(input);
 
+    response.fold(
+      (left) {
+        if (left is ApiError) {
+          emit(RegFailureState(left.message ?? ''));
+        }
+      },
+      (right) {
+        emit(RegSuccessState(right.email));
+      },
+    );
   }
 }

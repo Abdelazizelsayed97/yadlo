@@ -37,15 +37,23 @@ class RegInitialState extends RegisterState{
 }
 
 class RegSuccessState extends RegisterState{
+ final String email;
 
+  RegSuccessState(this.email);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [email];
 }
 
 class RegFailureState extends RegisterState{
-  // final String error;
+  final String message ;
+
+
+  RegFailureState(this.message);
+
+
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [message];
 
 
 }

@@ -11,7 +11,7 @@ class LoginUseCase {
 
   LoginUseCase(this._loginRepository);
 
-  Future<Either<Exception, UserData>> call(LoginInput input) async {
+  Future<Either<Exception, UserData>> login(LoginInput input) async {
     return await _loginRepository.login(input);
   }
 }
