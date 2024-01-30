@@ -28,32 +28,30 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
                   userName: input.userName,
                   email: input.email,
                   password: input.password,
-                  device: "DESKTOP")
+                  device: "DESKTOP",country: "EG")
               .toJson(),
         },
       ),
     );
-    print('7777777777');
     if (registerResponse.hasException && registerResponse.data == null) {
       throw ApiServerError();
     } else {
-      print('fghjklfghjkl;hjkl;');
       final response =
-          ApiRegisterResult.fromJson(registerResponse.data!).data;
-      final data = response?.register?.data;
-      if (data?.isRegisteredViaSocial == true) {
+          ApiRegisterResult.fromJson(registerResponse.data!).register;
+      final data = response?.data;
+      if (response?.code == 200) {
+        print('=========================');
         return Right(input);
       } else {
-        return Left(ApiError(message: response?.register?.message, code: response?.register?.code));
+        return Left(ApiError(message: response?.message, code: response?.code));
       }
     }
   }
 }
-
 extension UserDataToApiUserData on ApiRegisterResult {
-  ApiRegisterResultData get map {
-    return ApiRegisterResultData(
-      register:Register() ,
+  Register get map {
+    return Register(
+      data: Data() ,
     );
   }
 }

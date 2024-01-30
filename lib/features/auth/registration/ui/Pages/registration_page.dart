@@ -56,17 +56,17 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return RegisterBlocListener(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Opacity(
-              opacity: .050,
-              child: ThemeDataApp(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(25.h),
-              child: SafeArea(
+    return Scaffold(
+      body: Stack(
+        children: [
+          Opacity(
+            opacity: .050,
+            child: ThemeDataApp(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(25.h),
+            child: SafeArea(top: true,
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Container(
@@ -94,7 +94,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                       textHint: 'User name*',
                       icon: const Icon(Icons.mail_outline),
                       validator: (value) {
-                        
+
                         if (value!.isEmpty) {
                           return 'Please enter your User Name';
                         }
@@ -145,15 +145,17 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     ),
                     const TermsAndConditions(),
                     verticalSpace(20),
-                    GeneralButton1(
-                        colors: ig3,
-                        text: 'Agree & Register',
-                        width: 300.w,
-                        onTap: () {
-                          register(context);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Otp()));
-                        }),
+                    RegisterBlocListener(
+                      child: GeneralButton1(
+                          colors: ig3,
+                          text: 'Agree & Register',
+                          width: 300.w,
+                          onTap: () {
+                            register(context);
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => const Otp()));
+                          }),
+                    ),
                     verticalSpace(30),
                     const CustomDivider(),
                     verticalSpace(20),
@@ -192,8 +194,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

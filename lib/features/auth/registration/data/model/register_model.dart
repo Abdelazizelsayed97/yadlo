@@ -9,29 +9,13 @@ ApiRegisterResult apiRegisterResultFromJson(String str) => ApiRegisterResult.fro
 String apiRegisterResultToJson(ApiRegisterResult data) => json.encode(data.toJson());
 
 class ApiRegisterResult {
-  final ApiRegisterResultData? data;
-
-  ApiRegisterResult({
-    this.data,
-  });
-
-  factory ApiRegisterResult.fromJson(Map<String, dynamic> json) => ApiRegisterResult(
-    data: json["data"] == null ? null : ApiRegisterResultData.fromJson(json["data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-  };
-}
-
-class ApiRegisterResultData {
   final Register? register;
 
-  ApiRegisterResultData({
+  ApiRegisterResult({
     this.register,
   });
 
-  factory ApiRegisterResultData.fromJson(Map<String, dynamic> json) => ApiRegisterResultData(
+  factory ApiRegisterResult.fromJson(Map<String, dynamic> json) => ApiRegisterResult(
     register: json["register"] == null ? null : Register.fromJson(json["register"]),
   );
 
@@ -41,7 +25,7 @@ class ApiRegisterResultData {
 }
 
 class Register {
-  final RegisterData? data;
+  final Data? data;
   final bool? success;
   final int? code;
   final String? message;
@@ -54,7 +38,7 @@ class Register {
   });
 
   factory Register.fromJson(Map<String, dynamic> json) => Register(
-    data: json["data"] == null ? null : RegisterData.fromJson(json["data"]),
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
     success: json["success"],
     code: json["code"],
     message: json["message"],
@@ -68,18 +52,18 @@ class Register {
   };
 }
 
-class RegisterData {
-  final bool? isRegisteredViaSocial;
+class Data {
+  final dynamic verifiedEmail;
 
-  RegisterData({
-    this.isRegisteredViaSocial,
+  Data({
+    this.verifiedEmail,
   });
 
-  factory RegisterData.fromJson(Map<String, dynamic> json) => RegisterData(
-    isRegisteredViaSocial: json["isRegisteredViaSocial"],
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    verifiedEmail: json["verifiedEmail"],
   );
 
   Map<String, dynamic> toJson() => {
-    "isRegisteredViaSocial": isRegisteredViaSocial,
+    "verifiedEmail": verifiedEmail,
   };
 }

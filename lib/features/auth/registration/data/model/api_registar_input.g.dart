@@ -8,6 +8,7 @@ part of 'api_registar_input.dart';
 
 ApiRegisterInput _$ApiRegisterInputFromJson(Map<String, dynamic> json) =>
     ApiRegisterInput(
+      country: json['country'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
       device: json['device'] as String,
@@ -20,4 +21,5 @@ Map<String, dynamic> _$ApiRegisterInputToJson(ApiRegisterInput instance) =>
       'email': instance.email,
       'password': instance.password,
       'device': instance.device,
+      'country': instance.country,
     };

@@ -9,9 +9,11 @@ class ApiRegisterInput {
   final String email;
   final String password;
   final String device;
+  final String country;
 
   ApiRegisterInput(
-      {required this.email, required this.password, required this.device, required this.userName});
+      {required this.country,
+        required this.email, required this.password, required this.device, required this.userName});
 
   factory ApiRegisterInput.fromJson(Map<String, dynamic> json) =>
       _$ApiRegisterInputFromJson(json);
