@@ -14,46 +14,34 @@
 // }
 import 'package:equatable/equatable.dart';
 
-
-abstract class RegisterState extends Equatable{
+abstract class RegisterState extends Equatable {
   void emitRegisterState() {}
-
 }
 
-class RegLoadingState extends RegisterState           {
-
+class RegLoadingState extends RegisterState {
   @override
   List<Object?> get props => [];
-
-
 }
 
-class RegInitialState extends RegisterState{
-
+class RegInitialState extends RegisterState {
   @override
   List<Object?> get props => [];
-
-
 }
 
-class RegSuccessState extends RegisterState{
- final String email;
+class RegSuccessState extends RegisterState {
+  final String email;
 
   RegSuccessState(this.email);
+
   @override
   List<Object?> get props => [email];
 }
 
-class RegFailureState extends RegisterState{
-  final String message ;
-
+class RegFailureState extends RegisterState {
+  final String message;
 
   RegFailureState(this.message);
 
-
-
   @override
   List<Object?> get props => [message];
-
-
 }

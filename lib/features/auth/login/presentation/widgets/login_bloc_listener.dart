@@ -5,7 +5,7 @@ import 'package:yadlo/features/auth/cubit-auth/login_cubit/login_state.dart';
 import 'package:yadlo/features/posts/presentation/pages/time_line.dart';
 
 class LoginBlocListener extends StatelessWidget {
-  LoginBlocListener({
+  const LoginBlocListener({
     super.key,
     this.child,
   });

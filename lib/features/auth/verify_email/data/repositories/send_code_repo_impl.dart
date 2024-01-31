@@ -20,6 +20,7 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
 
   @override
   Future<Either<ApiError, void>> sendCode(SendCodeInput input) async {
+    print('vfghdjgsjkhdlgkjngbhsjnvk,');
     final sendCodeResponse = await _grahqlClient.mutate(
       MutationOptions(
         document: gql(SendCodeRequest),
@@ -32,12 +33,15 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
     if (sendCodeResponse.hasException && sendCodeResponse.data == null) {
       throw ApiServerError();
     } else {
+      print('77777777777777777777777777');
       final response =
           SendCode.fromJson(sendCodeResponse.data!).sendEmailVerificationCode;
       final data = response!.data;
-      if (data == null) {
+      if (response.code == 200) {
+        print('success');
         return const Right(null);
       } else {
+        print('failure');
         return Left(ApiError(message: response.message));
       }
     }

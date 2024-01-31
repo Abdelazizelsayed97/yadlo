@@ -1,6 +1,4 @@
-import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../error_model.dart';
 
 class ApiError implements Exception {
   final int? code;

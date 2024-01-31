@@ -6,15 +6,16 @@ import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_cubit.dart';
+import 'package:yadlo/features/auth/cubit-auth/send_code_cubit/send_code_cubit.dart';
 import 'package:yadlo/features/auth/registration/domain/entities/registration_user_input.dart';
 import 'package:yadlo/features/auth/registration/ui/widgets/register_bloc_listener.dart';
+import 'package:yadlo/features/auth/verify_email/domain/entities/send_code_ent.dart';
+import 'package:yadlo/features/auth/verify_email/presentation/widgets/send_code_listener.dart';
 
 import '../../../../../cache/colors/colors.dart';
 import '../../../../../core/buttons/general_button.dart';
 import '../../../../../core/helper/app_regex.dart';
 import '../../../../../core/textForm/custom_textform.dart';
-import '../../../cubit-auth/register_cubit/register_state.dart';
-import 'auth_accout.dart';
 import '../../../login/presentation/pages/login_page.dart';
 import '../../../login/presentation/widgets/divider.dart';
 import '../../../login/presentation/widgets/login_methodes.dart';
@@ -25,21 +26,22 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(getIt()),
-      child:  _RegistrationPageBody(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<RegisterCubit>()),
+        BlocProvider(create: (_) => getIt<SendCodeCubit>()),
+      ],
+      child: _RegistrationPageBody(),
     );
   }
 }
 
 class _RegistrationPageBody extends StatefulWidget {
-
   @override
   State<_RegistrationPageBody> createState() => _RegistrationPageBodyState();
 }
 
 class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
-
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -65,7 +67,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
           ),
           Padding(
             padding: EdgeInsets.all(25.h),
-            child: SafeArea(top: true,
+            child: SafeArea(
+              top: true,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -94,7 +97,6 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                       textHint: 'User name*',
                       icon: const Icon(Icons.mail_outline),
                       validator: (value) {
-
                         if (value!.isEmpty) {
                           return 'Please enter your User Name';
                         }
@@ -121,7 +123,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                       icon: const Icon(Icons.lock_outline),
                       controller: _passwordController,
                       validator: (value) {
-                        if (value!.isEmpty || value == null) {
+                        if (value!.isEmpty) {
                           return 'Please enter your password';
                         }
                         return null;
@@ -146,15 +148,21 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     const TermsAndConditions(),
                     verticalSpace(20),
                     RegisterBlocListener(
-                      child: GeneralButton1(
-                          colors: ig3,
-                          text: 'Agree & Register',
-                          width: 300.w,
-                          onTap: () {
-                            register(context);
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => const Otp()));
-                          }),
+                      email: _emailController.text,
+                      child: SendCodeListener(
+                        child: GeneralButton1(
+                            colors: ig3,
+                            text: 'Agree & Register',
+                            width: 300.w,
+                            onTap: () {
+                              register(context);
+                              // sendVerificationEmail(context).toString();
+                              sendCodeV(context);
+                              // sendCodeV(context);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) =>  Otp(email: _emailController.text,)));
+                            }),
+                      ),
                     ),
                     verticalSpace(30),
                     const CustomDivider(),
@@ -201,7 +209,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
   }
 
   void register(BuildContext context) {
-    if (context.read<RegisterCubit>().formKey.currentState?.validate()??true) {
+    if (context.read<RegisterCubit>().formKey.currentState?.validate() ??
+        true) {
       context.read<RegisterCubit>().emitRegisterStates(
           input: RegistrationInput(
               userName: _userNameController.text,
@@ -214,5 +223,20 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
         .validate()) {
       throw Exception();
     }
-  }}
+  }
 
+  void sendCodeV(BuildContext context) {
+    context
+        .read<SendCodeCubit>()
+        .emitSendCodeStates(input: SendCodeInput(email: _emailController.text));
+  }
+
+  Future<void> sendVerificationEmail(SendCodeInput input) async {
+    try {
+      input.email;
+      print('Verification email sent');
+    } catch (e) {
+      print('Failed to send verification email: $e');
+    }
+  }
+}

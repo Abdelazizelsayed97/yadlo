@@ -5,7 +5,6 @@ import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
-import 'package:yadlo/core/errors/login/Failure.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/cubit-auth/login_cubit/login_cubit.dart';
 import 'package:yadlo/features/auth/cubit-auth/login_cubit/login_state.dart';

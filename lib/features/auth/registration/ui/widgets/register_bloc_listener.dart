@@ -7,9 +7,10 @@ import '../../../../../cache/colors/colors.dart';
 import '../Pages/auth_accout.dart';
 
 class RegisterBlocListener extends StatelessWidget {
+  final String email;
   const RegisterBlocListener({
     super.key,
-    required this.child,
+    required this.child, required this.email,
   });
 
   final Widget child;
@@ -19,7 +20,6 @@ class RegisterBlocListener extends StatelessWidget {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegLoadingState) {
-          print('fghjhfgdvghjfhgv');
           showDialog(
             context: context,
             builder: (context) => Center(
@@ -32,16 +32,14 @@ class RegisterBlocListener extends StatelessWidget {
           );
         }
         if (state is RegSuccessState) {
-          print('Youseff');
+          Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              print('dfghjihgfdfghjkiokjhgfvcghjkiojhgvfcghjkjhbgv');
-              return const Otp();
+              return  Otp(email:email,);
             },
           ));
         }
         if (state is RegFailureState) {
-          Navigator.of(context).pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
