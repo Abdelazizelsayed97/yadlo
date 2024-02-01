@@ -10,7 +10,6 @@ import 'package:yadlo/features/auth/cubit-auth/send_code_cubit/send_code_cubit.d
 import 'package:yadlo/features/auth/registration/domain/entities/registration_user_input.dart';
 import 'package:yadlo/features/auth/registration/ui/widgets/register_bloc_listener.dart';
 import 'package:yadlo/features/auth/verify_email/domain/entities/send_code_ent.dart';
-import 'package:yadlo/features/auth/verify_email/presentation/widgets/send_code_listener.dart';
 
 import '../../../../../cache/colors/colors.dart';
 import '../../../../../core/buttons/general_button.dart';
@@ -26,13 +25,8 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => getIt<RegisterCubit>()),
-        BlocProvider(create: (_) => getIt<SendCodeCubit>()),
-      ],
-      child: _RegistrationPageBody(),
-    );
+    return BlocProvider(
+        create: (context) => getIt<RegisterCubit>(), child: _RegistrationPageBody());
   }
 }
 
@@ -149,20 +143,19 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     verticalSpace(20),
                     RegisterBlocListener(
                       email: _emailController.text,
-                      child: SendCodeListener(
-                        child: GeneralButton1(
-                            colors: ig3,
-                            text: 'Agree & Register',
-                            width: 300.w,
-                            onTap: () {
-                              register(context);
-                              // sendVerificationEmail(context).toString();
-                              sendCodeV(context);
-                              // sendCodeV(context);
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) =>  Otp(email: _emailController.text,)));
-                            }),
-                      ),
+                      verificationCode: '',
+                      child: GeneralButton1(
+                          colors: ig3,
+                          text: 'Agree & Register',
+                          width: 300.w,
+                          onTap: () {
+                            register(context);
+                            // sendVerificationEmail(context).toString();
+
+                            // sendCodeV(context);
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) =>  Otp(email: _emailController.text,)));
+                          }),
                     ),
                     verticalSpace(30),
                     const CustomDivider(),
@@ -208,7 +201,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
     );
   }
 
-  void register(BuildContext context) {
+  void register(BuildContext context) async {
     if (context.read<RegisterCubit>().formKey.currentState?.validate() ??
         true) {
       context.read<RegisterCubit>().emitRegisterStates(
@@ -225,11 +218,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
     }
   }
 
-  void sendCodeV(BuildContext context) {
-    context
-        .read<SendCodeCubit>()
-        .emitSendCodeStates(input: SendCodeInput(email: _emailController.text));
-  }
+
 
   Future<void> sendVerificationEmail(SendCodeInput input) async {
     try {

@@ -8,6 +8,7 @@ import 'package:yadlo/features/auth/verify_email/domain/user_repo/send_code_repo
 class SendCodeUseCase {
   final SendCodeRepositories _sendCodeRepositories;
 
+
   SendCodeUseCase(this._sendCodeRepositories);
   Future<Either<ApiError,void>> sendCode(SendCodeInput input)async{
     return await _sendCodeRepositories.sendCode(input);

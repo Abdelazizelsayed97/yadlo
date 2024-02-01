@@ -16,9 +16,12 @@ class SendCodeLoading extends SendCodeState {
   List<Object> get props => [];
 }
 class SendCodeSuccess extends SendCodeState {
+  final String verificationCode;
+
+  SendCodeSuccess(this.verificationCode);
   @override
 
-  List<Object> get props => [];
+  List<Object> get props => [verificationCode];
 }
 class SendCodeFailure extends SendCodeState {
   final String message;

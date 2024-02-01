@@ -43,6 +43,7 @@ class RegisterRepositoryImpl extends UserRegisterRepository {
         print('=========================');
         return Right(input);
       } else {
+        print(response?.message);
         return Left(ApiError(message: response?.message, code: response?.code));
       }
     }

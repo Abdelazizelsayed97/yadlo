@@ -1,13 +1,10 @@
-const String SendCodeRequest = r"""
-mutation sendEmailVerificationCode{
-  sendEmailVerificationCode(input:{
-    email:"fghjkl@gmail.com",
-    useCase:EMAIL_VERIFICATION
-  }){
+const String sendCodeRequest = r"""
+mutation sendEmailVerificationCode($input: SendEmailVerificationCodeInput!){
+  sendEmailVerificationCode(input:$input){
     data
-    code
     success
+    code
     message
   }
-}
+} 
 """;

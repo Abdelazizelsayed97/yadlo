@@ -4,13 +4,15 @@ import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_cubit.dar
 import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_state.dart';
 
 import '../../../../../cache/colors/colors.dart';
-import '../Pages/auth_accout.dart';
+import '../../../verify_email/presentation/pages/auth_accout.dart';
 
 class RegisterBlocListener extends StatelessWidget {
   final String email;
+  final String verificationCode;
+
   const RegisterBlocListener({
     super.key,
-    required this.child, required this.email,
+    required this.child, required this.email, required this.verificationCode,
   });
 
   final Widget child;
@@ -35,7 +37,7 @@ class RegisterBlocListener extends StatelessWidget {
           Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return  Otp(email:email,);
+              return  AuthPage(email:email, verificationCode: verificationCode,);
             },
           ));
         }

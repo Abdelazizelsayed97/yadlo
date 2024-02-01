@@ -4,8 +4,9 @@ import 'package:pinput/pinput.dart';
 
 
 class OTPVerify extends StatefulWidget {
-  const OTPVerify({Key? key}) : super(key: key);
-
+  const OTPVerify({Key? key, required this.email, required this.verificationCode}) : super(key: key);
+final String email;
+final String verificationCode;
   @override
   State<OTPVerify> createState() => _OTPVerifyState();
 

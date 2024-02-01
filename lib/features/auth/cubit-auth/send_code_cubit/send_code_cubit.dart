@@ -13,6 +13,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
 
 
   void emitSendCodeStates({required SendCodeInput input})async{
+    print("EFFEEF ${input.email}");
       emit(SendCodeLoading());
    final response =   await _sendCodeUseCase.sendCode(input);
       response.fold((l) {
@@ -20,7 +21,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
           emit(SendCodeFailure(l.message??''));
         }
       }, (r) {
-        emit(SendCodeSuccess());
+        emit(SendCodeSuccess(input.verificationCode!));
 
       });
   }

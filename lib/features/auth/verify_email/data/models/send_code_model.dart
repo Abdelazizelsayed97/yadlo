@@ -26,28 +26,28 @@ class SendCode {
 
 class SendEmailVerificationCode {
   final bool? data;
-  final int? code;
   final bool? success;
+  final int? code;
   final String? message;
 
   SendEmailVerificationCode({
     this.data,
-    this.code,
     this.success,
+    this.code,
     this.message,
   });
 
   factory SendEmailVerificationCode.fromJson(Map<String, dynamic> json) => SendEmailVerificationCode(
     data: json["data"],
-    code: json["code"],
     success: json["success"],
+    code: json["code"],
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "data": data,
-    "code": code,
     "success": success,
+    "code": code,
     "message": message,
   };
 }

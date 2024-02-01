@@ -10,36 +10,53 @@ import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/cubit-auth/send_code_cubit/send_code_cubit.dart';
-import 'package:yadlo/features/auth/registration/ui/widgets/otp.dart';
-
+import 'package:yadlo/features/auth/verify_email/presentation/widgets/otp.dart';
+import 'package:yadlo/features/auth/verify_email/domain/entities/send_code_ent.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  final String email;
+  final String verificationCode;
+
+
+  const AuthPage({super.key, required this.email, required this.verificationCode});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SendCodeCubit(getIt()),
-      child: const Otp(email:AutofillHints.email,),
+      child: _Otp(
+        email: email, verificationCode: verificationCode,
+      ),
     );
   }
 }
 
-class Otp extends StatefulWidget {
-  const Otp({super.key, required this.email});
+class _Otp extends StatefulWidget {
+  const _Otp({super.key, required this.email, required this.verificationCode});
 
   final String email;
+  final String verificationCode;
+
 
   @override
-  State<Otp> createState() => _OtpState();
+  State<_Otp> createState() => _OtpState();
+
+
 }
 
-class _OtpState extends State<Otp> {
-
+class _OtpState extends State<_Otp> {
   final TextEditingController _controller = TextEditingController();
+@override
+  void initState() {
 
+    super.initState();
+  print('${widget.email}');
+  sendCodeV(context);
+  BlocProvider.of<SendCodeCubit>(context).emit(SendCodeInitial(email: widget.email));
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(
         children: [
@@ -67,7 +84,7 @@ class _OtpState extends State<Otp> {
                     width: 220.w,
                     child: const CustomStyle12(
                       text:
-                      'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
+                          'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
                     ),
                   ),
                   Container(
@@ -79,7 +96,7 @@ class _OtpState extends State<Otp> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Column(children: [
                       verticalSpace(25),
-                      const OTPVerify(),
+                       OTPVerify(email: widget.email,verificationCode: widget.verificationCode),
                       verticalSpace(15),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,9 +104,9 @@ class _OtpState extends State<Otp> {
                           CustomStyle12(text: "Didn't receive a code?"),
                           InkWell(
                               child: StyleFont14(
-                                text: '  Resend',
-                                fontWeight: FontWeight.w500,
-                              ))
+                            text: '  Resend',
+                            fontWeight: FontWeight.w500,
+                          ))
                         ],
                       ),
                       verticalSpace(15),
@@ -121,13 +138,18 @@ class _OtpState extends State<Otp> {
       ),
     );
   }
-  Future<void> validateReceivedCode()async {
+
+  Future<void> validateReceivedCode() async {
     String code = _controller.text;
     if (code.length == 4) {
       BlocProvider.of<SendCodeCubit>(context)
-       .validateReceivedCode(widget.email, code);
+          .validateReceivedCode(widget.email, code);
     }
+  }
 
+  void sendCodeV(BuildContext context) {
+    context
+        .read<SendCodeCubit>()
+        .emitSendCodeStates(input: SendCodeInput(email: widget.email));
   }
 }
-

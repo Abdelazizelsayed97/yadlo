@@ -22,6 +22,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             },
       (right) {
         emit(RegSuccessState(right.email));
+
       },
     );
   }
