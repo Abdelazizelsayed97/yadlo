@@ -1,8 +1,8 @@
 const String registerRequest = r"""
-     mutation Register($input: RegisterInput!){
+ mutation Register($input: RegisterInput!){
   register(input:$input){
     data{
-      isRegisteredViaSocial
+    unVerifiedEmail
     }
     success
     code

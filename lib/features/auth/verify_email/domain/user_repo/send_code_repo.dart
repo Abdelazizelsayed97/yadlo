@@ -5,4 +5,5 @@ import '../entities/send_code_ent.dart';
 
  abstract class SendCodeRepositories  {
   Future<Either<ApiError,void>> sendCode(SendCodeInput input);
+  Future<Either<ApiError,void>> verify(SendCodeInput input);
 }

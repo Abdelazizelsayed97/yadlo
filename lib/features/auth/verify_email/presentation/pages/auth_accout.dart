@@ -12,30 +12,33 @@ import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/cubit-auth/send_code_cubit/send_code_cubit.dart';
 import 'package:yadlo/features/auth/verify_email/presentation/widgets/otp.dart';
 import 'package:yadlo/features/auth/verify_email/domain/entities/send_code_ent.dart';
+import 'package:yadlo/features/auth/verify_email/presentation/widgets/send_code_listener.dart';
 
 class AuthPage extends StatelessWidget {
   final String email;
-  final String verificationCode;
+  final String code;
 
 
-  const AuthPage({super.key, required this.email, required this.verificationCode});
+  const AuthPage({super.key, required this.email, required this.code,});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SendCodeCubit(getIt()),
+      create: (context) =>
+      SendCodeCubit(getIt(), getIt()),
+        // ..validateReceivedCode(email, code),
+      // ..emitSendCodeStates(input: SendCodeInput(email: email)),
       child: _Otp(
-        email: email, verificationCode: verificationCode,
+          email: email
       ),
     );
   }
 }
 
 class _Otp extends StatefulWidget {
-  const _Otp({super.key, required this.email, required this.verificationCode});
+  const _Otp({super.key, required this.email});
 
   final String email;
-  final String verificationCode;
 
 
   @override
@@ -46,17 +49,16 @@ class _Otp extends StatefulWidget {
 
 class _OtpState extends State<_Otp> {
   final TextEditingController _controller = TextEditingController();
-@override
-  void initState() {
 
+  @override
+  void initState() {
     super.initState();
-  print('${widget.email}');
-  sendCodeV(context);
-  BlocProvider.of<SendCodeCubit>(context).emit(SendCodeInitial(email: widget.email));
+    sendCodeV(context);
+    // BlocProvider.of<SendCodeCubit>(context).emit(SendCodeInitial());
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(
         children: [
@@ -84,7 +86,7 @@ class _OtpState extends State<_Otp> {
                     width: 220.w,
                     child: const CustomStyle12(
                       text:
-                          'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
+                      'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
                     ),
                   ),
                   Container(
@@ -96,7 +98,7 @@ class _OtpState extends State<_Otp> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Column(children: [
                       verticalSpace(25),
-                       OTPVerify(email: widget.email,verificationCode: widget.verificationCode),
+                      OTPVerify(email: widget.email),
                       verticalSpace(15),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -104,9 +106,9 @@ class _OtpState extends State<_Otp> {
                           CustomStyle12(text: "Didn't receive a code?"),
                           InkWell(
                               child: StyleFont14(
-                            text: '  Resend',
-                            fontWeight: FontWeight.w500,
-                          ))
+                                text: '  Resend',
+                                fontWeight: FontWeight.w500,
+                              ))
                         ],
                       ),
                       verticalSpace(15),
@@ -139,17 +141,11 @@ class _OtpState extends State<_Otp> {
     );
   }
 
-  Future<void> validateReceivedCode() async {
-    String code = _controller.text;
-    if (code.length == 4) {
-      BlocProvider.of<SendCodeCubit>(context)
-          .validateReceivedCode(widget.email, code);
-    }
-  }
+
 
   void sendCodeV(BuildContext context) {
     context
         .read<SendCodeCubit>()
-        .emitSendCodeStates(input: SendCodeInput(email: widget.email));
+        .emitSendCodeStates(input: SendCodeInput(email: widget.email, ));
   }
 }

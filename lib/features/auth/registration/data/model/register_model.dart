@@ -53,17 +53,17 @@ class Register {
 }
 
 class Data {
-  final dynamic verifiedEmail;
+  final String? unVerifiedEmail;
 
   Data({
-    this.verifiedEmail,
+    this.unVerifiedEmail,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    verifiedEmail: json["verifiedEmail"],
+    unVerifiedEmail: json["unVerifiedEmail"],
   );
 
   Map<String, dynamic> toJson() => {
-    "verifiedEmail": verifiedEmail,
+    "unVerifiedEmail": unVerifiedEmail,
   };
 }

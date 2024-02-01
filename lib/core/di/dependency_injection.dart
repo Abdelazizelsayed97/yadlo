@@ -7,6 +7,7 @@ import 'package:yadlo/features/auth/registration/domain/repositories/registratio
 import 'package:yadlo/features/auth/registration/domain/use_cases/register_use_case.dart';
 import 'package:yadlo/features/auth/verify_email/data/repositories/send_code_repo_impl.dart';
 import 'package:yadlo/features/auth/verify_email/domain/use_case/send_code_usecase.dart';
+import 'package:yadlo/features/auth/verify_email/domain/use_case/verify_use_case.dart';
 import 'package:yadlo/features/auth/verify_email/domain/user_repo/send_code_repo.dart';
 import 'package:yadlo/networking/api.dart';
 
@@ -79,6 +80,7 @@ class AppDi {
     getIt.registerLazySingleton<SendCodeCubit>(
       () => SendCodeCubit(
         getIt<SendCodeUseCase>(),
+        getIt<VerifyEmailUseCase>(),
         // getIt<RegistrationInput>(),
       ),
 
@@ -86,6 +88,8 @@ class AppDi {
     );
     getIt.registerFactory<SendCodeUseCase>(
           () => SendCodeUseCase(getIt<SendCodeRepositories>()),
+    );  getIt.registerFactory<VerifyEmailUseCase>(
+          () => VerifyEmailUseCase(getIt<SendCodeRepositories>()),
     );
     getIt.registerLazySingleton<SendCodeRepositories>(
           () => SendCodeRepositoriesImpl(getIt<GraphQLClient>()),

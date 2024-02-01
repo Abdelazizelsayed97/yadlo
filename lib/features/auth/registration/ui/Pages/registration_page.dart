@@ -143,7 +143,6 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     verticalSpace(20),
                     RegisterBlocListener(
                       email: _emailController.text,
-                      verificationCode: '',
                       child: GeneralButton1(
                           colors: ig3,
                           text: 'Agree & Register',
@@ -202,7 +201,11 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
   }
 
   void register(BuildContext context) async {
-    if (context.read<RegisterCubit>().formKey.currentState?.validate() ??
+    if (context
+        .read<RegisterCubit>()
+        .formKey
+        .currentState
+        ?.validate() ??
         true) {
       context.read<RegisterCubit>().emitRegisterStates(
           input: RegistrationInput(
@@ -215,17 +218,6 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
         .currentState!
         .validate()) {
       throw Exception();
-    }
-  }
-
-
-
-  Future<void> sendVerificationEmail(SendCodeInput input) async {
-    try {
-      input.email;
-      print('Verification email sent');
-    } catch (e) {
-      print('Failed to send verification email: $e');
     }
   }
 }

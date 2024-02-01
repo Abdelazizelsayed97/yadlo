@@ -8,11 +8,10 @@ import '../../../verify_email/presentation/pages/auth_accout.dart';
 
 class RegisterBlocListener extends StatelessWidget {
   final String email;
-  final String verificationCode;
 
   const RegisterBlocListener({
     super.key,
-    required this.child, required this.email, required this.verificationCode,
+    required this.child, required this.email,
   });
 
   final Widget child;
@@ -34,10 +33,11 @@ class RegisterBlocListener extends StatelessWidget {
           );
         }
         if (state is RegSuccessState) {
+          print('emails:$email');
           Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return  AuthPage(email:email, verificationCode: verificationCode,);
+              return  AuthPage(email:state.email,code: "",);
             },
           ));
         }
