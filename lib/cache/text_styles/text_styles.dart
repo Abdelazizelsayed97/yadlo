@@ -219,6 +219,47 @@ class StyleFont10 extends StatelessWidget {
   }
 }
 
+
+
+
+TextStyle customizeTextStyle({
+  String? fontFamily,
+  FontWeight? fontWeight,
+  double? fontSize,
+  Color? color,
+  FontStyle? fontStyle,
+  TextDecoration? decoration,
+}) {
+  return TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+    color: color,
+    fontStyle: fontStyle,
+    decoration: decoration,
+  );
+}
+
+TextStyle bold24 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 24);
+TextStyle bold18 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 18);
+TextStyle bold20 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 20);
+TextStyle bold22 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 22);
+TextStyle bold16 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 16,fontFamily: 'Somar Sans');
+TextStyle bold14underLine = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 14,fontFamily: 'Somar Sans',decoration: TextDecoration.underline);
+
+
+TextStyle normal14 = customizeTextStyle(fontWeight:FontWeight.w400,fontSize: 14,fontFamily:'Somar Sans');
+TextStyle normal16 = customizeTextStyle(color:Colors.white,fontWeight:FontWeight.w400,fontSize: 16,fontFamily:'Somar Sans' );
+TextStyle normal13 = customizeTextStyle(fontWeight:FontWeight.w400,fontSize: 13);
+TextStyle normal26white = customizeTextStyle(fontWeight:FontWeight.w400,fontSize: 26,color: Colors.white);
+TextStyle normal15white = customizeTextStyle(fontWeight:FontWeight.w400,fontSize: 15,color: Colors.white);
+TextStyle normal10 = customizeTextStyle(fontWeight:FontWeight.w400,fontSize: 10,fontFamily:'Somar Sans',decoration: TextDecoration.underline );
+
+
+// Example of usage:
+// TextStyle myTextStyle = customizeTextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blue);
+
+
   // class TextStyles {
   //   TextStyles._();
   //

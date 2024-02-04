@@ -1,21 +1,20 @@
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:yadlo/features/auth/cubit-auth/register_cubit/register_cubit.dart';
-import 'package:yadlo/features/auth/cubit-auth/send_code_cubit/send_code_cubit.dart';
-import 'package:yadlo/features/auth/registration/domain/entities/registration_user_input.dart';
-import 'package:yadlo/features/auth/registration/domain/repositories/registration_repo.dart';
-import 'package:yadlo/features/auth/registration/domain/use_cases/register_use_case.dart';
-import 'package:yadlo/features/auth/verify_email/data/repositories/send_code_repo_impl.dart';
-import 'package:yadlo/features/auth/verify_email/domain/use_case/send_code_usecase.dart';
-import 'package:yadlo/features/auth/verify_email/domain/use_case/verify_use_case.dart';
-import 'package:yadlo/features/auth/verify_email/domain/user_repo/send_code_repo.dart';
+import 'package:yadlo/features/auth/domain/repositories/registration_repo.dart';
+import 'package:yadlo/features/auth/domain/use_cases/register_use_case.dart';
+import 'package:yadlo/features/auth/data/repositories/send_code_repo_impl.dart';
+import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/send_code_usecase.dart';
+import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/verify_use_case.dart';
+import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
 import 'package:yadlo/networking/api.dart';
 
-import '../../features/auth/cubit-auth/login_cubit/login_cubit.dart';
-import '../../features/auth/login/data/repository/user_repo_imp.dart';
-import '../../features/auth/login/domain/repository/login_repository.dart';
-import '../../features/auth/login/domain/usecases/login_usecase.dart';
-import '../../features/auth/registration/data/repositories/register_impl_repo.dart';
+import '../../features/auth/data/repositories/login_user_repo_imp.dart';
+import '../../features/auth/domain/repositories/login_repository.dart';
+import '../../features/auth/domain/use_cases/login_usecase.dart';
+import '../../features/auth/data/repositories/register_impl_repo.dart';
+import '../../features/auth/ui/cubit/login_cubit/login_cubit.dart';
+import '../../features/auth/ui/cubit/register_cubit/register_cubit.dart';
+import '../../features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 
 final getIt = GetIt.instance;
 
