@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/verify_use_case.dart';
 
+import '../../../domain/entities/send_code_entites.dart';
 import '../../../domain/use_cases/verify_use_cases/send_code_usecase.dart';
 
 
@@ -20,7 +22,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
   ) : super(SendCodeInitial());
 
   void emitSendCodeStates({required SendCodeInput input}) async {
-    print("EFFEEF ${input.email}");
+    print("EFFEEF ${input.useCase}");
     emit(SendCodeLoading());
     final response = await _sendCodeUseCase.sendCode(input);
     response.fold((l) {
@@ -32,7 +34,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
     });
   }
   void validateReceivedCode({
-    required SendCodeInput input,
+    required VerifyCodeInput input,
   }) async {
     emit(VerifyInitial());
     final response = await _verifyEmailUseCase.excute(input);
@@ -45,4 +47,18 @@ class SendCodeCubit extends Cubit<SendCodeState> {
 
     });
   }
+  void emitResetSendCodeStates({required SendCodeInput input}) async {
+    print("EFFEEF ${input.useCase}");
+    emit(SendCodeLoading());
+    final response = await _sendCodeUseCase.sendCode(input);
+    response.fold((l) {
+      if (l.code != 200) {
+        emit(SendCodeFailure(l.message ?? ''));
+      }
+    }, (r) {
+      emit(SendCodeSuccess());
+    });
+  }
+
 }
+

@@ -78,7 +78,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const ForgetPassword()));
+                                        const ResetPassword()));
                               },
                               child: Text(
                                 'Forgot password ?',

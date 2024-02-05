@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class SendCodeInput extends Equatable {
+class VerifyCodeInput extends Equatable {
   final String email;
   final String? verificationCode;
 
-  const SendCodeInput({
+  const VerifyCodeInput({
 
     required this.email,
     this.verificationCode,

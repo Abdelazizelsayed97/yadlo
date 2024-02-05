@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
+import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 
 import '../../cubit/send_code_cubit/send_code_cubit.dart';
@@ -76,7 +77,7 @@ class _OTPVerifyState extends State<OTPVerify> {
                   hapticFeedbackType: HapticFeedbackType.lightImpact,
                   onCompleted: (pin) {
                     context.read<SendCodeCubit>().validateReceivedCode(
-                          input: SendCodeInput(
+                          input: VerifyCodeInput(
                             email: widget.email,
                             verificationCode: _pinController.text,
                           ),

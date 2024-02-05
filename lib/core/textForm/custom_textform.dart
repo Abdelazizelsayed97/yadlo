@@ -4,32 +4,37 @@ import 'package:flutter/services.dart';
 class TextForm extends StatelessWidget {
   const TextForm(
       {super.key,
-      required this.textHint,
-      required this.icon,
+       this.textHint,
+       this.icon,
       this.opsCureText,
       this.suffixIcon,
       required this.controller,
-      required this.validator});
+      required this.validator, this.label, this.onChanged});
 
   final TextEditingController controller;
-
+final String? label;
   final String? textHint;
   final Widget? icon;
   final bool? opsCureText;
   final Widget? suffixIcon;
   final Function(String?) validator;
+  final  void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) => TextFormField(
+    onChanged: onChanged,
+
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
 autofocus: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return validator(value);
         },
+
         controller: controller,
         obscureText: opsCureText ?? false,
         decoration: InputDecoration(
+          label: Text(label?? ''),
             suffixIcon: suffixIcon,
             fillColor: Colors.white,
             filled: true,

@@ -244,7 +244,7 @@ TextStyle bold24 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 24);
 TextStyle bold18 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 18);
 TextStyle bold20 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 20);
 TextStyle bold22 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 22);
-TextStyle bold16 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 16,fontFamily: 'Somar Sans');
+TextStyle bold16 = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 16,fontFamily: 'Somar Sans',color: Colors.white);
 TextStyle bold14underLine = customizeTextStyle(fontWeight:FontWeight.w700,fontSize: 14,fontFamily: 'Somar Sans',decoration: TextDecoration.underline);
 
 

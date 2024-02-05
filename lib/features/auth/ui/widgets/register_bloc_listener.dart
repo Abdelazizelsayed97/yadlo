@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
+import 'package:yadlo/features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 
 import '../../../../cache/colors/colors.dart';
 import '../pages/auth_accout.dart';
@@ -34,6 +36,7 @@ class RegisterBlocListener extends StatelessWidget {
         }
         if (state is RegSuccessState) {
           print('emails:$email');
+          sendCodeV(context);
           Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
@@ -50,4 +53,11 @@ class RegisterBlocListener extends StatelessWidget {
       },
       child: child,
     );
-  }}
+  }void sendCodeV(BuildContext context)  {
+    print('aaaaaaa');
+    context
+        .read<SendCodeCubit>()
+        .emitSendCodeStates(input: SendCodeInput(email: email, useCase: SendCodeUseCases.EMAIL_VERIFICATION));
+  }
+
+}

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../data/models/login_model/api_login_input.dart';
+part of 'api_login_input.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

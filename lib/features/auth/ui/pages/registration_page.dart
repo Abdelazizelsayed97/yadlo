@@ -6,6 +6,8 @@ import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/registration_user_input.dart';
+import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
+import 'package:yadlo/features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 import 'package:yadlo/features/auth/ui/pages/login_pages/login_page.dart';
 import 'package:yadlo/features/auth/ui/widgets/register_bloc_listener.dart';
 
@@ -23,8 +25,17 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => getIt<RegisterCubit>(), child: _RegistrationPageBody());
+    return MultiBlocProvider(
+  providers: [
+    BlocProvider(
+        create: (context) => getIt<RegisterCubit>(),
+      ),
+    BlocProvider(
+      create: (context) => SendCodeCubit(getIt(), getIt()),
+    ),
+  ],
+  child: _RegistrationPageBody(),
+);
   }
 }
 
@@ -50,6 +61,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
 
   @override
   Widget build(BuildContext context) {
+    print(' in build${_emailController.text}');
     return Scaffold(
       body: Stack(
         children: [
@@ -85,6 +97,11 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     ),
                     verticalSpace(40),
                     TextForm(
+                      onChanged: (text){
+                        setState(() {
+
+                        });
+                      },
                       controller: _userNameController,
                       textHint: 'User name*',
                       icon: const Icon(Icons.mail_outline),
@@ -96,20 +113,30 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     ),
                     verticalSpace(15.h),
                     TextForm(
-                      textHint: 'JohnDeo@gmail.com',
-                      icon: const Icon(Icons.mail_outline),
-                      controller: _emailController,
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            !AppRegex.isEmailValid(value)) {
-                          return "Enter a valid Email";
-                        }
-                        return null;
-                      },
-                    ),
+                        onChanged: (text){
+                          setState(() {
+
+                          });
+                        },
+                        textHint: 'JohnDeo@gmail.com',
+                        icon: const Icon(Icons.mail_outline),
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !AppRegex.isEmailValid(value)) {
+                            return "Enter a valid Email";
+                          } else {
+                            return null;
+                          }
+                        }),
                     verticalSpace(15.h),
                     TextForm(
+                      onChanged: (text){
+                        setState(() {
+
+                        });
+                      },
                       opsCureText: opsCureText,
                       textHint: 'Password* ',
                       icon: const Icon(Icons.lock_outline),
@@ -199,11 +226,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
   }
 
   void register(BuildContext context) async {
-    if (context
-        .read<RegisterCubit>()
-        .formKey
-        .currentState
-        ?.validate() ??
+    if (context.read<RegisterCubit>().formKey.currentState?.validate() ??
         true) {
       context.read<RegisterCubit>().emitRegisterStates(
           input: RegistrationInput(
@@ -218,4 +241,6 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
       throw Exception();
     }
   }
+
+
 }

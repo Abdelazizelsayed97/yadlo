@@ -71,12 +71,12 @@ class AppDi {
           () => RegisterUseCase(getIt<UserRegisterRepository>()),
     );
 
-    getIt.registerLazySingleton<RegisterCubit>(
+    getIt.registerFactory<RegisterCubit>(
       () => RegisterCubit(
         getIt<RegisterUseCase>(),
       ),
     );
-    getIt.registerLazySingleton<SendCodeCubit>(
+    getIt.registerFactory<SendCodeCubit>(
       () => SendCodeCubit(
         getIt<SendCodeUseCase>(),
         getIt<VerifyEmailUseCase>(),

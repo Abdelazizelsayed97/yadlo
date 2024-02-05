@@ -5,6 +5,7 @@ import 'package:yadlo/core/errors/login/Failure.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
 
+import '../../domain/entities/send_code_entites.dart';
 import '../graph_ql/send_code_mutation.dart';
 import '../graph_ql/verify_email_mutation.dart';
 import '../models/verify_models/api_send_code_input.dart';
@@ -23,7 +24,7 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
 
   @override
   Future<Either<ApiError, void>> sendCode(SendCodeInput input) async {
-    print('vfghdjgsjkhdlgkjngbhsjnvk,');
+    // print('vfghdjgsjkhdlgkjngbhsjnvk,${input.useCase}');
     final sendCodeResponse = await _grahqlClient.mutate(
       MutationOptions(
         document: gql(sendCodeRequest),
@@ -31,32 +32,32 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
         cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         fetchPolicy: FetchPolicy.networkOnly,
         variables: {
-          "input": ApiSendCodeInput(
-                  email: input.email, useCase: "EMAIL_VERIFICATION")
-              .toJson()
+          "input": ApiSendCodeInput.fromInput(input).toJson()
         },
       ),
     );
     if (sendCodeResponse.hasException && sendCodeResponse.data == null) {
       throw ApiServerError();
     } else {
-      print('8888888888888888888');
+      // print('8888888888888888888');
+      print('${input.useCase}');
       final response =
           SendCode.fromJson(sendCodeResponse.data!).sendEmailVerificationCode;
+      print('the response =>>>>>>> $response');
       final data = response!.data;
       if (response.code == 200) {
         print('success');
         return const Right(null);
       } else {
         print('${response.code}');
-        print('failure');
+        print('${response.message}');
         return Left(ApiError(message: response.message));
       }
     }
   }
 
   @override
-  Future<Either<ApiError, void>> verify(SendCodeInput input) async {
+  Future<Either<ApiError, void>> verify(VerifyCodeInput input) async {
     print('input??????? $input');
     final verifyEmailResponse = await _grahqlClient.mutate(
       MutationOptions(

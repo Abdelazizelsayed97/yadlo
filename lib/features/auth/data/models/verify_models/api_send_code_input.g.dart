@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../../data/models/verify_models/api_send_code_input.dart';
+part of 'api_send_code_input.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,12 +8,19 @@ part of '../../../data/models/verify_models/api_send_code_input.dart';
 
 ApiSendCodeInput _$ApiSendCodeInputFromJson(Map<String, dynamic> json) =>
     ApiSendCodeInput(
-      useCase: json['useCase'] as String,
+      useCase:
+          $enumDecodeNullable(_$ApiSendCodeUseCaseEnumMap, json['useCase']),
       email: json['email'] as String,
     );
 
 Map<String, dynamic> _$ApiSendCodeInputToJson(ApiSendCodeInput instance) =>
     <String, dynamic>{
+      'useCase': _$ApiSendCodeUseCaseEnumMap[instance.useCase],
       'email': instance.email,
-      'useCase': instance.useCase,
     };
+
+const _$ApiSendCodeUseCaseEnumMap = {
+  ApiSendCodeUseCase.PASSWORD_RESET: 'PASSWORD_RESET',
+  ApiSendCodeUseCase.PHONE_VERIFICATION: 'PHONE_VERIFICATION',
+  ApiSendCodeUseCase.EMAIL_VERIFICATION: 'EMAIL_VERIFICATION',
+};

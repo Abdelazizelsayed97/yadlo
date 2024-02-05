@@ -9,7 +9,7 @@ class VerifyEmailUseCase {
   final SendCodeRepositories _sendCodeRepositories;
 
   VerifyEmailUseCase(this._sendCodeRepositories);
-  Future<Either<ApiError,void>> excute(SendCodeInput input)async{
+  Future<Either<ApiError,void>> excute(VerifyCodeInput input)async{
     return await _sendCodeRepositories.verify(input);
 
   }
