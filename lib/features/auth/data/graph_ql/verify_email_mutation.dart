@@ -11,4 +11,16 @@ mutation verifyUserByEmail($input: VerifyUserByEmailInput!){
 } 
 """;
 
+const String resetPasswordVerificationRequest = r"""
+query doesUserWithVerificationCodeExist($input:IsUserWithVerificationCodeExistInput!){
+  doesUserWithVerificationCodeExist(input:$input){
+    data
+    message
+    success
+    code
+  
+  }
+}
 
+
+""";

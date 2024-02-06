@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yadlo/features/auth/domain/repositories/registration_repo.dart';
 import 'package:yadlo/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:yadlo/features/auth/data/repositories/send_code_repo_impl.dart';
+import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/reset_password_usecase.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/send_code_usecase.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/verify_use_case.dart';
 import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
@@ -80,15 +81,18 @@ class AppDi {
       () => SendCodeCubit(
         getIt<SendCodeUseCase>(),
         getIt<VerifyEmailUseCase>(),
+        getIt<ResetPasswordUseCase>(),
         // getIt<RegistrationInput>(),
       ),
-
       // getIt< SendCodeRepositoriesImpl >()
     );
+
     getIt.registerFactory<SendCodeUseCase>(
           () => SendCodeUseCase(getIt<SendCodeRepositories>()),
     );  getIt.registerFactory<VerifyEmailUseCase>(
           () => VerifyEmailUseCase(getIt<SendCodeRepositories>()),
+    );getIt.registerFactory<ResetPasswordUseCase>(
+          () => ResetPasswordUseCase(getIt<SendCodeRepositories>()),
     );
     getIt.registerLazySingleton<SendCodeRepositories>(
           () => SendCodeRepositoriesImpl(getIt<GraphQLClient>()),

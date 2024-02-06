@@ -2,12 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yadlo/core/di/graphql_config.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
+import 'package:yadlo/features/auth/domain/entities/reset_password.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
 
 import '../../domain/entities/send_code_entites.dart';
 import '../graph_ql/send_code_mutation.dart';
 import '../graph_ql/verify_email_mutation.dart';
+import '../models/verify_models/api_reset_password_input.dart';
+import '../models/verify_models/api_reset_password_model.dart';
 import '../models/verify_models/api_send_code_input.dart';
 import '../models/verify_models/api_verify_email_input.dart';
 import '../models/verify_models/send_code_model.dart';
@@ -31,9 +34,7 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
         errorPolicy: ErrorPolicy.all,
         cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         fetchPolicy: FetchPolicy.networkOnly,
-        variables: {
-          "input": ApiSendCodeInput.fromInput(input).toJson()
-        },
+        variables: {"input": ApiSendCodeInput.fromInput(input).toJson()},
       ),
     );
     if (sendCodeResponse.hasException && sendCodeResponse.data == null) {
@@ -69,6 +70,7 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
           "input": ApiVerifyEmailInput(
             email: input.email,
             verificationCode: input.verificationCode ?? '',
+
           ).toJson()
         },
       ),
@@ -87,6 +89,40 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
         print('${response.code}');
         print('failureeeeeeeeeeeeeeeeeeeee');
         return Left(ApiError(message: response.message));
+      }
+    }
+  }
+
+  @override
+  Future<Either<ApiError, void>> resetPassword(ResetPasswordInput input) async {
+    final resetPasswordResponse = await _grahqlClient.query(
+      QueryOptions(
+          document: gql(resetPasswordVerificationRequest),
+          errorPolicy: ErrorPolicy.all,
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
+          fetchPolicy: FetchPolicy.networkOnly,
+          variables: {
+            "input": ApiResetPasswordVerificationOtpInput(
+                    useCase: ApiSendCodeUseCase.PASSWORD_RESET,
+                    code: input.verificationCode,
+                    email: input.email)
+                .toJson()
+          }),
+    );
+    if (resetPasswordResponse.hasException &&
+        resetPasswordResponse.data == null) {
+      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${resetPasswordResponse.data}');
+      throw ApiServerError();
+    } else {
+      final response = ResetPasswordVerify.fromJson(resetPasswordResponse.data!).doesUserWithVerificationCodeExist;
+      print('$response');
+      if (response?.data == true) {
+        print('datadatadatadatadatadatadatadata');
+        return const Right(null);
+      } else {
+        print('${response?.code}');
+        print('qweasdzxc');
+        return Left(ApiError(message: response?.message));
       }
     }
   }

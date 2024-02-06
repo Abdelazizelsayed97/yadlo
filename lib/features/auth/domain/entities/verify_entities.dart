@@ -5,7 +5,6 @@ class VerifyCodeInput extends Equatable {
   final String? verificationCode;
 
   const VerifyCodeInput({
-
     required this.email,
     this.verificationCode,
   });

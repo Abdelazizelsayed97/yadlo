@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yadlo/features/posts/presentation/pages/time_line.dart';
@@ -12,18 +11,14 @@ class SendCodeListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<SendCodeCubit, SendCodeState>(
       listener: (context, state) async {
         if (state is SendCodeInitial) {}
-        if (state is SendCodeSuccess) {
-
+        if (state is SendCodeSuccess) {}
+        if (state is VerifySuccess) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const TimeLinePage()));
         }
-        if(state is VerifySuccess){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const TimeLinePage()));
-
-        }
-
 
         if (state is SendCodeFailure) {
           ScaffoldMessenger.of(context).showSnackBar(

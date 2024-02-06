@@ -9,30 +9,34 @@ import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
-import 'package:yadlo/features/auth/ui/cubit/register_cubit/register_state.dart';
 
 import '../../domain/entities/send_code_entites.dart';
 import '../cubit/send_code_cubit/send_code_cubit.dart';
 import '../widgets/verify_widgets/otp.dart';
 import '../widgets/verify_widgets/send_code_listener.dart';
 
+enum PageUseCases { RegistrationPage, ResetPassword }
+
 class AuthPage extends StatelessWidget {
   final String email;
   final String code;
+  final PageUseCases useCase;
 
   const AuthPage({
     super.key,
     required this.email,
     required this.code,
+    required this.useCase,
   });
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
-      create: (context) => SendCodeCubit(getIt(), getIt()),
+      create: (context) => SendCodeCubit(getIt(), getIt(), getIt(), ),
       // ..validateReceivedCode(email, code),
       // ..emitSendCodeStates(input: SendCodeInput(email: email)),
-      child: _Otp(email: email),
+      child: _Otp(email: email, useCase: useCase,),
     );
   }
 
@@ -40,14 +44,20 @@ class AuthPage extends StatelessWidget {
     print('aaaaaaa');
     context.read<SendCodeCubit>().emitSendCodeStates(
         input: SendCodeInput(
-            email: email, useCase: SendCodeUseCases.EMAIL_VERIFICATION));
+            email: email,
+            useCase: useCase == PageUseCases.RegistrationPage
+                ? SendCodeUseCases.EMAIL_VERIFICATION
+                : SendCodeUseCases.PASSWORD_RESET));
   }
 }
 
 class _Otp extends StatefulWidget {
-  const _Otp({required this.email});
+  const _Otp({ required this.email, required this.useCase});
 
   final String email;
+  final PageUseCases useCase;
+
+
 
   @override
   State<_Otp> createState() => _OtpState();
@@ -56,10 +66,13 @@ class _Otp extends StatefulWidget {
 class _OtpState extends State<_Otp> {
   final TextEditingController _controller = TextEditingController();
 
+  _OtpState( );
+
   @override
   void initState() {
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +103,7 @@ class _OtpState extends State<_Otp> {
                     width: 220.w,
                     child: const CustomStyle12(
                       text:
-                      'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
+                          'Please enter the 4-digit OTP code send to your Email osa******@gmail.com',
                     ),
                   ),
                   Container(
@@ -102,14 +115,13 @@ class _OtpState extends State<_Otp> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Column(children: [
                       verticalSpace(25),
-                      OTPVerify(email: widget.email),
+                      OTPVerify(email: widget.email, useCase: widget.useCase,),
                       verticalSpace(15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const CustomStyle12(text: "Didn't receive a code?"),
                           BlocListener<SendCodeCubit, SendCodeState>(
-
                             listener: (context, state) {
                               // if (state is SendCodeInitial) {
                               //   sendCodeV(context);
@@ -121,52 +133,9 @@ class _OtpState extends State<_Otp> {
                             },
                             child: InkWell(
                                 onTap: () {
-                                  final result = SendCodeInput(email: widget.email,).useCase;
+                                  sendCodeV(context);
 
-                                  print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${result?.useCase} ' );
-
-                                  if (useCase == SendCodeUseCases.EMAIL_VERIFICATION) {
-                                    sendCodeV(context);
-                                  } else if (useCase == SendCodeUseCases.PASSWORD_RESET) {
-                                    sendCodeVV(context);
-                                  }
-
-
-                                  // print('email  ${widget.email}');
-                                  // final result =
-                                  //     SendCodeInput(email: widget.email)
-                                  //         .useCase ==
-                                  //         SendCodeUseCases.EMAIL_VERIFICATION;
-                                  // final respone =
-                                  //     SendCodeInput(email: widget.email)
-                                  //             .useCase ==
-                                  //         SendCodeUseCases.PASSWORD_RESET;
-                                  //
-                                  // print('inkwell   $result');
-                                  // print('$respone');
-                                  // if (result == false) {
-                                  //   print(
-                                  //       '@@@@@    ${SendCodeInput(email: widget.email).useCase == SendCodeUseCases.EMAIL_VERIFICATION}');
-                                  //    sendCodeV(context);
-                                  // } else if (respone == true) {
-                                  //
-                                  //   sendCodeVV(context);
-                                  // }
-                                  // switch (result) {
-                                  // // case SendCodeUseCases.EMAIL_VERIFICATION:
-                                  // // // do something
-                                  // //   return sendCodeV(context);
-                                  // // case SendCodeUseCases.PASSWORD_RESET:
-                                  // // // do something else
-                                  // //   return sendCodeVV(context);
-                                  //   case true:
-                                  //   // TODO: Handle this case.
-                                  //     return sendCodeVV(context);
-                                  //   case false:
-                                  //   // TODO: Handle this case.
-                                  //     return sendCodeV(context);
-                                  // }
-
+                                  
                                 },
                                 child: const StyleFont14(
                                   text: '  Resend',
@@ -211,12 +180,15 @@ class _OtpState extends State<_Otp> {
     print('aaaaaaa');
     context.read<SendCodeCubit>().emitSendCodeStates(
         input: SendCodeInput(
-            email: widget.email, useCase: SendCodeUseCases.EMAIL_VERIFICATION));
+            email: widget.email,
+            useCase: widget.useCase == PageUseCases.RegistrationPage
+                ? SendCodeUseCases.EMAIL_VERIFICATION
+                : SendCodeUseCases.PASSWORD_RESET));
   }
 
-  void sendCodeVV(BuildContext context) {
-    context.read<SendCodeCubit>().emitResetSendCodeStates(
-        input: SendCodeInput(
-            email: widget.email, useCase: SendCodeUseCases.PASSWORD_RESET));
-  }
+  // void sendCodeVV(BuildContext context) {
+  //   context.read<SendCodeCubit>().emitResetSendCodeStates(
+  //       input: SendCodeInput(
+  //           email: widget.email, useCase: SendCodeUseCases.PASSWORD_RESET));
+  // }
 }

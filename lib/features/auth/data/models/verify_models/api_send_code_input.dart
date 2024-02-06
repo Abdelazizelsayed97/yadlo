@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/send_code_usecase.dart';
 
 import '../../../domain/entities/send_code_entites.dart';
 
@@ -38,7 +37,7 @@ enum ApiSendCodeUseCase {
 
 
 ApiSendCodeUseCase mapTiApiEnum(SendCodeUseCases useCases) {
-  print('useCase is =>${useCases}');
+  print('useCase is =>$useCases');
   switch (useCases) {
     case SendCodeUseCases.PASSWORD_RESET:
       return ApiSendCodeUseCase.PASSWORD_RESET;

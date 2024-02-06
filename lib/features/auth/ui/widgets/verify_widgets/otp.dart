@@ -1,20 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
+import 'package:yadlo/cache/colors/colors.dart';
+import 'package:yadlo/core/di/dependency_injection.dart';
+import 'package:yadlo/features/auth/domain/entities/reset_password.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
+import 'package:yadlo/features/auth/ui/pages/auth_accout.dart';
+import 'package:yadlo/features/auth/ui/pages/login_pages/pass_recovery.dart';
 
+import '../../../domain/entities/send_code_entites.dart';
 import '../../cubit/send_code_cubit/send_code_cubit.dart';
 
-class OTPVerify extends StatefulWidget {
-  const OTPVerify({Key? key, required this.email}) : super(key: key);
+class OTPVerify extends StatelessWidget {
   final String email;
+  final PageUseCases useCase;
+
+  const OTPVerify({required this.email, required this.useCase});
 
   @override
-  State<OTPVerify> createState() => _OTPVerifyState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => SendCodeCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+      ),
+      child: OTPVerifyBody(
+        email: email,
+        useCase: useCase,
+      ),
+    );
+  }
 }
 
-class _OTPVerifyState extends State<OTPVerify> {
+class OTPVerifyBody extends StatefulWidget {
+  const OTPVerifyBody({Key? key, required this.email, required this.useCase})
+      : super(key: key);
+  final String email;
+  final PageUseCases useCase;
+
+  @override
+  State<OTPVerifyBody> createState() => _OTPVerifyBodyState();
+}
+
+class _OTPVerifyBodyState extends State<OTPVerifyBody> {
   final _pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
@@ -45,82 +74,90 @@ class _OTPVerifyState extends State<OTPVerify> {
       ),
     );
 
-    /// Optionally you can use form to validate the Pinput
-    return Form(
-      key: formKey,
-      child:
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Directionality(
-                // Specify direction if desired
-                textDirection: TextDirection.ltr,
-                child: Pinput(
-                  keyboardType: TextInputType.number,
-                  controller: _pinController,
-                  focusNode: focusNode,
-                  androidSmsAutofillMethod:
-                      AndroidSmsAutofillMethod.smsUserConsentApi,
-                  listenForMultipleSmsOnAndroid: true,
-                  defaultPinTheme: defaultPinTheme,
-                  separatorBuilder: (index) => const SizedBox(width: 8),
-                  validator: (value) {
-                    // return value == pinController ? null : '';
-                    final value = _pinController.text;
-                    return null;
-                  },
-                  onClipboardFound: (value) {
-                    debugPrint('onClipboardFound: $value');
-                    _pinController.setText(value);
-                  },
-                  hapticFeedbackType: HapticFeedbackType.lightImpact,
-                  onCompleted: (pin) {
-                    context.read<SendCodeCubit>().validateReceivedCode(
-                          input: VerifyCodeInput(
-                            email: widget.email,
-                            verificationCode: _pinController.text,
-                          ),
-                        );
-
-
-                  },
-                  onChanged: (value) {
-
-                  },
-                  cursor: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 9),
-                        width: 22,
-                        height: 1,
-                        color: focusedBorderColor,
-                      ),
-                    ],
-                  ),
-                  focusedPinTheme: defaultPinTheme.copyWith(
-                    decoration: defaultPinTheme.decoration!.copyWith(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: focusedBorderColor),
+    return BlocListener<SendCodeCubit, SendCodeState>(
+      listener: (context, state) {
+        if (state is ResetInitial) {}
+        if (state is ResetLoading) {
+          AlertDialog(
+            content: CircularProgressIndicator(
+              color: ColorsManger.primary,
+            ),
+          );
+          if (state is ResetSuccess) {
+            print('RestListener');
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => SetNewPass()));
+          }
+        }
+      },
+      child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Pinput(
+                keyboardType: TextInputType.number,
+                controller: _pinController,
+                focusNode: focusNode,
+                androidSmsAutofillMethod:
+                    AndroidSmsAutofillMethod.smsUserConsentApi,
+                listenForMultipleSmsOnAndroid: true,
+                defaultPinTheme: defaultPinTheme,
+                separatorBuilder: (index) => const SizedBox(width: 8),
+                validator: (value) {
+                  final value = _pinController.text;
+                  return null;
+                },
+                onClipboardFound: (value) {
+                  debugPrint('onClipboardFound: $value');
+                  _pinController.setText(value);
+                },
+                hapticFeedbackType: HapticFeedbackType.lightImpact,
+                onCompleted: (pin) {
+                  print('${widget.useCase}');
+                  final useCase = widget.useCase;
+                  if (useCase == PageUseCases.RegistrationPage) {
+                    validateReceivedCode(pin);
+                  } else if (useCase == PageUseCases.ResetPassword) {
+                    validateResetPassword(pin);
+                  }
+                },
+                onChanged: (value) {},
+                cursor: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 9),
+                      width: 22,
+                      height: 1,
+                      color: focusedBorderColor,
                     ),
-                  ),
-                  submittedPinTheme: defaultPinTheme.copyWith(
-                    decoration: defaultPinTheme.decoration!.copyWith(
-                      color: fillColor,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: focusedBorderColor),
-                    ),
-                  ),
-                  errorPinTheme: defaultPinTheme.copyBorderWith(
-                    border: Border.all(color: Colors.redAccent),
+                  ],
+                ),
+                focusedPinTheme: defaultPinTheme.copyWith(
+                  decoration: defaultPinTheme.decoration!.copyWith(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: focusedBorderColor),
                   ),
                 ),
+                submittedPinTheme: defaultPinTheme.copyWith(
+                  decoration: defaultPinTheme.decoration!.copyWith(
+                    color: fillColor,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: focusedBorderColor),
+                  ),
+                ),
+                errorPinTheme: defaultPinTheme.copyBorderWith(
+                  border: Border.all(color: Colors.redAccent),
+                ),
               ),
-            ],
-          ),
-
-
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -144,5 +181,23 @@ class _OTPVerifyState extends State<OTPVerify> {
     //     throw ApiServerError();
     //   }
     // }
+    context.read<SendCodeCubit>().validateReceivedCode(
+          input: VerifyCodeInput(
+            email: widget.email,
+            verificationCode: _pinController.text,
+            // useCase: SendCodeUseCases.EMAIL_VERIFICATION,
+            // useCase: widget.useCase,
+          ),
+        );
+  }
+
+  Future<void> validateResetPassword(String pin) async {
+    context.read<SendCodeCubit>().validateResetPassword(
+          input: ResetPasswordInput(
+            useCase: SendCodeUseCases.PASSWORD_RESET,
+            email: widget.email,
+            verificationCode: _pinController.text,
+          ),
+        );
   }
 }

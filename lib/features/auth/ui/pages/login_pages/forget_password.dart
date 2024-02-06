@@ -22,7 +22,7 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SendCodeCubit>(
-      create: (context) => SendCodeCubit(getIt(), getIt()),
+      create: (context) => SendCodeCubit(getIt(), getIt(),getIt()),
       child: const ForgetPassword(),
     );
   }
@@ -39,6 +39,7 @@ class _ForgetPassword extends State<ForgetPassword> {
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +53,7 @@ class _ForgetPassword extends State<ForgetPassword> {
         if (state is SendCodeSuccess) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) =>
-                  AuthPage(email: _controller.text, code: '')));
+                  AuthPage(email: _controller.text, code: '',useCase: PageUseCases.ResetPassword,)));
         }
       },
       child: Scaffold(

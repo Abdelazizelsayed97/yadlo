@@ -6,7 +6,6 @@ import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/registration_user_input.dart';
-import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
 import 'package:yadlo/features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 import 'package:yadlo/features/auth/ui/pages/login_pages/login_page.dart';
 import 'package:yadlo/features/auth/ui/widgets/register_bloc_listener.dart';
@@ -31,7 +30,7 @@ class RegistrationPage extends StatelessWidget {
         create: (context) => getIt<RegisterCubit>(),
       ),
     BlocProvider(
-      create: (context) => SendCodeCubit(getIt(), getIt()),
+      create: (context) => SendCodeCubit(getIt(), getIt(), getIt()),
     ),
   ],
   child: _RegistrationPageBody(),

@@ -40,7 +40,7 @@ class RegisterBlocListener extends StatelessWidget {
           Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return  AuthPage(email:state.email,code: "",);
+              return  AuthPage(email:state.email,code: "",useCase: PageUseCases.RegistrationPage,);
             },
           ));
         }
