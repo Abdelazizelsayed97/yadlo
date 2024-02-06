@@ -64,7 +64,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
   }
 
   void validateResetPassword({required ResetPasswordInput input}) async {
-    emit(ResetInitial());
+    emit(ResetLoading());
     final response = await _resetPasswordUseCase.resetPassword(input);
     response.fold((l) {
       if (l.code != 200) {

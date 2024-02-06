@@ -50,11 +50,32 @@ class _ForgetPassword extends State<ForgetPassword> {
   Widget build(BuildContext context) {
     return BlocListener<SendCodeCubit, SendCodeState>(
       listener: (context, state) {
+        if(state is SendCodeLoading){
+          showDialog(
+            context: context,
+            builder: (context) => Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation<Color>(ColorsManger.primary),
+                color: ColorsManger.primary,
+              ),
+            ),
+          );
+        }
         if (state is SendCodeSuccess) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) =>
                   AuthPage(email: _controller.text, code: '',useCase: PageUseCases.ResetPassword,)));
         }
+        if(state is SendCodeFailure) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+
       },
       child: Scaffold(
         body: Stack(

@@ -15,6 +15,7 @@ class OTPVerify extends StatelessWidget {
   final String email;
   final PageUseCases useCase;
 
+
   const OTPVerify({required this.email, required this.useCase});
 
   @override
@@ -78,17 +79,22 @@ class _OTPVerifyBodyState extends State<OTPVerifyBody> {
       listener: (context, state) {
         if (state is ResetInitial) {}
         if (state is ResetLoading) {
-          AlertDialog(
-            content: CircularProgressIndicator(
-              color: ColorsManger.primary,
+          showDialog(
+            context: context,
+            builder: (context) => Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation<Color>(ColorsManger.primary),
+                color: ColorsManger.primary,
+              ),
             ),
           );
-          if (state is ResetSuccess) {
-            print('RestListener');
-            Navigator.of(context).pop();
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => SetNewPass()));
-          }
+        }
+        if (state is ResetSuccess) {
+          print('RestListener');
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) =>  SetNewPass(code:_pinController.text ,email:widget.email ,)));
         }
       },
       child: Form(

@@ -6,7 +6,7 @@ import 'package:yadlo/core/errors/login/Failure.dart';
 import '../../domain/entities/login_entites/login_input.dart';
 import '../../domain/entities/login_entites/user_data.dart';
 import '../../domain/repositories/login_repository.dart';
-import '../graph_ql/graph_ql_login_request.dart';
+import '../graph_ql/auth_graphql_requests.dart';
 import '../models/login_model/api_login_input.dart';
 import '../models/login_model/login_model.dart';
 
@@ -20,7 +20,7 @@ class UserRepositoryImpl implements UserLoginRepository {
   }
 
   @override
-  Future<Either<Exception, UserData>> login(LoginInput input) async {
+  Future<Either<ApiError, UserData>> login(LoginInput input) async {
     final requestResponse = await _graphQLClient.mutate(
       MutationOptions(
         document: gql(loginRequest),

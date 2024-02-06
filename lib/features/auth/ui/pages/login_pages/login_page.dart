@@ -5,6 +5,7 @@ import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
+import 'package:yadlo/core/errors/login/Failure.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/login_entites/login_input.dart';
 import 'package:yadlo/features/auth/ui/pages/registration_page.dart';
@@ -51,7 +52,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
             SafeArea(
               left: false,
               child: Padding(
-                padding:  EdgeInsets.all(25.0.h),
+                padding: EdgeInsets.all(25.0.h),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -126,7 +127,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an account",style: normal14),
+                          Text("Don't have an account", style: normal14),
                           horizontalSpace(10),
                           InkWell(
                               onTap: () {
@@ -134,7 +135,10 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                                     builder: (context) =>
                                         const RegistrationPage()));
                               },
-                              child: Text('Create account',style: bold14underLine,)),
+                              child: Text(
+                                'Create account',
+                                style: bold14underLine,
+                              )),
                         ],
                       ),
                     ],
@@ -155,9 +159,6 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
             email: _email.text,
             password: _password.text,
           ));
-    } else if (!context.read<LoginCubit>().formKey.currentState!.validate()) {
-      throw Exception();
     }
-    // Navigator.pop(context);
   }
 }

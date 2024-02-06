@@ -7,8 +7,7 @@ import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
 
 import '../../domain/entities/send_code_entites.dart';
-import '../graph_ql/send_code_mutation.dart';
-import '../graph_ql/verify_email_mutation.dart';
+import '../graph_ql/auth_graphql_requests.dart';
 import '../models/verify_models/api_reset_password_input.dart';
 import '../models/verify_models/api_reset_password_model.dart';
 import '../models/verify_models/api_send_code_input.dart';
@@ -126,4 +125,7 @@ class SendCodeRepositoriesImpl implements SendCodeRepositories {
       }
     }
   }
+
+
+
 }

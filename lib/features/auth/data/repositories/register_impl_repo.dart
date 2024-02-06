@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yadlo/core/di/graphql_config.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
-import 'package:yadlo/features/auth/data/graph_ql/register_graph_request.dart';
+import 'package:yadlo/features/auth/data/graph_ql/auth_graphql_requests.dart';
 import 'package:yadlo/features/auth/data/models/register_models/api_registar_input.dart';
 import 'package:yadlo/features/auth/domain/entities/registration_user_input.dart';
 import 'package:yadlo/features/auth/domain/repositories/registration_repo.dart';

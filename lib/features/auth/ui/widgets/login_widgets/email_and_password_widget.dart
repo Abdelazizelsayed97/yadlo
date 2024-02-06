@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/core/helper/app_regex.dart';
 
 import '../../../../../core/helper/spacing.dart';
@@ -58,7 +59,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                   },
                   child: Icon(opsCureText
                       ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined)),
+                      : Icons.visibility_outlined,color: ColorsManger.lowGrey,)),
               controller: widget.password,
               validator: (value) {
                 if (value == null || value.isEmpty) {
