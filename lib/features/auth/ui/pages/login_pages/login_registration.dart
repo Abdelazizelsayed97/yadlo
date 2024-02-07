@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:yadlo/cache/colors/colors.dart';
+import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/buttons/skip_button.dart';
@@ -76,15 +77,9 @@ class _LoginAndRegistrationState extends State<LoginAndRegistration> {
             SizedBox(
               height: 100.h,
             ),
-            const SkipButton(
+             SkipButton(
               text: 'Skip now',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'Somar Sans',
-                fontWeight: FontWeight.w500,
-                height: 0,
-              ),
+              style: Styles.semiBlod(fontSize: 16)
             )
           ],
         )
