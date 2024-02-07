@@ -57,11 +57,10 @@ class CommonView extends StatelessWidget {
                 width: 17.w,
               ),
               horizontalSpace(5),
-              const CustomStyle12(
-                text: 'Select Place Location ',
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Somar Sans',
-              ),
+              Text(
+                'Select Place Location ',
+                style: Styles.meduim(),
+              )
             ],
           ),
         ),
@@ -148,7 +147,6 @@ class _OptionalReviewState extends State<OptionalReview> {
         text,
         style: textStyle,
       ),
-
       Container(
           height: 120.h,
           width: 330.w,
@@ -158,11 +156,10 @@ class _OptionalReviewState extends State<OptionalReview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               verticalSpace(10),
-               StyleFont14(
-                family: 'Somar Sans',
-                text: text2  ?? 'Over All Rate',
-                fontWeight: FontWeight.w700,
-              ),
+              Text(
+                text2,
+                style: Styles.bold(),
+              )
             ],
           ))
     ]);

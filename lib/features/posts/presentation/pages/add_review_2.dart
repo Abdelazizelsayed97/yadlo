@@ -39,9 +39,12 @@ class _AddReview2State extends State<AddReview2> {
                   SizedBox(
                     height: 50.h,
                   ),
-                  const Row(
+                   Row(
                     children: [
-                      CustomStyle12(text: 'Category'),
+                      Text(
+                        'Category',
+                        style: Styles.light(fontSize: 12),
+                      )
                     ],
                   ),
                   SizedBox(
@@ -55,9 +58,12 @@ class _AddReview2State extends State<AddReview2> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      CustomStyle12(text: 'SubCategory'),
+                      Text(
+                        'SubCategory',
+                        style: Styles.light(fontSize: 12),
+                      )
                     ],
                   ),
                   SizedBox(
@@ -83,7 +89,8 @@ class _AddReview2State extends State<AddReview2> {
                           builder: (context) => const PlaceReviewBody()));
                     },
                   ),
-                  const DropDownTextForm2(text: 'fbuybw', text2: 'jnsjkd', hint: Text('fhabj'))
+                  const DropDownTextForm2(
+                      text: 'fbuybw', text2: 'jnsjkd', hint: Text('fhabj'))
                 ],
               ),
             ),

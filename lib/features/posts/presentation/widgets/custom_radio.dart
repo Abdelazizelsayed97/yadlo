@@ -78,18 +78,16 @@ class _RvTypeState extends State<RvType> {
               height: SizeConfig.defaultSize! * 9.5,
               width: SizeConfig.defaultSize! * 13,
             ),
-            StyleFont20(
-                text: 'Product',
-                fontWeight: FontWeight.w700,
-                color: _titleColor),
+            Text(
+              'Product',
+              style: Styles.bold(color: _titleColor, fontSize: 20),
+            ),
             Container(
                 width: SizeConfig.defaultSize! * 28,
                 alignment: Alignment.center,
-                child: StyleFont13(
-                  text:
-                      "Add a Review For a tangible or not tangible Product you experienced it  ",
-                  fontWeight: FontWeight.w500,
-                  color: _subtitleColor,
+                child: Text(
+                  "Add a Review For a tangible or not tangible Product you experienced it  ",
+                  style: Styles.meduim(color: _subtitleColor, fontSize: 13),
                 )),
           ],
         ),

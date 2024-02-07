@@ -55,10 +55,8 @@ class PlaceReviewBody extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       verticalSpace(10),
-                      const StyleFont14(family: 'Somar Sans',
-                        text: 'Over All Rate',
-                        fontWeight: FontWeight.w700,
-                      ),
+                      Text('Over All Rate',style: Styles.bold(),),
+
                       const Row(
                         children: [
                           // IconReactButton()

@@ -38,7 +38,7 @@ List<Color> ig3 = [
   const Color(0xFF8493F9),
   const Color(0xFF8095F9),
 ];
-List igClolors = [ig1, ig2, ig3];
+List igColors = [ig1, ig2, ig3];
 
 // =================================================
 
@@ -77,7 +77,7 @@ List<Color> white = [
   const Color(0xffFFFFFF),
   const Color(0xffFFFFFF),
 ];
-List<Color> apptheme = [
+List<Color> appTheme = [
   const Color(0xffD578FF),
   const Color(0xffC37DFD),
   const Color(0xffA687FB),

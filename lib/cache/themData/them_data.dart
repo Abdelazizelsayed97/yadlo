@@ -15,7 +15,7 @@ class ThemeDataApp  extends StatelessWidget{
       width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: apptheme,
+              colors: appTheme,
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter)),
     );
@@ -23,7 +23,7 @@ class ThemeDataApp  extends StatelessWidget{
 }
 class TestTheme{
   ThemeData themeData = ThemeData();
-  List them = apptheme;
+  List them = appTheme;
 
 }
 
@@ -55,7 +55,7 @@ class AppThemeData extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: apptheme,
+                colors: appTheme,
                 begin: Alignment.topCenter,
                 end: Alignment.topCenter)),
 

@@ -72,7 +72,11 @@ class _CustomPageViewState extends State<CustomPageView> {
                   SizedBox(
                     width: 260.w,
                     child: Text(onboardPage.title,
-                        textAlign: TextAlign.center, style: normal26white),
+                        textAlign: TextAlign.center,
+                        style: Styles.normal(
+                          fontSize: 26,color: Colors.white
+                        )
+                    ),
                   ),
                   verticalSpace(10),
                   SizedBox(
@@ -80,7 +84,7 @@ class _CustomPageViewState extends State<CustomPageView> {
                     child: Text(onboardPage.subtitle,
                         textAlign: TextAlign.center,
                         strutStyle: const StrutStyle(forceStrutHeight: true),
-                        style: normal15white),
+                        style: Styles.normal(fontSize: 15,color: Colors.white)),
                   ),
                   verticalSpace(20)
                 ],
@@ -123,7 +127,7 @@ class _CustomPageViewState extends State<CustomPageView> {
               right: 290.w,
               child: SkipButton(
                 text: 'Skip',
-                style: normal16,
+                style: Styles.normal(fontSize: 16,color: Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const LoginAndRegistration()));
