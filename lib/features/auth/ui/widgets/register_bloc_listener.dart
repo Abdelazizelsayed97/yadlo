@@ -36,7 +36,7 @@ class RegisterBlocListener extends StatelessWidget {
         }
         if (state is RegSuccessState) {
           print('emails:$email');
-          sendCodeV(context);
+          // sendCodeV(context);
           Navigator.of(context).pop(context);
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
@@ -53,11 +53,12 @@ class RegisterBlocListener extends StatelessWidget {
       },
       child: child,
     );
-  }void sendCodeV(BuildContext context)  {
-    print('aaaaaaa');
-    context
-        .read<SendCodeCubit>()
-        .emitSendCodeStates(input: SendCodeInput(email: email, useCase: SendCodeUseCases.EMAIL_VERIFICATION));
   }
+  // void sendCodeV(BuildContext context)  {
+  //   print('aaaaaaa');
+  //   context
+  //       .read<SendCodeCubit>()
+  //       .emitSendCodeStates(input: SendCodeInput(email: email, useCase: SendCodeUseCases.EMAIL_VERIFICATION));
+  // }
 
 }

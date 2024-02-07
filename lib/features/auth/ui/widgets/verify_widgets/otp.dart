@@ -7,6 +7,7 @@ import 'package:yadlo/features/auth/domain/entities/reset_password.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/ui/pages/auth_accout.dart';
 import 'package:yadlo/features/auth/ui/pages/login_pages/pass_recovery.dart';
+import 'package:yadlo/features/posts/presentation/pages/time_line.dart';
 
 import '../../../domain/entities/send_code_entites.dart';
 import '../../cubit/send_code_cubit/send_code_cubit.dart';
@@ -95,6 +96,12 @@ class _OTPVerifyBodyState extends State<OTPVerifyBody> {
           Navigator.of(context).pop();
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) =>  SetNewPass(code:_pinController.text ,email:widget.email ,)));
+        }
+        if (state is VerifySuccess) {
+          print('RestListener');
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) =>  const TimeLinePage()));
         }
       },
       child: Form(

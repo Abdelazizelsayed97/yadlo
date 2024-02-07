@@ -39,7 +39,6 @@ class _ForgetPassword extends State<ForgetPassword> {
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   @override
   void initState() {
     super.initState();
@@ -97,27 +96,29 @@ class _ForgetPassword extends State<ForgetPassword> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(top: 30.h),
                       width: 190.w,
-                      child: const CustomStyle22(
-                        text: 'Forgot Password',
+                      child: Text(
+                        'Forgot Password',
+                        style: Styles.semiBlod(fontSize: 22,color: Colors.black),
                       )),
                   Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 28.h),
-                    width: 220.w,
-                    child: const CustomStyle12(
-                        text:
-                            "Enter your Email that you registered with and we will send you a code to verify and reset your password"),
-                  ),
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(top: 23.h),
+                      width: 220.w,
+                      child: Text(
+                        strutStyle:StrutStyle(height: 1,forceStrutHeight: true,) ,softWrap: true,textAlign: TextAlign.center,
+                        "Enter your Email that you registered with and we will send you a code to verify and reset your password",
+                        style: Styles.normal(fontSize: 12,),
+                      )),
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.only(top: 38.h),
                     height: 190.h,
-                    width: 340.w,
+                    width: 320.w,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -145,7 +146,8 @@ class _ForgetPassword extends State<ForgetPassword> {
                               //     builder: (context) => AuthPage(email: _controller.text, code: "")));
                             },
                             colors: them,
-                            child: Text('Send', style: bold16),
+                            child:
+                                Text('Send', style: Styles.bold(fontSize: 16,color: Colors.white)),
                           ),
                         ],
                       ),

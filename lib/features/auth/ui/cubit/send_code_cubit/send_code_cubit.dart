@@ -25,6 +25,7 @@ class SendCodeCubit extends Cubit<SendCodeState> {
 
   void emitSendCodeStates({required SendCodeInput input}) async {
     print("EFFEEF ${input.useCase}");
+    emit(SendCodeInitial());
     emit(SendCodeLoading());
     final response = await _sendCodeUseCase.sendCode(input);
     response.fold((l) {

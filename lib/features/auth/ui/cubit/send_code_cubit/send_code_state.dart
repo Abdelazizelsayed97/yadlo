@@ -3,7 +3,9 @@ part of 'send_code_cubit.dart';
 @immutable
 abstract class SendCodeState {}
 
-class SendCodeInitial extends SendCodeState {}
+class SendCodeInitial extends SendCodeState {
+
+}
 
 class SendCodeLoading extends SendCodeState {
   @override

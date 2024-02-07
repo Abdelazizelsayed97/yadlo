@@ -6,7 +6,6 @@ import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/registration_user_input.dart';
-import 'package:yadlo/features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 import 'package:yadlo/features/auth/ui/pages/login_pages/login_page.dart';
 import 'package:yadlo/features/auth/ui/widgets/register_bloc_listener.dart';
 
@@ -24,16 +23,9 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-  providers: [
-    BlocProvider(
-        create: (context) => getIt<RegisterCubit>(),
-      ),
-    BlocProvider(
-      create: (context) => SendCodeCubit(getIt(), getIt(), getIt()),
-    ),
-  ],
-  child: _RegistrationPageBody(),
+    return BlocProvider(
+  create: (context) => getIt<RegisterCubit>(),
+child:_RegistrationPageBody() ,
 );
   }
 }
@@ -76,14 +68,14 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                 child: Column(
                   children: [
                     Container(
-                        height: 40.h,
-                        alignment: Alignment.topLeft,
-                        child: const CustomStyle24(
-                          text: 'Join Yodly',
-                          fontWeight: FontWeight.w700,
-                          family: 'Somar Sans',
-                          color: Color(0xFF0B1A51),
-                        )),
+                      height: 40.h,
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Join Yodly',
+                        style: Styles.bold(
+                            fontSize: 24, color: const Color(0xFF0B1A51)),
+                      ),
+                    ),
                     SizedBox(
                       height: 70.h,
                       width: 70.w,
@@ -96,10 +88,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     ),
                     verticalSpace(40),
                     TextForm(
-                      onChanged: (text){
-                        setState(() {
-
-                        });
+                      onChanged: (text) {
+                        setState(() {});
                       },
                       controller: _userNameController,
                       textHint: 'User name*',
@@ -112,10 +102,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     ),
                     verticalSpace(15.h),
                     TextForm(
-                        onChanged: (text){
-                          setState(() {
-
-                          });
+                        onChanged: (text) {
+                          setState(() {});
                         },
                         textHint: 'JohnDeo@gmail.com',
                         icon: const Icon(Icons.mail_outline),
@@ -131,10 +119,8 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                         }),
                     verticalSpace(15.h),
                     TextForm(
-                      onChanged: (text){
-                        setState(() {
-
-                        });
+                      onChanged: (text) {
+                        setState(() {});
                       },
                       opsCureText: opsCureText,
                       textHint: 'Password* ',
@@ -157,11 +143,10 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                               : Icons.visibility_outlined)),
                     ),
                     verticalSpace(20),
-                    const StyleFont10(
-                      text: 'Privacy policy',
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Somar Sans',
-                      color: Color(0xFF374053),
+                    Text(
+                      'Privacy policy',
+                      style: Styles.bold(
+                          color: const Color(0xFF374053), fontSize: 10),
                     ),
                     const TermsAndConditions(),
                     verticalSpace(20),
@@ -183,10 +168,9 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     verticalSpace(30),
                     const CustomDivider(),
                     verticalSpace(20),
-                    const CustomStyle12(
-                      fontWeight: FontWeight.w400,
-                      text: 'Sign up with one of the following options',
-                      fontFamily: 'Somar Sans',
+                    Text(
+                      'Sign up with one of the following options',
+                      style: Styles.light(fontSize: 12),
                     ),
                     verticalSpace(15),
                     const LoginMethods(),
@@ -194,11 +178,9 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const StyleFont14(
-                          text: 'Aleardy ave an account',
-                          family: 'Somar Sans',
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF0B1A51),
+                        Text(
+                          'Aleardy ave an account',
+                          style: Styles.normal(color: const Color(0xFF0B1A51)),
                         ),
                         horizontalSpace(10),
                         InkWell(
@@ -206,11 +188,10 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const LoginPage()));
                             },
-                            child: const StyleFont14(
-                              text: 'Login',
-                              family: 'Somar Sans',
-                              color: Color(0xFF0B1A51),
-                              fontWeight: FontWeight.w700,
+                            child: Text(
+                              'Login',
+                              style:
+                                  Styles.bold(color: const Color(0xFF0B1A51)),
                             ))
                       ],
                     )
@@ -240,6 +221,4 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
       throw Exception();
     }
   }
-
-
 }

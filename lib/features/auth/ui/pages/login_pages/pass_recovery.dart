@@ -33,7 +33,7 @@ class SetNewPass extends StatelessWidget {
 }
 
 class SetNewPassBody extends StatefulWidget {
-  SetNewPassBody({super.key, required this.code, required this.email});
+  const SetNewPassBody({super.key, required this.code, required this.email});
 
   final String code;
   final String email;
@@ -46,9 +46,9 @@ class _SetNewPassBodyState extends State<SetNewPassBody> {
   bool opsCureText = true;
   bool oOpsCureText = true;
 
-  TextEditingController _comfirmPasswordController = TextEditingController();
+  final TextEditingController _comfirmPasswordController = TextEditingController();
 
-  TextEditingController _passWordController = TextEditingController();
+  final TextEditingController _passWordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class _SetNewPassBodyState extends State<SetNewPassBody> {
                       height: 100,
                     ),
                     verticalSpace(45),
-                    const CustomStyle22(text: "Set new password"),
+                    Text( "Set new password",style: Styles.semiBlod(fontSize: 22),),
                     verticalSpace(38),
                     Container(
                       padding:
@@ -106,18 +106,11 @@ class _SetNewPassBodyState extends State<SetNewPassBody> {
                         children: [
                           Column(
                             children: [
-                              const Align(
+                              Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Enter New Password',
-                                  style: TextStyle(
-                                    color: Color(0xFF3E4B4B),
-                                    fontSize: 11,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0.25,
-                                  ),
-                                ),
+                                child: Text('Enter New Password',
+                                    style: Styles.meduim(
+                                        fontSize: 11, fontFamily: 'Poppins')),
                               ),
                               verticalSpace(10),
                               TextForm(
@@ -139,18 +132,11 @@ class _SetNewPassBodyState extends State<SetNewPassBody> {
                           ),
                           Column(
                             children: [
-                              const Align(
+                              Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Confirm New Password',
-                                  style: TextStyle(
-                                    color: Color(0xFF3E4B4B),
-                                    fontSize: 11,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                    height: 0.25,
-                                  ),
-                                ),
+                                child: Text('Confirm New Password',
+                                    style: Styles.meduim(
+                                        fontSize: 11, fontFamily: 'Poppins')),
                               ),
                               verticalSpace(10),
                               TextForm(
