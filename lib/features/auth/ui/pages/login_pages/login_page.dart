@@ -5,7 +5,6 @@ import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
-import 'package:yadlo/core/errors/login/Failure.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/login_entites/login_input.dart';
 import 'package:yadlo/features/auth/ui/pages/registration_page.dart';
@@ -57,15 +56,13 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                   child: Column(
                     children: [
                       Container(
-                        height: 40.h,
-                        alignment: Alignment.topLeft,
-                        child: const CustomStyle24(
-                          text: 'Welcome back',
-                          family: 'Somar Sans',
-                          color: Color(0xFF0B1A51),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                          height: 40.h,
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Welcome back',
+                            style: Styles.bold(
+                                fontSize: 24, color: const Color(0xFF0B1A51)),
+                          )),
                       verticalSpace(40),
                       EmailAndPassword(
                         email: _email,
@@ -83,7 +80,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                               },
                               child: Text(
                                 'Forgot password ?',
-                                style: normal10,
+                                style: Styles.normal(fontSize: 10),
                               )),
                         ],
                       ),
@@ -108,18 +105,17 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                       verticalSpace(30),
                       const Center(child: CustomDivider()),
                       verticalSpace(30),
-                      const CustomStyle24(
-                        text: 'Login',
-                        fontWeight: FontWeight.w700,
-                        family: 'Somar Sans',
-                        color: Color(0xFF0B1A51),
+                      Text(
+                        'Login',
+                        style:
+                            Styles.bold(fontSize: 24, color: const Color(0xFF0B1A51)),
                       ),
                       verticalSpace(5),
-                      const StyleFont14(
-                        text: "Log in with one of the following options",
-                        fontWeight: FontWeight.w400,
-                        family: 'Somar Sans',
-                        color: Color(0x9B0B1A51),
+                      Text(
+                        "Log in with one of the following options",
+                        style: Styles.normal(
+                          color: const Color(0x9B0B1A51),
+                        ),
                       ),
                       verticalSpace(30),
                       const LoginMethods(),
@@ -127,7 +123,8 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an account", style: normal14),
+                          Text("Don't have an account",
+                              style: Styles.normal(fontSize: 14)),
                           horizontalSpace(10),
                           InkWell(
                               onTap: () {
@@ -137,7 +134,9 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                               },
                               child: Text(
                                 'Create account',
-                                style: bold14underLine,
+                                style: Styles.bold(
+                                    fontSize: 14,
+                                    decoration: TextDecoration.underline),
                               )),
                         ],
                       ),
