@@ -7,17 +7,16 @@ import 'package:yadlo/features/auth/domain/entities/reset_password.dart';
 import 'package:yadlo/features/auth/domain/entities/verify_entities.dart';
 import 'package:yadlo/features/auth/ui/pages/auth_accout.dart';
 import 'package:yadlo/features/auth/ui/pages/login_pages/pass_recovery.dart';
-import 'package:yadlo/features/posts/presentation/pages/time_line.dart';
 
 import '../../../domain/entities/send_code_entites.dart';
 import '../../cubit/send_code_cubit/send_code_cubit.dart';
+import '../../pages/login_pages/login_page.dart';
 
 class OTPVerify extends StatelessWidget {
   final String email;
   final PageUseCases useCase;
 
-
-  const OTPVerify({required this.email, required this.useCase});
+  const OTPVerify({super.key, required this.email, required this.useCase});
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +93,17 @@ class _OTPVerifyBodyState extends State<OTPVerifyBody> {
         if (state is ResetSuccess) {
           print('RestListener');
           Navigator.of(context).pop();
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) =>  SetNewPass(code:_pinController.text ,email:widget.email ,)));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => SetNewPass(
+                    code: _pinController.text,
+                    email: widget.email,
+                  )));
         }
         if (state is VerifySuccess) {
           print('RestListener');
           Navigator.of(context).pop();
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) =>  const TimeLinePage()));
+              MaterialPageRoute(builder: (context) => const LoginPage()));
         }
       },
       child: Form(
@@ -175,25 +177,7 @@ class _OTPVerifyBodyState extends State<OTPVerifyBody> {
   }
 
   Future<void> validateReceivedCode(String pin) async {
-    // String code = pinController.text;
-    // final isValid = (context
-    //     .read<SendCodeCubit>()
-    //     .formKey
-    //     .currentState
-    //     ?.validate());
-    // if (isValid != null) {
-    //   context.read<SendCodeCubit>().validateReceivedCode(
-    //       widget.email, pinController.text);
-    //   if (code.length == 4 && isValid) {
-    //     print('>>>>>>==');
-    //     context.read<SendCodeCubit>().validateReceivedCode(
-    //         widget.email, pinController.text);
-    //     // BlocProvider.of<SendCodeCubit>(context)
-    //     //     .validateReceivedCode(widget.email, code);
-    //   } else {
-    //     throw ApiServerError();
-    //   }
-    // }
+
     context.read<SendCodeCubit>().validateReceivedCode(
           input: VerifyCodeInput(
             email: widget.email,

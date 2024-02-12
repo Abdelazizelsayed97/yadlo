@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:yadlo/core/errors/login/Failure.dart';
 
 
 import '../entities/login_entites/login_input.dart';
@@ -10,7 +11,7 @@ class LoginUseCase {
 
   LoginUseCase(this._loginRepository);
 
-  Future<Either<Exception, UserData>> login(LoginInput input) async {
+  Future<Either<ApiError, UserData>> login(LoginInput input) async {
     return await _loginRepository.login(input);
   }
 }

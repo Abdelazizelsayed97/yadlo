@@ -105,7 +105,7 @@ class _ForgetPassword extends State<ForgetPassword> {
                       margin: EdgeInsets.only(top: 23.h),
                       width: 220.w,
                       child: Text(
-                        strutStyle:StrutStyle(height: 1,forceStrutHeight: true,) ,softWrap: true,textAlign: TextAlign.center,
+                        strutStyle:const StrutStyle(height: 1,forceStrutHeight: true,) ,softWrap: true,textAlign: TextAlign.center,
                         "Enter your Email that you registered with and we will send you a code to verify and reset your password",
                         style: Styles.normal(fontSize: 12,),
                       )),

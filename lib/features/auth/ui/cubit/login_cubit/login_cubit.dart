@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
+import 'package:yadlo/features/auth/ui/widgets/login_widgets/shared_preferances.dart';
 
 import '../../../domain/entities/login_entites/login_input.dart';
 import '../../../domain/use_cases/login_usecase.dart';
@@ -16,14 +17,14 @@ class LoginCubit extends Cubit<LoginState> {
   void emitLoginStates({required LoginInput input}) async {
     emit(LoadingState());
     final response = await _loginUseCase.login(input);
-
-    response.fold((lift) {
-      if (lift is ApiError) {
+    print('${response.mapWithIndex}');
+    response.fold((left) {
+      if (left is ApiError) {
         emit(
-          FailureState(lift.message ?? ''),
+          FailureState(left.message ?? ''),
         );
       }
-    }, (right) {
+    }, (right) async {
       emit(SuccessState(right));
     });
   }

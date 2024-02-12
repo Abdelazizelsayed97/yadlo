@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
-import 'package:yadlo/features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
 
 import '../../../../cache/colors/colors.dart';
 import '../pages/auth_accout.dart';

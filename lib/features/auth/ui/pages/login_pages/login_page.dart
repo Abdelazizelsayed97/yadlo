@@ -16,6 +16,7 @@ import 'package:yadlo/features/auth/ui/widgets/login_widgets/login_methodes.dart
 import '../../../../../cache/themData/them_data.dart';
 import '../../cubit/login_cubit/login_cubit.dart';
 import '../../cubit/login_cubit/login_state.dart';
+import '../../widgets/login_widgets/shared_preferances.dart';
 import 'forget_password.dart';
 
 class LoginPage extends StatelessWidget {
@@ -40,6 +41,11 @@ class _LoginPageBody extends StatefulWidget {
 class _LoginPageBodyState extends State<_LoginPageBody> {
   final _email = TextEditingController();
   final _password = TextEditingController();
+  @override
+  void initState() {
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

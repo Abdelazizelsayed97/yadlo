@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yadlo/features/auth/data/repositories/send_code_repo_impl.dart';
 import 'package:yadlo/features/auth/data/repositories/set_newpass_repo_impl.dart';
 import 'package:yadlo/features/auth/domain/repositories/registration_repo.dart';
@@ -55,8 +56,11 @@ class AppDi {
 
     getIt.registerLazySingleton<ApiConsts>(() => ApiConsts());
 
+
     getIt.registerLazySingleton<UserLoginRepository>(
-      () => UserRepositoryImpl(getIt<GraphQLClient>()),
+      () => UserRepositoryImpl
+        (getIt<GraphQLClient>(),
+      ),
     );
 
     getIt.registerFactory<LoginUseCase>(
@@ -68,6 +72,8 @@ class AppDi {
         getIt<LoginUseCase>(),
       ),
     );
+
+    // =================================================================
 
     getIt.registerLazySingleton<UserRegisterRepository>(
       () => RegisterRepositoryImpl(getIt<GraphQLClient>()),

@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
+import 'package:yadlo/features/auth/ui/widgets/login_widgets/shared_preferances.dart';
+import 'package:yadlo/features/posts/presentation/pages/time_line.dart';
+
 import '../../../../cache/colors/colors.dart';
 import 'onboarding_view.dart';
 
@@ -14,6 +17,7 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen>
     with SingleTickerProviderStateMixin {
+ String token= SharedPrefs.getFromShard(key: 'token') ;
   AnimationController? animationController;
   Animation<double>? animation;
 
@@ -65,7 +69,7 @@ class _SplashscreenState extends State<Splashscreen>
   void goToNextView() {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const OnboardingView()));
+          MaterialPageRoute(builder: (context) =>token !=null && token!='' ? TimeLinePage(): const OnboardingView()));
     });
   }
 }

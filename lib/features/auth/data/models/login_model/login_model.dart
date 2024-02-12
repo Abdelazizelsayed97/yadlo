@@ -55,13 +55,13 @@ class ApiEmailAndPasswordLogin {
 class ApiUserData {
   final String? id;
   final String? userName;
-  final String? token;
+  final String token;
   final String? verifiedEmail;
 
   ApiUserData({
     this.id,
     this.userName,
-    this.token,
+    required this.token,
     this.verifiedEmail,
   });
 

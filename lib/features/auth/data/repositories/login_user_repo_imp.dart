@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yadlo/core/di/graphql_config.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
 
@@ -12,10 +13,9 @@ import '../models/login_model/login_model.dart';
 
 class UserRepositoryImpl implements UserLoginRepository {
   final GraphQLClient _graphQLClient;
-
   GraphQlConfig client = GraphQlConfig();
 
-  UserRepositoryImpl(this._graphQLClient) {
+  UserRepositoryImpl(this._graphQLClient, ) {
     client.init();
   }
 
@@ -43,7 +43,10 @@ class UserRepositoryImpl implements UserLoginRepository {
       final response =
           ApiLoginResult.fromJson(requestResponse.data!).emailAndPasswordLogin;
       final data = response?.data;
+
       if (data != null) {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString("token", data.token);
         return Right(data.map);
       } else {
         return Left(ApiError(message: response?.message, code: response?.code));
