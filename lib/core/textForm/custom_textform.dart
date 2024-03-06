@@ -1,51 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:yadlo/core/helper/spacing.dart';
 
 class TextForm extends StatelessWidget {
-  TextForm(
+  const TextForm(
       {super.key,
-      required this.textHint,
-      required this.icon,
+      this.textHint,
+      this.icon,
       this.opsCureText,
       this.suffixIcon,
       required this.controller,
-      required this.validator});
+      required this.validator,
+      this.label,
+      this.onChanged});
 
   final TextEditingController controller;
-
+  final String? label;
   final String? textHint;
   final Widget? icon;
   final bool? opsCureText;
   final Widget? suffixIcon;
   final Function(String?) validator;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) => TextFormField(
+        onChanged: onChanged,
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-        autovalidateMode: AutovalidateMode.always,
+        autofocus: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return validator(value);
         },
         controller: controller,
         obscureText: opsCureText ?? false,
         decoration: InputDecoration(
+            label: Text(label ?? ''),
             suffixIcon: suffixIcon,
             fillColor: Colors.white,
-            focusColor: Colors.white,
             filled: true,
+            enabled: true,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.blue)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.grey)),
-            border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.green),
-                borderRadius: BorderRadius.circular(50),
-                gapPadding: 15),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: const BorderSide(color: Colors.red)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                )),
             hintText: textHint,
             prefixIcon: icon,
             contentPadding: const EdgeInsetsDirectional.all(15),
@@ -57,27 +65,28 @@ class TextForm extends StatelessWidget {
               height: 0,
             ),
             prefixIconColor: const Color(0xff4051ad29)),
-        enabled: true,
       );
 }
 
 class TextForm2 extends StatelessWidget {
-  TextForm2({
+  const TextForm2({
     super.key,
     required this.text,
     this.hintText,
     this.textColor,
     this.maxLines,
     this.borderRadius,
+    this.textEditingController,
+    this.onChanged,
   });
 
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController? textEditingController;
   final String text;
   final String? hintText;
   final Color? textColor;
   final int? maxLines;
   final BorderRadius? borderRadius;
-
+final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,14 +101,15 @@ class TextForm2 extends StatelessWidget {
               height: 0.25,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          verticalSpace(10),
           TextFormField(
+            onChanged:onChanged ,
             maxLines: maxLines ?? 1,
-            autovalidateMode: AutovalidateMode.always,
-            validator: (value) {},
-            controller: _textEditingController,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              return null;
+            },
+            controller: textEditingController,
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 border: OutlineInputBorder(

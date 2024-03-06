@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yadlo/core/Sizeable/commonSizes.dart';
 import 'package:yadlo/core/buttons/floatingactionbutton.dart';
+import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/Onboarding/Presentation/Widgets/custom_indicator.dart';
-import 'package:yadlo/features/auth/presentation/pages/login_registration.dart';
+import 'package:yadlo/features/auth/ui/pages/login_registration.dart';
 
+import '../../../../cache/text_styles/text_styles.dart';
 import '../../../../core/boarding_assets.dart';
 import '../../../../core/buttons/skip_button.dart';
 import '../../onboa_model/pageview_model.dart';
@@ -57,40 +58,35 @@ class _CustomPageViewState extends State<CustomPageView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(alignment: Alignment.center,
+                  Container(
+                      alignment: Alignment.center,
                       width: 300.w,
                       height: 300.h,
                       child: Image.asset(
                         onboardPage.image,
                         fit: BoxFit.cover,
                       )),
-                   SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
-                  Container(
+                  SizedBox(
                     width: 260.w,
-                    child: Text(onboardPage.title,textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w400,
-                        )),
-                  ),
-                   SizedBox(
-                    height: 10.h,
-                  ),
-                  Container(
-                    width: 268.w,
-                    child: Text(
-                      onboardPage.subtitle,textAlign: TextAlign.center,strutStyle: StrutStyle(forceStrutHeight: true),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    child: Text(onboardPage.title,
+                        textAlign: TextAlign.center,
+                        style: Styles.normal(
+                          fontSize: 26,color: Colors.white
+                        )
                     ),
                   ),
-                   SizedBox(height: 20.h),
+                  verticalSpace(10),
+                  SizedBox(
+                    width: 268.w,
+                    child: Text(onboardPage.subtitle,
+                        textAlign: TextAlign.center,
+                        strutStyle: const StrutStyle(forceStrutHeight: true),
+                        style: Styles.normal(fontSize: 15,color: Colors.white)),
+                  ),
+                  verticalSpace(20)
                 ],
               ),
             );
@@ -109,7 +105,7 @@ class _CustomPageViewState extends State<CustomPageView> {
           child: FlaotingActionButton(
             onTap: () {
               if (_pageController.page! <= 1) {
-                _pageController?.nextPage(
+                _pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeIn);
               } else {
@@ -123,24 +119,18 @@ class _CustomPageViewState extends State<CustomPageView> {
           ),
         ),
         Visibility(
-          visible: _pageController!.hasClients
-              ? (_pageController!.page! < 1 ? true : false)
+          visible: _pageController.hasClients
+              ? (_pageController.page! < 1 ? true : false)
               : true,
           child: Positioned(
               bottom: 100.h,
-              right:  290.w,
+              right: 290.w,
               child: SkipButton(
                 text: 'Skip',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'Somar Sans',
-                  fontWeight: FontWeight.w400,
-                  height: 0.07,
-                ),
+                style: Styles.normal(fontSize: 16,color: Colors.white),
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const LoginAndRegistration()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LoginAndRegistration()));
                 },
               )),
         )

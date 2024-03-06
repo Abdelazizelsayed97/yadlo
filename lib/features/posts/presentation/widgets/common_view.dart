@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +11,7 @@ import 'package:yadlo/generated/assets.dart';
 import '../../../../core/textForm/custom_textform.dart';
 
 class CommonView extends StatelessWidget {
-  const CommonView(
+   const CommonView(
       {super.key,
       this.text,
       this.onTap,
@@ -18,7 +19,7 @@ class CommonView extends StatelessWidget {
       this.width,
       this.color,
       this.textColor,
-      this.onTap2});
+      this.onTap2, required this.descriptionController, required this.titleController});
 
   final String? text;
   final VoidCallback? onTap;
@@ -27,20 +28,21 @@ class CommonView extends StatelessWidget {
   final width;
   final color;
   final Color? textColor;
-
+final TextEditingController descriptionController ;
+final TextEditingController titleController ;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextForm2(
           text: 'Title of Reivew*',
-          textColor: const Color(0xFF3B4773),
+          textColor: const Color(0xFF3B4773), textEditingController: titleController,
         ),
         verticalSpace(15),
         TextForm2(
           text: "Description*",
           maxLines: 4,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(30), textEditingController: descriptionController,
         ),
         verticalSpace(15),
         Container(
@@ -57,38 +59,40 @@ class CommonView extends StatelessWidget {
                 width: 17.w,
               ),
               horizontalSpace(5),
-              const CustomStyle12(
-                text: 'Select Place Location ',
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Somar Sans',
-              ),
+              Text(
+                'Select Place Location ',
+                style: Styles.meduim(),
+              )
             ],
           ),
         ),
-        verticalSpace(25.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GeneralButton1(
-              color: Colors.white,
-              text: 'Cancel',
-              width: 140.w,
-              textColor: Colors.black,
-              onTap: onTap2,
-            ),
-            GeneralButton1(
-              color: Colors.white,
-              text: 'Add Review',
-              width: 140.w,
-              textColor: Colors.white,
-              colors: ig3,
-              onTap: onTap,
-            ),
-          ],
+        verticalSpace(25),
+        SafeArea(bottom: false,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GeneralButton1(
+                color: Colors.white,
+                text: 'Cancel',
+                width: 140.w,
+                textColor: Colors.black,
+                onTap: onTap2,
+              ),
+              GeneralButton1(
+                color: Colors.white,
+                text: 'Add Review',
+                width: 140.w,
+                textColor: Colors.white,
+                colors: gradientPrimyColors,
+                onTap: onTap,
+              ),
+            ],
+          ),
         )
       ],
     );
   }
+
 }
 
 class CommonRow extends StatelessWidget {
@@ -112,7 +116,7 @@ class CommonRow extends StatelessWidget {
         horizontalSpace(10),
         Text(
           text ?? 'Add a Specific Rate',
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xFF0B1A51),
             fontSize: 13,
             fontFamily: 'Somar Sans',
@@ -148,7 +152,6 @@ class _OptionalReviewState extends State<OptionalReview> {
         text,
         style: textStyle,
       ),
-
       Container(
           height: 120.h,
           width: 330.w,
@@ -158,13 +161,41 @@ class _OptionalReviewState extends State<OptionalReview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               verticalSpace(10),
-               StyleFont14(
-                family: 'Somar Sans',
-                text: text2  ?? 'Over All Rate',
-                fontWeight: FontWeight.w700,
-              ),
+              Text(
+                text2,
+                style: Styles.bold(),
+              )
             ],
           ))
     ]);
   }
 }
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'Add Review',
+          style: Styles.bold(
+            color: Color(0xFF0B1A51),
+            fontSize: 18,
+          ),
+        ),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 30,
+            )),
+      );
+  }
+}
+

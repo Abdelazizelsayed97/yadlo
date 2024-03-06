@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../colors/colors.dart';
 
-class ThemeDataApp  extends StatelessWidget{
+class ThemeDataApp  extends StatelessWidget {
   late ThemeDataApp themeData;
 
   ThemeDataApp({super.key});
@@ -10,21 +10,23 @@ class ThemeDataApp  extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: apptheme,
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter)),
+    return Opacity(
+      opacity: 0.050,
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: appTheme,
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter)),
+      ),
     );
   }
-
 }
 class TestTheme{
   ThemeData themeData = ThemeData();
-  List them = apptheme;
+  List them = appTheme;
 
 }
 
@@ -34,20 +36,33 @@ final ThemeData myTheme = _buildMyTheme();
 
 ThemeData _buildMyTheme() {
   return ThemeData(
-    // Define the primary color
     primaryColor: Colors.deepOrange,
-
-    // Define the accent color
     hintColor: Colors.green,
-
-    // Define the theme font
     fontFamily: 'Montserrat',
-
-    // Define the text theme
     textTheme: const TextTheme(
-      headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-      headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-      bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+      displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+      bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
   );
+}
+class AppThemeData extends StatelessWidget {
+  const AppThemeData({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: .20,
+      child: Container(
+        height:MediaQuery.of(context).size.height,
+        width: double.infinity,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: appTheme,
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter)),
+
+      ),
+    );
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<Color> Splash = [
+List<Color> splash = [
   const Color(0xFF131C2D),
   const Color(0xFF131C2D),
   const Color(0xFF162034),
@@ -28,9 +28,9 @@ List<Color> ig1 = [
 ];
 List<Color> ig2 = [
   const Color(0xFF8095F9),
-  const Color(0x00F878),
+  const Color(0x0000f878),
 ];
-List<Color> ig3 = [
+List<Color> gradientPrimyColors = [
   const Color(0xFFD578FF),
   const Color(0xFFC37DFD),
   const Color(0xFFA687FB),
@@ -38,7 +38,7 @@ List<Color> ig3 = [
   const Color(0xFF8493F9),
   const Color(0xFF8095F9),
 ];
-List igClolors = [ig1, ig2, ig3];
+List igColors = [ig1, ig2, gradientPrimyColors];
 
 // =================================================
 
@@ -77,38 +77,17 @@ List<Color> white = [
   const Color(0xffFFFFFF),
   const Color(0xffFFFFFF),
 ];
-List<Color> apptheme = [
-  const Color(0xffD578FF),
-  const Color(0xffC37DFD),
-  const Color(0xffA687FB),
-  const Color(0xff918FFA),
-  const Color(0xff8493F9),
-  const Color(0xff8095F9),
+List<Color> appTheme = [
+  const Color(0x33D578FF),
+  const Color(0x33C37DFD),
+  const Color(0x33A687FB),
+  const Color(0x33918FFA),
+  const Color(0x338493F9),
+  const Color(0x338095F9),
 ];
 
-class AppThemeData extends StatelessWidget {
-  const AppThemeData({super.key});
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: apptheme,
-              begin: Alignment.topCenter,
-              end: Alignment.topCenter)),
-
-    );
-  }
-}
-
 class ColorsManger {
-  static Color lowGrey = const Color(0Xff4051AD29);
+  static Color lowGrey = const Color(0xff4051ad29);
+  static Color primary = const Color(0xffD578FF);
+  static Color timeLineText = const Color(0xFF3B4773);
 }

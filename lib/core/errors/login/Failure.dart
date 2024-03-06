@@ -1,30 +1,28 @@
-import 'package:equatable/equatable.dart';
-
-abstract class LoginFailure extends Equatable{}
-
-class NoConnectionFailure extends LoginFailure {
 
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();}
+class ApiError implements Exception {
+  final int? code;
+  final String? message;
 
-class NoExistFailure extends LoginFailure {
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  ApiError({
+    this.code,
+    this.message,
+  });
 }
 
-class WrongPassword extends LoginFailure{
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+class ApiServerError implements Exception {
+  ApiServerError();
 }
 
+class ApiErrorMessage2 implements Exception {
+  final String message;
+  final int code;
 
+  ApiErrorMessage2(this.message, this.code);
 
-
-
-
-
+  @override
+  String toString() {
+    return 'ApiEmailAndPassword{message: $message, code: $code}';
+  }
+}
 

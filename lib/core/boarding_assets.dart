@@ -22,6 +22,6 @@ import '../features/Onboarding/onboa_model/pageview_model.dart';
     title: 'Make your review helpful',
     subtitle:
         'Share your opinion objectively and freely with others to help them',
-    color: ig3,
+    color: gradientPrimyColors,
   ),
 ];

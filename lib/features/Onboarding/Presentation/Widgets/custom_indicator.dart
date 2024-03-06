@@ -3,9 +3,9 @@ import '../../../../core/boarding_assets.dart';
 
 class PageIndicator extends StatefulWidget {
   const PageIndicator({
-    Key? key,
+    super.key,
     required this.currentValue, // Receive currentValue
-  }) : super(key: key);
+  });
 
   final int currentValue;
 
