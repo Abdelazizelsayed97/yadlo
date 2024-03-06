@@ -14,8 +14,8 @@ class ApiSetNewPasswordInput {
 
 
   factory ApiSetNewPasswordInput.fromJson(Map<String, dynamic> json) =>
-      _$SetNewPasswordInputFromJson(json);
+      _$ApiSetNewPasswordInputFromJson(json);
 
 
-  Map<String, dynamic> toJson() => _$SetNewPasswordInputToJson(this);
+  Map<String, dynamic> toJson() => _$ApiSetNewPasswordInputToJson(this);
 }

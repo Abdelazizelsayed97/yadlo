@@ -36,14 +36,14 @@ enum ApiSendCodeUseCase {
 }
 
 
-ApiSendCodeUseCase mapTiApiEnum(SendCodeUseCases useCases) {
+ApiSendCodeUseCase mapTiApiEnum(SendCodeTypeEnum useCases) {
   print('useCase is =>$useCases');
   switch (useCases) {
-    case SendCodeUseCases.PASSWORD_RESET:
+    case SendCodeTypeEnum.PASSWORD_RESET:
       return ApiSendCodeUseCase.PASSWORD_RESET;
-    case SendCodeUseCases.PHONE_VERIFICATION:
+    case SendCodeTypeEnum.PHONE_VERIFICATION:
       return ApiSendCodeUseCase.PHONE_VERIFICATION;
-    case SendCodeUseCases.EMAIL_VERIFICATION:
+    case SendCodeTypeEnum.EMAIL_VERIFICATION:
       return ApiSendCodeUseCase.EMAIL_VERIFICATION;
   }
 }

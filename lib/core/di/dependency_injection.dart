@@ -1,26 +1,28 @@
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yadlo/features/auth/data/repositories/send_code_repo_impl.dart';
-import 'package:yadlo/features/auth/data/repositories/set_newpass_repo_impl.dart';
-import 'package:yadlo/features/auth/domain/repositories/registration_repo.dart';
-import 'package:yadlo/features/auth/domain/repositories/set_newpass_repo.dart';
-import 'package:yadlo/features/auth/domain/repositories/verify_repo.dart';
 import 'package:yadlo/features/auth/domain/use_cases/register_use_case.dart';
 import 'package:yadlo/features/auth/domain/use_cases/set_newpass_usecase.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/reset_password_usecase.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/send_code_usecase.dart';
 import 'package:yadlo/features/auth/domain/use_cases/verify_use_cases/verify_use_case.dart';
-import 'package:yadlo/features/auth/ui/cubit/set_newpss_cubit/set_newpass_cubit.dart';
+import 'package:yadlo/features/auth/ui/pages/forget_password/set_newpass_cubit.dart';
+import 'package:yadlo/features/posts/data/impl_repo/category_repositories_impl.dart';
+import 'package:yadlo/features/posts/data/impl_repo/posts_repositories.dart';
+import 'package:yadlo/features/posts/domain/repo/category_repositories.dart';
+import 'package:yadlo/features/posts/domain/repo/posts_repository.dart';
+import 'package:yadlo/features/posts/domain/use_cases/create_review_usecase.dart';
+import 'package:yadlo/features/posts/domain/use_cases/delete_review_usecase.dart';
+import 'package:yadlo/features/posts/presentation/pages/get_posts/post_cubit.dart';
 import 'package:yadlo/networking/api.dart';
 
-import '../../features/auth/data/repositories/login_user_repo_imp.dart';
-import '../../features/auth/data/repositories/register_impl_repo.dart';
-import '../../features/auth/domain/repositories/login_repository.dart';
+import '../../features/auth/data/repositories/auth_repo_imp.dart';
+import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/use_cases/login_usecase.dart';
-import '../../features/auth/ui/cubit/login_cubit/login_cubit.dart';
-import '../../features/auth/ui/cubit/register_cubit/register_cubit.dart';
-import '../../features/auth/ui/cubit/send_code_cubit/send_code_cubit.dart';
+import '../../features/auth/ui/pages/login_pages/login_cubit.dart';
+import '../../features/auth/ui/pages/register/register_cubit.dart';
+import '../../features/auth/ui/pages/verify/send_code_cubit.dart';
+import '../../features/posts/domain/use_cases/category_usecase.dart';
+import '../../features/posts/domain/use_cases/get_all_review_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -56,15 +58,14 @@ class AppDi {
 
     getIt.registerLazySingleton<ApiConsts>(() => ApiConsts());
 
-
-    getIt.registerLazySingleton<UserLoginRepository>(
-      () => UserRepositoryImpl
-        (getIt<GraphQLClient>(),
+    getIt.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(
+        getIt<GraphQLClient>(),
       ),
     );
 
     getIt.registerFactory<LoginUseCase>(
-      () => LoginUseCase(getIt<UserLoginRepository>()),
+      () => LoginUseCase(getIt<AuthRepository>()),
     );
 
     getIt.registerLazySingleton<LoginCubit>(
@@ -75,11 +76,8 @@ class AppDi {
 
     // =================================================================
 
-    getIt.registerLazySingleton<UserRegisterRepository>(
-      () => RegisterRepositoryImpl(getIt<GraphQLClient>()),
-    );
     getIt.registerFactory<RegisterUseCase>(
-      () => RegisterUseCase(getIt<UserRegisterRepository>()),
+      () => RegisterUseCase(getIt<AuthRepository>()),
     );
 
     getIt.registerFactory<RegisterCubit>(
@@ -92,35 +90,62 @@ class AppDi {
         getIt<SendCodeUseCase>(),
         getIt<VerifyEmailUseCase>(),
         getIt<ResetPasswordUseCase>(),
-        // getIt<RegistrationInput>(),
       ),
-      // getIt< SendCodeRepositoriesImpl >()
     );
 
     getIt.registerFactory<SendCodeUseCase>(
-      () => SendCodeUseCase(getIt<SendCodeRepositories>()),
+      () => SendCodeUseCase(getIt<AuthRepository>()),
     );
     getIt.registerFactory<VerifyEmailUseCase>(
-      () => VerifyEmailUseCase(getIt<SendCodeRepositories>()),
+      () => VerifyEmailUseCase(getIt<AuthRepository>()),
     );
     getIt.registerFactory<ResetPasswordUseCase>(
-      () => ResetPasswordUseCase(getIt<SendCodeRepositories>()),
+      () => ResetPasswordUseCase(getIt<AuthRepository>()),
     );
-    getIt.registerLazySingleton<SendCodeRepositories>(
-      () => SendCodeRepositoriesImpl(getIt<GraphQLClient>()),
+    getIt.registerFactory<PostCubit>(
+      () => PostCubit(
+        getIt<GetAllPostsUseCase>(),
+        getIt<CreateReviewUseCase>(),
+        getIt<DeletePostUseCase>(),
+      ),
+    );
+    getIt.registerFactory<GetAllPostsUseCase>(
+      () => GetAllPostsUseCase(getIt<PostsRepository>()),
     );
 
+    getIt.registerLazySingleton<PostsRepository>(
+      () => PostsRepositoriesImpl(
+        getIt<GraphQLClient>(),
+      ),
+    );
 // ============  =================================================================
-    getIt.registerLazySingleton<SetNewPasswordRepository>(
-      () => SetNewPasswordImpl(getIt<GraphQLClient>()),
+//CategoryUseCase
+    getIt.registerFactory(
+          () => CategoryUseCase(getIt()),
+    );
+    getIt.registerFactory<CategoryRepository>(
+          () => CategoryRepositoryImpl(getIt()),
     );
     getIt.registerLazySingleton<SetNewPasswordUseCase>(
-      () => SetNewPasswordUseCase(getIt<SetNewPasswordRepository>()),
+      () => SetNewPasswordUseCase(getIt<AuthRepository>()),
     );
     getIt.registerFactory<SetNewPasswordCubit>(
       () => SetNewPasswordCubit(
         getIt<SetNewPasswordUseCase>(),
       ),
     );
+
+    // ================================================================
+       getIt.registerFactory<CreateReviewUseCase>(
+          () => CreateReviewUseCase(
+        getIt<PostsRepository>(),
+      ),
+    );
+    getIt.registerFactory<DeletePostUseCase>(
+          () => DeletePostUseCase(
+        getIt<PostsRepository>(),
+      ),
+    );
+
   }
 }

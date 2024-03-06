@@ -1,4 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:yadlo/features/auth/ui/pages/shared_preferances.dart';
 
 class GraphQlConfig {
   static final GraphQlConfig _instance = GraphQlConfig._();
@@ -19,8 +20,8 @@ class GraphQlConfig {
     if (_isInitialized) return;
 
     _authLink = AuthLink(getToken: () async {
-      const token = '';
-      if (token.isNotEmpty ?? false) {
+      final token = SharedPrefs.getFromShard(key: 'token');
+      if (token.isNotEmpty) {
         return 'Bearer $token';
       } else {
         return null;

@@ -59,7 +59,7 @@ class ApiUserData {
   final String? verifiedEmail;
 
   ApiUserData({
-    this.id,
+     this.id,
     this.userName,
     required this.token,
     this.verifiedEmail,

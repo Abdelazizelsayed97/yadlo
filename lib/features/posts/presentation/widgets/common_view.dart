@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +11,7 @@ import 'package:yadlo/generated/assets.dart';
 import '../../../../core/textForm/custom_textform.dart';
 
 class CommonView extends StatelessWidget {
-  const CommonView(
+   const CommonView(
       {super.key,
       this.text,
       this.onTap,
@@ -18,7 +19,7 @@ class CommonView extends StatelessWidget {
       this.width,
       this.color,
       this.textColor,
-      this.onTap2});
+      this.onTap2, required this.descriptionController, required this.titleController});
 
   final String? text;
   final VoidCallback? onTap;
@@ -27,20 +28,21 @@ class CommonView extends StatelessWidget {
   final width;
   final color;
   final Color? textColor;
-
+final TextEditingController descriptionController ;
+final TextEditingController titleController ;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextForm2(
           text: 'Title of Reivew*',
-          textColor: const Color(0xFF3B4773),
+          textColor: const Color(0xFF3B4773), textEditingController: titleController,
         ),
         verticalSpace(15),
         TextForm2(
           text: "Description*",
           maxLines: 4,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(30), textEditingController: descriptionController,
         ),
         verticalSpace(15),
         Container(
@@ -64,30 +66,33 @@ class CommonView extends StatelessWidget {
             ],
           ),
         ),
-        verticalSpace(25.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GeneralButton1(
-              color: Colors.white,
-              text: 'Cancel',
-              width: 140.w,
-              textColor: Colors.black,
-              onTap: onTap2,
-            ),
-            GeneralButton1(
-              color: Colors.white,
-              text: 'Add Review',
-              width: 140.w,
-              textColor: Colors.white,
-              colors: ig3,
-              onTap: onTap,
-            ),
-          ],
+        verticalSpace(25),
+        SafeArea(bottom: false,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GeneralButton1(
+                color: Colors.white,
+                text: 'Cancel',
+                width: 140.w,
+                textColor: Colors.black,
+                onTap: onTap2,
+              ),
+              GeneralButton1(
+                color: Colors.white,
+                text: 'Add Review',
+                width: 140.w,
+                textColor: Colors.white,
+                colors: gradientPrimyColors,
+                onTap: onTap,
+              ),
+            ],
+          ),
         )
       ],
     );
   }
+
 }
 
 class CommonRow extends StatelessWidget {
@@ -165,3 +170,32 @@ class _OptionalReviewState extends State<OptionalReview> {
     ]);
   }
 }
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'Add Review',
+          style: Styles.bold(
+            color: Color(0xFF0B1A51),
+            fontSize: 18,
+          ),
+        ),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 30,
+            )),
+      );
+  }
+}
+

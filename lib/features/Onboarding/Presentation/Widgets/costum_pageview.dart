@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yadlo/core/buttons/floatingactionbutton.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/Onboarding/Presentation/Widgets/custom_indicator.dart';
-import 'package:yadlo/features/auth/ui/pages/login_pages/login_registration.dart';
+import 'package:yadlo/features/auth/ui/pages/login_registration.dart';
 
 import '../../../../cache/text_styles/text_styles.dart';
 import '../../../../core/boarding_assets.dart';

@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
+import 'package:yadlo/features/posts/presentation/pages/create_review/add_review.dart';
 
 import '../../../../cache/text_styles/text_styles.dart';
+import '../../domain/entities /create_post_input.dart';
 
 class RvType extends StatefulWidget {
-  const RvType({
-    Key? key,
+  RvType({
+    super.key,
     required this.image,
     required this.title,
     required this.subtitle,
     required this.defaultColor,
     required this.selectedColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String image;
   final String title;
   final String subtitle;
   final Color defaultColor;
   final Color selectedColor;
-  final VoidCallback? onTap;
+  final void Function(String type)? onTap;
+  SelectedTypeEnum x = SelectedTypeEnum.product;
 
   @override
   _RvTypeState createState() => _RvTypeState();
@@ -31,6 +34,8 @@ class _RvTypeState extends State<RvType> {
   late Color _containerColor;
   late Color _titleColor;
   late Color _subtitleColor;
+   late final SelectedTypeEnum _selectedType;
+  bool isSelected = false;
 
   @override
   void initState() {
@@ -44,7 +49,10 @@ class _RvTypeState extends State<RvType> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+
+
         setState(() {
+          isSelected != isSelected ;
           _containerColor = (_containerColor == widget.defaultColor)
               ? widget.selectedColor
               : widget.defaultColor;
@@ -56,10 +64,11 @@ class _RvTypeState extends State<RvType> {
               ? Colors.black
               : Colors.white;
         });
+        widget.onTap!(widget.title == "Product"
+            ? SelectedTypeEnum.product.localizationName
+            : SelectedTypeEnum.place.localizationName);
 
-        if (widget.onTap != null) {
-          widget.onTap!();
-        }
+        print(widget.title);
       },
       child: Container(
         alignment: Alignment.center,
@@ -79,14 +88,15 @@ class _RvTypeState extends State<RvType> {
               width: SizeConfig.defaultSize! * 13,
             ),
             Text(
-              'Product',
+              widget.title,
               style: Styles.bold(color: _titleColor, fontSize: 20),
             ),
             Container(
                 width: SizeConfig.defaultSize! * 28,
                 alignment: Alignment.center,
                 child: Text(
-                  "Add a Review For a tangible or not tangible Product you experienced it  ",
+                  widget.subtitle ??
+                      "Add a Review For a tangible or not tangible Product you experienced it  ",
                   style: Styles.meduim(color: _subtitleColor, fontSize: 13),
                 )),
           ],

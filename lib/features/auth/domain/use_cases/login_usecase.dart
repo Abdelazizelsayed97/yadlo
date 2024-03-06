@@ -1,13 +1,14 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
 
 
 import '../entities/login_entites/login_input.dart';
 import '../entities/login_entites/user_data.dart';
-import '../repositories/login_repository.dart';
+import '../repositories/auth_repository.dart';
 
 class LoginUseCase {
-  final UserLoginRepository _loginRepository;
+  final AuthRepository _loginRepository ;
 
   LoginUseCase(this._loginRepository);
 

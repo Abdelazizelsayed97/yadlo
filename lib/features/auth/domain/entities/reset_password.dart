@@ -4,7 +4,7 @@ import 'package:yadlo/features/auth/domain/entities/send_code_entites.dart';
 class ResetPasswordInput extends Equatable {
   final String email;
   final String verificationCode;
-  final SendCodeUseCases useCase;
+  final SendCodeTypeEnum useCase;
 
   const ResetPasswordInput({
     required this.email,

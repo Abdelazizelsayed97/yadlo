@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:yadlo/core/helper/spacing.dart';
 
 class TextForm extends StatelessWidget {
   const TextForm(
       {super.key,
-       this.textHint,
-       this.icon,
+      this.textHint,
+      this.icon,
       this.opsCureText,
       this.suffixIcon,
       required this.controller,
-      required this.validator, this.label, this.onChanged});
+      required this.validator,
+      this.label,
+      this.onChanged});
 
   final TextEditingController controller;
-final String? label;
+  final String? label;
   final String? textHint;
   final Widget? icon;
   final bool? opsCureText;
   final Widget? suffixIcon;
   final Function(String?) validator;
-  final  void Function(String)? onChanged;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) => TextFormField(
-    onChanged: onChanged,
-
+        onChanged: onChanged,
         maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-autofocus: true,
+        autofocus: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return validator(value);
         },
-
         controller: controller,
         obscureText: opsCureText ?? false,
         decoration: InputDecoration(
-          label: Text(label?? ''),
+            label: Text(label ?? ''),
             suffixIcon: suffixIcon,
             fillColor: Colors.white,
             filled: true,
@@ -68,22 +69,24 @@ autofocus: true,
 }
 
 class TextForm2 extends StatelessWidget {
-  TextForm2({
+  const TextForm2({
     super.key,
     required this.text,
     this.hintText,
     this.textColor,
     this.maxLines,
     this.borderRadius,
+    this.textEditingController,
+    this.onChanged,
   });
 
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController? textEditingController;
   final String text;
   final String? hintText;
   final Color? textColor;
   final int? maxLines;
   final BorderRadius? borderRadius;
-
+final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,16 +101,15 @@ class TextForm2 extends StatelessWidget {
               height: 0.25,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          verticalSpace(10),
           TextFormField(
+            onChanged:onChanged ,
             maxLines: maxLines ?? 1,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
               return null;
             },
-            controller: _textEditingController,
+            controller: textEditingController,
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 border: OutlineInputBorder(

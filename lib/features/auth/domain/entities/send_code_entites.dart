@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class SendCodeInput extends Equatable {
   // final List useCases = SendCodeUseCases.values.map((SendCodeUseCases useCase) => useCase.index).toList();
   final String email;
-  final SendCodeUseCases? useCase;
+  final SendCodeTypeEnum? useCase;
 
    const SendCodeInput({
 
@@ -19,7 +19,7 @@ class SendCodeInput extends Equatable {
   ];
 }
 
-enum SendCodeUseCases {
+enum SendCodeTypeEnum {
   PASSWORD_RESET,
   PHONE_VERIFICATION,
   EMAIL_VERIFICATION

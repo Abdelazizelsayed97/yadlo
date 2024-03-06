@@ -7,17 +7,16 @@ import 'package:yadlo/core/buttons/general_button.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/auth/domain/entities/login_entites/login_input.dart';
-import 'package:yadlo/features/auth/ui/pages/registration_page.dart';
-import 'package:yadlo/features/auth/ui/widgets/login_widgets/divider.dart';
-import 'package:yadlo/features/auth/ui/widgets/login_widgets/email_and_password_widget.dart';
-import 'package:yadlo/features/auth/ui/widgets/login_widgets/login_bloc_listener.dart';
-import 'package:yadlo/features/auth/ui/widgets/login_widgets/login_methodes.dart';
+import 'package:yadlo/features/auth/ui/pages/divider.dart';
+import 'package:yadlo/features/auth/ui/pages/register/registration_page.dart';
+import 'package:yadlo/features/auth/ui/pages/login_pages/widgets/login_methodes.dart';
 
 import '../../../../../cache/themData/them_data.dart';
-import '../../cubit/login_cubit/login_cubit.dart';
-import '../../cubit/login_cubit/login_state.dart';
-import '../../widgets/login_widgets/shared_preferances.dart';
-import 'forget_password.dart';
+import 'login_cubit.dart';
+import 'login_state.dart';
+import '../forget_password/forget_password.dart';
+import 'widgets/email_and_password_widget.dart';
+import 'widgets/login_bloc_listener.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -92,7 +91,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                       ),
                       verticalSpace(20),
                       GeneralButton1(
-                          colors: ig3,
+                          colors: gradientPrimyColors,
                           text: 'Login',
                           width: 180.w,
                           onTap: () {

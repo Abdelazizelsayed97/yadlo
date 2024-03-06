@@ -6,14 +6,15 @@ part of 'api_set_newpass_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ApiSetNewPasswordInput _$SetNewPasswordInputFromJson(Map<String, dynamic> json) =>
+ApiSetNewPasswordInput _$ApiSetNewPasswordInputFromJson(
+        Map<String, dynamic> json) =>
     ApiSetNewPasswordInput(
       email: json['email'] as String,
       newPassword: json['newPassword'] as String,
       code: json['code'] as String,
     );
 
-Map<String, dynamic> _$SetNewPasswordInputToJson(
+Map<String, dynamic> _$ApiSetNewPasswordInputToJson(
         ApiSetNewPasswordInput instance) =>
     <String, dynamic>{
       'email': instance.email,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../colors/colors.dart';
 
-class ThemeDataApp  extends StatelessWidget{
+class ThemeDataApp  extends StatelessWidget {
   late ThemeDataApp themeData;
 
   ThemeDataApp({super.key});
@@ -51,9 +51,9 @@ class AppThemeData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: .050,
+      opacity: .20,
       child: Container(
-        height: double.infinity,
+        height:MediaQuery.of(context).size.height,
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(
