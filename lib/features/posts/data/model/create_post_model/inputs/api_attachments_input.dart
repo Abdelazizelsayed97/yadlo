@@ -22,10 +22,9 @@ class ApiAttachmentsInput {
   factory ApiAttachmentsInput.fromAttachmentsInput(
     AttachmentsModelInput input,
   ) {
-    print('Api input ${input}');
-    final sendAttachmentsType = getApiAttachmentsType(input.attachmentType);
+    final sendAttachmentsType = getApiAttachmentsType(input.attachmentType!);
     return ApiAttachmentsInput(
-      link: input.imageUrl,
+      link: input.imageUrl ??"",
       attachmentType: sendAttachmentsType,
     );
   }

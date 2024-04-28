@@ -56,7 +56,7 @@ class _RegistrationPageBodyState extends State<_RegistrationPageBody> {
     return Scaffold(
       body: Stack(
         children: [
-          ThemeDataApp(),
+          const ThemeDataApp(),
           Padding(
             padding: EdgeInsets.all(25.h),
             child: SafeArea(

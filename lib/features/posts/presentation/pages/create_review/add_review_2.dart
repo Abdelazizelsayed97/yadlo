@@ -11,7 +11,6 @@ import 'package:yadlo/core/textForm/custom_textform.dart';
 import 'package:yadlo/features/posts/domain/entities%20/create_post_input.dart';
 import 'package:yadlo/features/posts/presentation/pages/category/category_cubit.dart';
 import 'package:yadlo/features/posts/presentation/pages/create_review/place_review.dart';
-import 'package:yadlo/features/posts/presentation/widgets/custom_title.dart';
 
 import '../../../../../core/textForm/drop_down_menu.dart';
 import '../../../domain/entities /category/category_entity.dart';
@@ -60,16 +59,16 @@ class _AddReviewBodyState extends State<AddReviewBody> {
 
   void _navigateNextPress() {
     if (_isDataFilled() == true) {
-      CreateReviewInput _input = CreateReviewInput(
+      CreateReviewInput input = CreateReviewInput(
         subcategoryId: subCategoryModel?.subCategoryId,
         selectedType: widget.type,
         name: _productNameController.text,
         categoryId: category?.categoryId ?? '',
       );
-      print('====Input== :${_input}');
+      print('====Input== :$input');
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => CreateReviewPage(input: _input),
+          builder: (context) => CreateReviewPage(input: input),
         ),
       );
     }
@@ -80,7 +79,7 @@ class _AddReviewBodyState extends State<AddReviewBody> {
     return Scaffold(
      appBar:  PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 60.h),
-          child: AppBarWidget()),
+          child: const AppBarWidget(text: 'Add Review',)),
       body: BlocConsumer<CategoryCubit, CategoryState>(
         listener: (context, state) {},
         builder: (context, state) {

@@ -30,15 +30,7 @@ extension ConvertUserEntityToApiUser on ApiUser {
 
 extension ConvertAttachmentsToAttachment on ApiAttachment {
   Attachments attachmentMap() {
-    return Attachments(imageUrl: (ApiConsts.baseUrl + '/'+(link ?? '')));
+    print('link ${(link ?? '')}');
+    return Attachments(imageUrl: (ApiConsts.baseUrl) + (link ?? ''));
   }
 }
-
-// extension ConvertAttachmentsToAttachment on Attachment {
-//   Attachments mob() {
-//     return Attachments(
-//         link: link ??''
-//
-//     );
-//   }
-// }

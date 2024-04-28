@@ -4,5 +4,5 @@ class ApiConsts {
 
   static const String endpoint = 'https://yodly.onrender.com/graphql';
 
-  static const String baseUrl = 'https://yodly.onrender.com';
+  static const String baseUrl = 'https://yodly.onrender.com/';
 }

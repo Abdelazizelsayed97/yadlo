@@ -37,7 +37,7 @@ class LoginBlocListener extends StatelessWidget {
                 duration: const Duration(seconds: 3),
                 content: Text(state.date.token)));
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) =>  TimeLinePage()));
+                MaterialPageRoute(builder: (context) =>  const TimeLinePage()));
           }
 
           if (state is FailureState) {

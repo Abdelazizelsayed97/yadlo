@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yadlo/core/Sizeable/commonSizes.dart';
-import 'package:yadlo/features/posts/presentation/pages/create_review/add_review.dart';
 
 import '../../../../cache/text_styles/text_styles.dart';
 import '../../domain/entities /create_post_input.dart';

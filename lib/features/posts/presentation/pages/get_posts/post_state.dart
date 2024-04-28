@@ -91,3 +91,59 @@ class DeleteReviewFailureState extends PostState {
   @override
   List<Object?> get props => [message];
 }
+// +++++++++++++++++++Pix================================
+
+class UploadingImageLoading extends PostState {
+  @override
+  List<Object?> get props => [];
+}
+
+class UploadImageSuccess extends PostState {
+   String link;
+
+  UploadImageSuccess({required this.link});
+
+  @override
+  List<Object?> get props => [link];
+}
+
+class UploadingImageFailure extends PostState {
+  final String message;
+
+  UploadingImageFailure({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
+///////////
+class AddReviewInitial extends PostState {
+  final String xx;
+
+  AddReviewInitial({required this.xx});
+  @override
+  List<Object?> get props => [xx];
+}
+
+class AddReviewLoading extends PostState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AddReviewSuccess extends PostState {
+   String link;
+
+  AddReviewSuccess(this.link);
+
+  @override
+  List<Object?> get props => [link];
+}
+
+class AddReviewFailure extends PostState {
+  final String message;
+
+  AddReviewFailure({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

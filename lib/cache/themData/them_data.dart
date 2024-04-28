@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../colors/colors.dart';
 
-class ThemeDataApp  extends StatelessWidget {
-  late ThemeDataApp themeData;
+class ThemeDataApp  extends StatefulWidget {
 
-  ThemeDataApp({super.key});
+  const ThemeDataApp({super.key});
+
+  @override
+  State<ThemeDataApp> createState() => _ThemeDataAppState();
+}
+
+class _ThemeDataAppState extends State<ThemeDataApp> {
+  late ThemeDataApp themeData;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,7 @@ class ThemeDataApp  extends StatelessWidget {
     );
   }
 }
+
 class TestTheme{
   ThemeData themeData = ThemeData();
   List them = appTheme;
@@ -51,7 +58,7 @@ class AppThemeData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: .20,
+      opacity: .50,
       child: Container(
         height:MediaQuery.of(context).size.height,
         width: double.infinity,

@@ -414,7 +414,7 @@
 
 import 'dart:convert';
 
-import 'package:yadlo/core/api_page_info_input.dart';
+import 'package:yadlo/core/pagination/api_page_info_input.dart';
 
 ApiResultReview apiResultReviewFromJson(String str) =>
     ApiResultReview.fromJson(json.decode(str));

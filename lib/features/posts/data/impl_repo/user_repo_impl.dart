@@ -23,7 +23,7 @@ class UserRepositories implements UserRepository {
       document: gql(userRequest),
       fetchPolicy: FetchPolicy.networkOnly,
       errorPolicy: ErrorPolicy.all,
-      variables: {},
+      variables: const {},
     ));
     if (result.data == null || result.hasException) {
       throw const ServerException();
@@ -39,6 +39,6 @@ class UserRepositories implements UserRepository {
 
       } catch (e) {}
     }
-    throw ServerException();
+    throw const ServerException();
   }
 }

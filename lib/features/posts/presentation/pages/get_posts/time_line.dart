@@ -10,9 +10,9 @@ import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
 import 'package:yadlo/features/posts/domain/entities%20/posts_entity.dart';
 import 'package:yadlo/features/posts/presentation/pages/get_posts/post_cubit.dart';
-import 'package:yadlo/features/posts/presentation/pages/get_posts/search_page.dart';
 import 'package:yadlo/features/posts/presentation/pages/get_posts/widgets/build_review_item.dart';
 import 'package:yadlo/features/posts/presentation/widgets/common_widgets.dart';
+import 'package:yadlo/features/search/ui/search_page.dart';
 
 import '../create_review/add_review.dart';
 import '../user/user_profile.dart';
@@ -23,35 +23,38 @@ class TimeLinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PostCubit(getIt(), getIt(), getIt()),
+      create: (context) => PostCubit(getIt(), getIt(), getIt(), getIt()),
       child: Scaffold(
         appBar: AppBar(
-          foregroundColor: Colors.transparent,
-          elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserProfilePage()));
-                },
-                child: SizedBox(
-                  height: 33.h,
-                  width: 33.w,
-                  child: CommonWidgets.circleAvatar,
+          actions: [
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserProfilePage()));
+                  },
+                  child: SizedBox(
+                    height: 35.h,
+                    width: 35.w,
+                    child: CommonWidgets.circleAvatar,
+                  ),
                 ),
-              ),
-              IconButton(
+                IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     CupertinoIcons.bell,
                     color: Colors.black,
-                  )),
-            ],
-          ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          elevation: 0,
         ),
         bottomNavigationBar: Container(
           height: 80.h,
@@ -88,7 +91,7 @@ class TimeLinePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SearchDelegated()));
+                          builder: (context) => const SearchPage()));
                 },
                 icon: const Icon(
                   CupertinoIcons.search,
@@ -152,7 +155,7 @@ class _TimeLineBodyState extends State<TimeLineBody> {
         if (state is PostSuccess) {
           onDataLoaded(state);
         } else if (state is PostFailure) {
-          _pagingController.error = state;
+          _pagingController.error = state.message;
         }
       },
       builder: <PostCubit, PostState>(context, state) {
@@ -169,7 +172,7 @@ class _TimeLineBodyState extends State<TimeLineBody> {
                     newPageErrorIndicatorBuilder: (context) {
                   return const SizedBox.shrink();
                 }, newPageProgressIndicatorBuilder: (context) {
-                  Future.delayed(Duration(seconds: 3));
+                  Future.delayed(const Duration(seconds: 3));
                   return Center(
                     child: CircularProgressIndicator(
                       color: ColorsManger.primary,

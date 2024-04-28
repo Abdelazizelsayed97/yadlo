@@ -20,7 +20,7 @@ class AddReviewPage extends StatelessWidget {
       appBar:
       PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, 60.h),
-          child: AppBarWidget()),
+          child: const AppBarWidget(text: 'Add Review',)),
       extendBodyBehindAppBar: true,
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -31,7 +31,7 @@ class AddReviewPage extends StatelessWidget {
             end: Alignment.topCenter,
           ),
         ),
-        child: SafeArea(child: AddReviewBody()),
+        child: const SafeArea(child: AddReviewBody()),
       ),
     );
   }
@@ -49,7 +49,7 @@ class _AddReviewBodyState extends State<AddReviewBody> {
   bool isDisabled = false;
   void _isFilled(){
     if(isDisabled == false){
-      return null;
+      return;
 
     }else{
       Navigator.of(context).push(MaterialPageRoute(

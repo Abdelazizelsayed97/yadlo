@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:yadlo/core/errors/login/Failure.dart';
-import 'package:yadlo/core/paganated_data.dart';
+import 'package:yadlo/core/pagination/paganated_data.dart';
 
 import '../entities /posts_entity.dart';
 import '../repo/posts_repository.dart';

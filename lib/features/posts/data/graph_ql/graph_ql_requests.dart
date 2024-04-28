@@ -32,11 +32,9 @@ user{
   id
   
 }
-        
-    
-      }
-    }
+   }
   }
+ }
 }
 
 
@@ -106,12 +104,23 @@ query user($userId: String!) {
         followers
         followings
       }
-      
-      
     }
     code
     success
     message
   }
 }
+""";
+
+const String upLoadRequest = r"""
+mutation uploadFile($file: Upload!) {
+  uploadFile(file: $file, model:PROFILE_COVER) {
+    data
+    code
+    message
+    success
+    
+  }
+}
+
 """;

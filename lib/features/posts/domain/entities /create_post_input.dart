@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:yadlo/features/posts/domain/entities%20/category/category_entity.dart';
 
 class CreateReviewInput extends Equatable {
   final String? categoryId;
@@ -37,12 +35,12 @@ class CreateReviewInput extends Equatable {
 }
 
 class AttachmentsModelInput extends Equatable {
-  final String imageUrl;
-  final AttachmentType attachmentType;
+  final String? imageUrl;
+  final AttachmentType? attachmentType;
 
   const AttachmentsModelInput({
-    required this.imageUrl,
-    required this.attachmentType,
+     this.imageUrl,
+     this.attachmentType,
   });
 
   @override

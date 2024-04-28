@@ -51,7 +51,7 @@ class GeneralButton1 extends StatelessWidget {
 
 class GeneralButton2 extends StatelessWidget {
    const GeneralButton2({super.key,  this.onTap, this.color,  required this.colors, this.width, this.child,   });
-  final child;
+  final Widget? child;
   final VoidCallback? onTap;
   final List<Color>  colors;
   final  width;
@@ -80,6 +80,8 @@ class GeneralButton2 extends StatelessWidget {
   }}
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -90,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    super.initState();
     _isButtonDisabled = true;
   }
 
@@ -106,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -120,10 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildCounterButton() {
     return ElevatedButton(
+      onPressed: _isButtonDisabled ? null : _incrementCounter,
       child: Text(
           _isButtonDisabled ? "Hold on..." : "Increment"
       ),
-      onPressed: _isButtonDisabled ? null : _incrementCounter,
     );
   }
 }

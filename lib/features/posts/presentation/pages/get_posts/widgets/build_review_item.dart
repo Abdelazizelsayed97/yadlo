@@ -10,6 +10,7 @@ import 'package:yadlo/features/auth/ui/pages/shared_preferances.dart';
 import 'package:yadlo/features/posts/domain/entities%20/posts_entity.dart';
 
 import '../post_cubit.dart';
+import 'comment_widget.dart';
 
 class BuildReviewItem extends StatefulWidget {
   final PostsEntity postItem;
@@ -84,19 +85,6 @@ class _BuildReviewItemState extends State<BuildReviewItem> {
                           'assets/posts/followicon.svg',
                         ),
                         PopupMenuButton(
-                          // onOpened: (){
-                          //   if(widget.postItem.user?.userName == widget.cacheUser){
-                          //     ScaffoldMessenger.of(context).showSnackBar(
-                          //       const SnackBar(
-                          //         content: Text('You can\'t follow yourself'),
-                          //         duration: Duration(seconds: 2),
-                          //
-                          //       ),
-                          //
-                          //     );
-                          //     return
-                          //   }
-                          // },
                           icon: const Icon(Icons.more_vert),
                           color: Colors.white,
                           elevation: 10,
@@ -188,7 +176,6 @@ class _BuildReviewItemState extends State<BuildReviewItem> {
                 ),
               ),
               verticalSpace(12),
-
               if (widget.postItem.attachments.isNotEmpty)
                 SizedBox(
                   height: 250.h,
@@ -220,7 +207,6 @@ class _BuildReviewItemState extends State<BuildReviewItem> {
                     },
                   ),
                 ),
-
               verticalSpace(5),
               Container(
                 padding: const EdgeInsets.only(right: 10),
@@ -252,19 +238,7 @@ class _BuildReviewItemState extends State<BuildReviewItem> {
                           color: Colors.redAccent,
                         )),
                   ]),
-                  TextButton(
-                      onPressed: () {
-                        BottomSheet(
-                            onClosing: () {},
-                            builder: (context) {
-                              return Container(
-                                color: Colors.red,
-                                height:
-                                    MediaQuery.of(context).size.height * .7.h,
-                              );
-                            });
-                      },
-                      child: const Text('Comments')),
+                  const CommentWidget(),
                   TextButton(onPressed: () {}, child: const Text('Share')),
                 ],
               )

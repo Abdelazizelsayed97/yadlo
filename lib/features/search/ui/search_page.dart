@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yadlo/features/search/ui/widgets/search_widget.dart';
 
-class SearchDelegated extends StatefulWidget {
-  const SearchDelegated({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<SearchDelegated> createState() => _SearchDelegatedState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchDelegatedState extends State<SearchDelegated> {
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +17,10 @@ class _SearchDelegatedState extends State<SearchDelegated> {
         bottom: false,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: const Column(
+          child: Column(
             children: [
-
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.grey),
@@ -28,10 +28,12 @@ class _SearchDelegatedState extends State<SearchDelegated> {
                   prefixIcon: Icon(Icons.search),
                   hintText: 'Search',
                 ),
+                onTap: () {
+                  showSearch(context: context, delegate: SearchWidget());
+                },
               ),
               SizedBox(height: 10),
               Text('Search'),
-
             ],
           ),
         ),
@@ -39,5 +41,3 @@ class _SearchDelegatedState extends State<SearchDelegated> {
     );
   }
 }
-
-

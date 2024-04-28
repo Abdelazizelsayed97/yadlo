@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:yadlo/cache/colors/colors.dart';
 import 'package:yadlo/cache/text_styles/text_styles.dart';
 import 'package:yadlo/cache/themData/them_data.dart';
 import 'package:yadlo/core/di/dependency_injection.dart';
 import 'package:yadlo/core/helper/spacing.dart';
+import 'package:yadlo/features/auth/ui/pages/shared_preferances.dart';
 import 'package:yadlo/features/posts/domain/entities%20/create_post_input.dart';
+import 'package:yadlo/features/posts/domain/entities%20/upload_pix/upload_input.dart';
+import 'package:yadlo/features/posts/presentation/pages/create_review/widgets/upload_cover_bottom_sheet.dart';
 import 'package:yadlo/features/posts/presentation/pages/get_posts/post_cubit.dart';
-import 'package:yadlo/features/posts/presentation/pages/get_posts/time_line.dart';
 import 'package:yadlo/features/posts/presentation/widgets/common_view.dart';
 import 'package:yadlo/features/posts/presentation/widgets/custom_title.dart';
 
@@ -24,7 +25,6 @@ List<String> emoji = [
   Assets.postsAngry
 ];
 
-
 class CreateReviewPage extends StatelessWidget {
   final CreateReviewInput input;
 
@@ -36,111 +36,58 @@ class CreateReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PostCubit(getIt(), getIt(), getIt()),
-      child: _CreateReviewBody(
+      create: (context) => PostCubit(getIt(), getIt(), getIt(), getIt()),
+      child: CreateReviewBody(
         input: input,
       ),
     );
   }
 }
 
-class _CreateReviewBody extends StatefulWidget {
+class CreateReviewBody extends StatefulWidget {
   final CreateReviewInput input;
-  final Widget? widget;
-  final VoidCallback? onTap;
 
-  const _CreateReviewBody({
+  const CreateReviewBody({
     super.key,
     required this.input,
-    this.widget,
-    this.onTap,
   });
 
   @override
-  State<_CreateReviewBody> createState() => _createReviewBodyState();
+  State<CreateReviewBody> createState() => _CreateReviewBodyState();
 }
 
-class _createReviewBodyState extends State<_CreateReviewBody> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+class _CreateReviewBodyState extends State<CreateReviewBody> {
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   OverAllRatingEnum? rate;
   bool isLoading = false;
-  late String _fileName;
-  late XFile? _imgFile;
   int isSelected = -1;
-  AttachmentsModelInput? _selectedAttachment;
-  late ImagePicker piker = ImagePicker();
 
-  void snapShot() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage = await picker.pickImage(
-      source: ImageSource.camera, // alternatively, use ImageSource.gallery
-      maxWidth: 400,
-    );
-    if (selectedImage != null) {
-      setState(() {
-        _imgFile = selectedImage;
-      });
-    }
+  String? imageUrl;
+  AttachmentType? attachmentType;
+  var link = SharedPrefs.getFromShard(key: 'imageUrl');
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
   }
 
-  void upLoadSelectedImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(
-      source: ImageSource.gallery, // alternatively, use ImageSource.gallery
-      maxWidth: 400,
-    );
-    if (pickedFile == null) {
-      return;
-    } else {
-      final attachmentType = pickedFile.path.endsWith(".mp3")
-          ? AttachmentType.video
-          : AttachmentType.photo;
-      _selectedAttachment = AttachmentsModelInput(
-        imageUrl: pickedFile.path,
-        attachmentType: attachmentType,
-      );
-      print('=====Image== $_selectedAttachment');
-      setState(() {});
-    }
-  }
-
-  void pickFileBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Wrap(
-          children: [
-            ListTile(
-              leading: Icon(Icons.photo_camera),
-              title: Text('Camera'),
-              onTap: () {
-                Navigator.pop(context);
-                snapShot();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_library),
-              title: Text('Gallery'),
-              onTap: () {
-                Navigator.pop(context);
-                upLoadSelectedImage();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  bool _onDataFilled() {
+    return titleController.text.isNotEmpty &&
+        (imageUrl?.isNotEmpty ?? false) &&
+        descriptionController.text.isNotEmpty &&
+        rate != null;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: BlocConsumer<PostCubit, PostState>(
-        listener: (context, state) async {
-          if (state is CreateReviewLoadingState) {
+      body: BlocListener<PostCubit, PostState>(
+        listener: (context, state) {
+          if (state is AddReviewLoading) {
             showDialog(
               context: context,
               builder: (context) => Center(
@@ -149,156 +96,230 @@ class _createReviewBodyState extends State<_CreateReviewBody> {
                 ),
               ),
             );
-          }
-          if (state is CreateReviewSuccessState) {
+          } else if (state is AddReviewFailure) {
             Navigator.pop(context);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => TimeLinePage()));
-          }
-          if (state is CreateReviewFailureState) {
-            // Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 duration: const Duration(seconds: 3),
                 content: Text(state.message)));
+          } else if (state is AddReviewSuccess) {
+            // state.link =link??"";
+            // print('${link}');
+            Navigator.popUntil(context, (route) => route.isFirst);
+          } else if (state is UploadImageSuccess) {
+            SharedPrefs.removeFromShard(key: 'imageUrl');
           }
         },
-        builder: (context, state) {
-          return Stack(children: [
-            const AppThemeData(),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
-              child: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CustomTitlePlaces(),
-                    verticalSpace(15),
-                    InkWell(
-                      onTap: () {
-                        pickFileBottomSheet();
-                      },
-                      child: Container(
-                        height: 150.h,
-                        decoration: const BoxDecoration(
+        child: BlocBuilder<PostCubit, PostState>(
+          builder: (context, state) {
+            return Stack(children: [
+              const AppThemeData(),
+              SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const CustomTitlePlaces(),
+                      verticalSpace(15),
+                      InkWell(
+                        onTap: () {
+                          UploadCoverBottomSheet.showBottomSheet(
+                            context: context,
+                            onSelected: (selectedAttachment) {
+                              imageUrl = selectedAttachment.imageUrl;
+                              attachmentType =
+                                  selectedAttachment.attachmentType;
+                              setPix();
+                              setState(() {});
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: 300.w,
+                          height: 150.h,
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
                               filterQuality: FilterQuality.high,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                               image: AssetImage(
                                 Assets.postsVector,
                               ),
-                            )),
-                        foregroundDecoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            scale: 2,
-                            image:
-                                (_selectedAttachment?.imageUrl.isEmpty ?? false)
-                                    ? const AssetImage(
-                                        'assets/posts/uploadlogo.png',
+                            ),
+                          ),
+                          child: Stack(
+                            children: [
+                              Container(
+                                child: (imageUrl?.isEmpty ?? false) ||
+                                        (imageUrl == null)
+                                    ? Center(
+                                        child: Image.asset(
+                                          fit: BoxFit.fitWidth,
+                                          'assets/posts/uploadlogo.png',
+                                          scale: 2.5,
+                                        ),
                                       )
-                                    : AssetImage(
-                                        _selectedAttachment?.imageUrl ?? ''),
+                                    : SizedBox(
+                                        width: double.infinity,
+                                        child: Image.asset(
+                                          fit: BoxFit.cover,
+                                          imageUrl ?? '',
+                                        ),
+                                      ),
+                              ),
+                              Positioned(
+                                child: (imageUrl?.isEmpty ?? false) ||
+                                        (imageUrl == null)
+                                    ? const SizedBox.shrink()
+                                    : IconButton(
+                                        onPressed: () {
+                                          imageUrl = '';
+                                          setState(() {});
+                                        },
+                                        icon: const Icon(
+                                          size: 30,
+                                          Icons.close,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                              )
+                            ],
                           ),
                         ),
-                        child: Image.asset(_selectedAttachment?.imageUrl??''),
                       ),
-                    ),
-                    verticalSpace(22),
-                    Container(
-                      height: 120.h,
-                      width: 330.w,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 60,
-                            child: ListView.separated(
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    final xx = OverAllRatingEnum.values[index];
-                                    isSelected = index;
-                                    rate = xx;
-                                  });
-                                },
-                                child: SizedBox(
+                      verticalSpace(22),
+                      Container(
+                        height: 110.h,
+                        width: 330.w,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 40.h,
+                              child: ListView.separated(
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      final xx =
+                                          OverAllRatingEnum.values[index];
+                                      isSelected = index;
+                                      rate = xx;
+                                    });
+                                  },
+                                  child: SizedBox(
                                     width: 40.w,
                                     child: isSelected == index
                                         ? ShaderMask(
                                             shaderCallback: (Rect bounds) =>
                                                 LinearGradient(
-                                                  begin: Alignment.topRight,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: login1,
-                                                ).createShader(bounds),
-                                            child:
-                                                SvgPicture.asset(emoji[index]))
-                                        : SvgPicture.asset(emoji[index])),
+                                              begin: Alignment.topRight,
+                                              end: Alignment.bottomCenter,
+                                              colors: login1,
+                                            ).createShader(bounds),
+                                            child: SvgPicture.asset(
+                                              emoji[index],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : SvgPicture.asset(
+                                            emoji[index],
+                                            fit: BoxFit.cover,
+                                          ),
+                                  ),
+                                ),
+                                itemCount: emoji.length,
+                                shrinkWrap: true,
+                                controller: ScrollController(
+                                    keepScrollOffset: true,
+                                    initialScrollOffset: 0),
+                                scrollDirection: Axis.horizontal,
+                                physics: const NeverScrollableScrollPhysics(),
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        horizontalSpace(15),
                               ),
-                              itemCount: emoji.length,
-                              shrinkWrap: true,
-                              controller: ScrollController(
-                                  keepScrollOffset: true,
-                                  initialScrollOffset: 0),
-                              scrollDirection: Axis.horizontal,
-                              physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      horizontalSpace(10),
                             ),
-                          ),
-                          verticalSpace(10),
-                          Text(
-                            'Over All Rate',
-                            style: Styles.bold(),
-                          ),
-                        ],
+                            verticalSpace(10),
+                            Text(
+                              'Over All Rate',
+                              style: Styles.bold(),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    verticalSpace(10),
-                    const CommonRow(),
-                    verticalSpace(25),
-                    CommonView(
-                      descriptionController: descriptionController,
-                      titleController: titleController,
-                      onTap: () {
-                        print('${widget.input}');
-                        _addRviewPressed(context);
-                        print('${widget.input}');
-                      },
-                    ),
-                  ],
+                      verticalSpace(10),
+                      const CommonRow(),
+                      verticalSpace(20),
+                      CommonView(
+                          onChangedTitle: (text) {
+                            titleController.text = text;
+                            setState(() {});
+                          },
+                          onChangedDescription: (text) {
+                            descriptionController.text = text;
+                            setState(() {});
+                          },
+                          colors:
+                              _onDataFilled() ? gradientPrimyColors : appTheme,
+                          descriptionController: descriptionController,
+                          titleController: titleController,
+                          onTap: _onDataFilled() == true
+                              ? () async => _handelAddReviewPress()
+                              : null,
+                          onTap2: () => Navigator.pop(context)),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ]);
-        },
+            ]);
+          },
+        ),
       ),
     );
   }
 
-  void _addRviewPressed(BuildContext context) async {
-    if (context.read<PostCubit>().formKey.currentState?.validate() ?? true) {
-      context.read<PostCubit>().createReview(
-            input: CreateReviewInput(
-                attachments: _selectedAttachment,
-                categoryId: widget.input.subcategoryId,
-                subcategoryId: widget.input.subcategoryId,
-                title: titleController.text,
-                name: widget.input.name,
-                description: descriptionController.text,
-                selectedType: widget.input.selectedType,
-                overallRating: rate),
-          );
-    } else if (!context.read<PostCubit>().formKey.currentState!.validate()) {
-      throw Exception();
-    }
+  void setPix() {
+    context.read<PostCubit>().uploadImageCover(
+            input: UploadInput(
+          fileUrl: imageUrl ?? "",
+          model: FileModelEnum.reviewAttachment,
+        ));
+  }
+
+  void _handelAddReviewPress() async {
+    // print('this is photo>>>>${imageUrl}');
+    // BlocProvider.of<PostCubit>(context).createReview(
+    //     input: CreateReviewInput(
+    //         title: widget.input.title,
+    //         name: widget.input.name,
+    //         subcategoryId: widget.input.subcategoryId,
+    //         categoryId: widget.input.categoryId,
+    //         attachments: AttachmentsModelInput(
+    //             imageUrl: imageUrl??"",
+    //             attachmentType: widget.input.attachments!.attachmentType),
+    //         description: descriptionController.text,
+    //         overallRating: rate,
+    //         selectedType: widget.input.selectedType));
+    await context.read<PostCubit>().sendAddReview(
+          inputUpload: UploadInput(
+            fileUrl: imageUrl ?? "",
+            model: FileModelEnum.reviewAttachment,
+          ),
+          inputCreate: CreateReviewInput(
+            attachments: AttachmentsModelInput(
+                attachmentType: attachmentType!, imageUrl: link),
+            categoryId: widget.input.subcategoryId,
+            subcategoryId: widget.input.subcategoryId,
+            title: titleController.text,
+            name: widget.input.name,
+            description: descriptionController.text,
+            selectedType: widget.input.selectedType,
+            overallRating: rate,
+          ),
+        );
   }
 }
 

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/model/reviews_models/posts_model_api.dart';
 
 class PostsEntity extends Equatable {
   final String postId;

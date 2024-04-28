@@ -10,11 +10,11 @@ void main() async {
   await SharedPrefs.sharedInitialization();
   // SharedPrefs.removeFromShard(key: 'token');
   await AppDi.setupGetIt();
-  runApp(const Yadlo());
+  runApp(const Yadly());
 }
 
-class Yadlo extends StatelessWidget {
-  const Yadlo({super.key});
+class Yadly extends StatelessWidget {
+  const Yadly({super.key});
 
   @override
   Widget build(BuildContext context) {

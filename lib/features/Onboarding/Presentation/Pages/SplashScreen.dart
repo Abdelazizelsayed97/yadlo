@@ -71,7 +71,7 @@ class _SplashscreenState extends State<Splashscreen>
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              token != '' ?  TimeLinePage() : const OnboardingView(),
+              token != '' ?  const TimeLinePage() : const OnboardingView(),
         ),
       );
     });
